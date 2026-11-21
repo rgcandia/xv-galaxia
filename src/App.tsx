@@ -66,7 +66,8 @@ export default function App() {
 
   return (
     <>
-    <main className={`stage ${fase === 'revelado' ? 'is-revealed' : ''}`}>
+    {fase !== 'revelado' && (
+    <main className="stage">
       <picture className="bg">
         <source media="(min-width: 900px)" srcSet="/media/galaxia-desktop.webp" />
         <img src="/media/galaxia-mobile.webp" alt="" aria-hidden="true" />
@@ -119,6 +120,7 @@ export default function App() {
         </button>
       </div>
     </main>
+    )}
 
     {/* Etapa 3 · aparece recién cuando termina la inmersión. */}
     {fase === 'revelado' &&
