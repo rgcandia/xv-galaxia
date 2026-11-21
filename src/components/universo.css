@@ -247,3 +247,25 @@
   color: var(--c-cyan);
   background: rgba(0, 240, 255, 0.1);
 }
+
+/* ── V2 · El nav sin caja ───────────────────────────────────────────────────
+   Mismo criterio que la portada: se va la píldora de vidrio, queda el nombre.
+   El área táctil se mantiene (10 px arriba y abajo por ítem). */
+.nav {
+  background: none;
+  border: 0;
+  backdrop-filter: none;
+  box-shadow: none;
+  padding: 0;
+  gap: 18px;
+  border-radius: 0;
+}
+
+.nav-item {
+  padding: 10px 6px;
+  border-radius: 0;
+}
+
+.nav-item:active {
+  background: none;
+}
