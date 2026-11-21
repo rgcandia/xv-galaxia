@@ -379,3 +379,48 @@
     animation: none;
   }
 }
+
+/* ── AVIF (C1) · misma imagen, ~50 % menos peso ──────────────────────────────
+   Va en un @supports aparte a propósito: si lo pusiéramos como segunda
+   declaración dentro de la misma regla, el minificador borra el fallback WebP y
+   un navegador sin image-set() se queda sin foto. Sólo se pisa background-image
+   (mismos layers, mismo orden) para heredar position/size del shorthand. */
+@supports (background-image: image-set(url('/media/x.avif') type('image/avif'))) {
+  .lejana {
+    background-image: image-set(
+      url('/media/galaxia-mobile.avif') type('image/avif'),
+      url('/media/galaxia-mobile.webp') type('image/webp')
+    );
+  }
+
+  /* Misma URL que .lejana a propósito: se sirve de caché, 0 bytes extra. */
+  .nebulosa {
+    background-image:
+      radial-gradient(70% 55% at 22% 78%, rgba(96, 74, 190, 0.32) 0%, transparent 70%),
+      radial-gradient(60% 50% at 82% 22%, rgba(40, 118, 158, 0.26) 0%, transparent 72%),
+      image-set(
+        url('/media/galaxia-mobile.avif') type('image/avif'),
+        url('/media/galaxia-mobile.webp') type('image/webp')
+      );
+  }
+
+  .sol .astro {
+    background-image:
+      radial-gradient(circle at 38% 32%, rgba(255, 250, 230, 0.35) 0%, transparent 48%),
+      radial-gradient(circle at 74% 82%, rgba(90, 30, 0, 0.5) 0%, transparent 62%),
+      image-set(
+        url('/media/sol.avif') type('image/avif'),
+        url('/media/sol.webp') type('image/webp')
+      );
+  }
+
+  .venus .astro {
+    background-image:
+      radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.3) 0%, transparent 46%),
+      radial-gradient(circle at 76% 82%, rgba(0, 0, 0, 0.55) 0%, transparent 60%),
+      image-set(
+        url('/media/venus.avif') type('image/avif'),
+        url('/media/venus.webp') type('image/webp')
+      );
+  }
+}

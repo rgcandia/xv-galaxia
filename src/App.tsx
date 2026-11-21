@@ -69,7 +69,13 @@ export default function App() {
     {fase !== 'revelado' && (
     <main className="stage">
       <picture className="bg">
+        <source
+          media="(min-width: 900px)"
+          type="image/avif"
+          srcSet="/media/galaxia-desktop.avif"
+        />
         <source media="(min-width: 900px)" srcSet="/media/galaxia-desktop.webp" />
+        <source type="image/avif" srcSet="/media/galaxia-mobile.avif" />
         <img src="/media/galaxia-mobile.webp" alt="" aria-hidden="true" />
       </picture>
 
