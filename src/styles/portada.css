@@ -228,21 +228,32 @@
     filter 0.8s ease-in;
 }
 
-/* S26 · La oscuridad se lo traga. Capa OPACA en todos sus stops (si el centro
-   fuera transparente quedaría un agujero por donde mirar el cuadro quieto — el
-   error de `S25`). El núcleo apenas más claro es lo último que se ve: el brillo
-   de la galaxia apagándose. */
+/* S28 · El velo final: negro con un AGUJERO en el medio.
+   El agujero es lo que hace la transición: la oscuridad se come la pantalla
+   menos el punto de luz de la galaxia, que queda solo. Y como el agujero es
+   TRANSPARENTE, no hay velo que tapar el cuadro quieto en ese lugar: lo que se
+   ve ahí es el núcleo del video, que sigue vivo.
+   Medido con ffmpeg sobre `warp.mp4` (frame de 9,8 s): el punto más brillante
+   está en 47 % × 48 % de la pantalla — o sea, prácticamente el centro. Por eso
+   el agujero va en `50% 48%`.
+   🔒 La MISMA receta la usa `.aterrizaje`: si cambia una, cambia la otra (el
+   traspaso tiene que ser idéntico píxel a píxel o se ve un salto). */
+.tragar,
+.aterrizaje {
+  background: radial-gradient(
+    circle at 50% 48%,
+    rgb(3 4 10 / 0) 0 11px,
+    rgb(3 4 10 / 0.55) 26px,
+    rgb(3 4 10 / 0.92) 46px,
+    #03040a 80px
+  );
+}
+
 .tragar {
   position: fixed;
   inset: 0;
   z-index: 55; /* encima del warp (40) */
   pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 47%,
-    #0d1018 0 8%,
-    #06080f 38%,
-    #03040a 62%
-  );
   animation: tragar 0.8s ease-in forwards;
 }
 
@@ -255,23 +266,25 @@
   }
 }
 
-/* P2 · El aterrizaje al universo · S26: ahora es OSCURO, no blanco. El cielo
-   del mapa ya es `#03040a`: si el velo que se va es ese mismo negro, no hay
-   salto de luz en el corte — el mapa no "aparece", se va iluminando. Arranca
-   opaco porque viene de `.tragar` en negro pleno: entre los dos no hay cuadro
-   al descubierto. */
+/* Movimiento reducido: sin agujero, un velo parejo que sube rápido (un punto de
+   luz que se queda fijo es justo lo que molesta a quien pide menos estímulo). */
+@media (prefers-reduced-motion: reduce) {
+  .tragar,
+  .aterrizaje {
+    background: #03040a;
+  }
+}
+
+/* P2 · El aterrizaje al universo · S28: el mismo velo del final, que se va.
+   Arranca opaco —idéntico a `.tragar` en su último cuadro, así el traspaso no
+   se ve— y se disuelve en 0,9 s: el mapa no aparece, se ilumina alrededor de
+   ese punto que quedó encendido. */
 .aterrizaje {
   position: fixed;
   inset: 0;
   z-index: 50;
   pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 47%,
-    #0d1018 0 8%,
-    #06080f 38%,
-    #03040a 62%
-  );
-  animation: aterrizar 0.8s ease-out forwards;
+  animation: aterrizar 0.9s ease-out forwards;
 }
 
 @keyframes aterrizar {

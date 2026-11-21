@@ -142,11 +142,14 @@ export default function App() {
    *  S26 · Se lo traga la oscuridad (en `S25` se quemaba en blanco y era un
    *  golpe de luz que no tenía fuente: el video es espacio profundo, y después
    *  el mapa volvía a ser oscuro — la escena parecía arrancar dos veces).
-   *  Ahora el video NO se pausa: sigue vivo, se agranda a 2,2× y se apaga
-   *  (`brightness(0.5)`) mientras una capa OPACA de oscuridad sube en 600 ms.
-   *  Recién entonces se desmonta la portada (con ella el video), se monta el
-   *  mapa debajo y el velo —del mismo negro que el cielo del mapa— se va: el
-   *  mapa no aparece, se ilumina. Nunca hay un cuadro quieto al descubierto. */
+   *  S28 · Y se lo traga DEJANDO EL NÚCLEO: el velo tiene un agujero
+   *  transparente en el punto de luz de la galaxia (medido: 47 % × 48 %), así
+   *  que la oscuridad se come todo menos ese punto, que sigue encendido. Al
+   *  cambiar de commit el agujero se mantiene (`aterrizaje` usa la misma
+   *  receta), el mapa se monta detrás y el velo se disuelve: la luz no se
+   *  apaga y vuelve a prender, sigue la misma. Es un fundido que se lee como
+   *  "llegué", no como "corte".
+   *  El video NO se pausa nunca: corre sus últimos 130 ms solo. */
   const DUR_TRAGAR = 820
 
   function entrar() {
@@ -308,7 +311,8 @@ export default function App() {
     {/* S26 · La oscuridad que se lo traga, mientras el video hace su último
         zoom. Vive FUERA de `<main>` a propósito: la portada (y con ella el
         `<video>`) se desmonta al revelar, y este velo tiene que llegar al
-        cambio de commit ya opaco para no dejar un cuadro al descubierto. */}
+        cambio de commit ya opaco —salvo su agujero— para que el traspaso al
+        `.aterrizaje` sea idéntico y no se vea un salto. */}
     {fase === 'flash' && <div className="tragar" aria-hidden="true" />}
 
     {/* P2 · El aterrizaje: el blanco del flash se disuelve sobre el universo,
