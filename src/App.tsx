@@ -17,19 +17,6 @@ const PESOS_IMG: Array<[string, number]> = [
 
 type Fase = 'idle' | 'warp' | 'flash' | 'revelado'
 
-/* P2 · El que ya saltó el viaje una vez no lo vuelve a ver en la misma sesión.
-   `sessionStorage` y no `localStorage`: al cerrar la pestaña se olvida, así un
-   "Saltar" apurado no le quita el video para siempre. */
-const SKIP_KEY = 'xv:salto'
-
-function yaSalto(): boolean {
-  try {
-    return sessionStorage.getItem(SKIP_KEY) === '1'
-  } catch {
-    return false
-  }
-}
-
 export default function App() {
   const [fase, setFase] = useState<Fase>('idle')
   const [vista, setVista] = useState<Vista>('mapa')
@@ -155,11 +142,6 @@ export default function App() {
   }
 
   function saltar() {
-    try {
-      sessionStorage.setItem(SKIP_KEY, '1')
-    } catch {
-      /* modo privado o storage bloqueado: se salta igual, sólo no se recuerda */
-    }
     entrar()
   }
 
@@ -167,12 +149,6 @@ export default function App() {
     if (enViaje) return
 
     // Ya lo saltó en esta sesión: entra directo al universo, sin repetir el viaje.
-    // `?intro` fuerza el viaje aunque ya se haya saltado (para revisarlo).
-    if (yaSalto() && !window.location.search.includes('intro')) {
-      setFase('flash')
-      window.setTimeout(() => setFase('revelado'), 620)
-      return
-    }
 
     terminado.current = false
     const v = videoRef.current
