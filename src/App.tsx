@@ -14,6 +14,7 @@ const PESOS_IMG: Array<[string, number]> = [
   ['/media/sol.avif', 14733],
   ['/media/venus.avif', 11505],
   ['/media/poster.webp', 24134],
+  ['/media/saturno.webp', 4486],
 ]
 
 type Fase = 'idle' | 'warp' | 'flash' | 'revelado'
@@ -59,6 +60,9 @@ export default function App() {
         pintar()
       }
       img.src = src
+      // decode() fuerza el decodificado antes de que la capa se pinte: sin esto
+      // el cuerpo puede aparecer un instante después de entrar a la escena.
+      img.decode?.().catch(() => {})
       return img
     })
 

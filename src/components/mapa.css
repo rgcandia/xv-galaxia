@@ -181,7 +181,6 @@
 .sol {
   top: 24%;
   right: 4%;
-  animation: flotar 11s ease-in-out infinite alternate;
 }
 
 .sol .astro {
@@ -222,8 +221,6 @@
 .venus {
   top: 46%;
   left: 5%;
-  animation: flotar 9s ease-in-out infinite alternate;
-  animation-delay: -2.5s;
 }
 
 .venus .astro {
@@ -253,8 +250,6 @@
 .saturno {
   bottom: 13%;
   right: 9%;
-  animation: flotar 10s ease-in-out infinite alternate;
-  animation-delay: -5s;
 }
 
 .saturno .astro {
@@ -349,19 +344,35 @@
   z-index: 9;
 }
 
-/* Z1 · El viaje: 1,9 s con curva de aceleración (arranca lento y se dispara).
-   `animation: none` es clave: el Sol tenía `pulso` y una animación en curso
-   PISA el transform, así que su zoom nunca se veía. */
+/* Z3 · El viaje: se acerca y NO se desvanece (el fundido a transparente se
+   leía como "se difumina"). La pantalla siguiente entra encima cuando termina.
+   `animation: tragar` reemplaza a `pulso` (era lo que le impedía moverse al Sol)
+   y además le da el fogonazo final: cruzamos el planeta, no lo apagamos. */
 .cuerpo.is-elegido .astro {
-  transform: scale(9);
-  opacity: 0;
-  animation: none;
-  transition:
-    transform 1.9s cubic-bezier(0.5, 0, 0.75, 0),
-    opacity 0.55s ease 1s;
+  transform: scale(12);
+  box-shadow: none;
+  animation: tragar 0.7s ease-in 1.7s forwards;
+  transition: transform 2.15s cubic-bezier(0.45, 0, 0.55, 1);
 }
 
-/* El fondo se hunde mientras viajamos: el destino manda. */
+/* El Sol se animaba a los saltos: al escalar 9x sus dos box-shadow (60px y
+   160px de blur) y el halo con blur(10px) se vuelven enormes y el celular no
+   puede repintar 60 fps. Se apagan durante el viaje. */
+.cuerpo.sol.is-elegido .astro::before,
+.cuerpo.sol.is-elegido .astro::after {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes tragar {
+  from {
+    filter: none;
+  }
+  to {
+    filter: brightness(3.4) saturate(0.55);
+  }
+}
+
 .escena.is-saliendo .capa {
   opacity: 0.3;
   transition: opacity 1.1s ease;
@@ -433,4 +444,34 @@
         url('/media/venus.webp') type('image/webp')
       );
   }
+}
+
+/* U4-lite · Entrada escalonada: Sol -> Venus -> Saturno. `backwards` y no
+   `both` a propósito: así, al terminar, la opacidad vuelve a la normal y la
+   regla de `.is-saliendo` sigue pudiendo atenuar los que no se eligieron. */
+@keyframes entrar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cuerpo.sol {
+  animation:
+    flotar 11s ease-in-out infinite alternate,
+    entrar 0.75s ease 0.1s backwards;
+}
+
+.cuerpo.venus {
+  animation:
+    flotar 9s ease-in-out -2.5s infinite alternate,
+    entrar 0.75s ease 0.32s backwards;
+}
+
+.cuerpo.saturno {
+  animation:
+    flotar 10s ease-in-out -5s infinite alternate,
+    entrar 0.75s ease 0.54s backwards;
 }
