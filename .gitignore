@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+
+# Material crudo pesado: se versiona solo lo que ya esta optimizado
+material/raw/video/*.mp4
+material/raw/video/*.mov
+
+.DS_Store
+*.log

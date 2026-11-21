@@ -1,0 +1,63 @@
+/* ==========================================================================
+   xv-galaxia · tokens de diseño
+   Paleta tomada de la spec del Drive (Temática Espacial).
+   ========================================================================== */
+
+:root {
+  /* Paleta */
+  --c-space: #0b132b; /* Azul Marino Profundo — fondo base */
+  --c-nebula: #1c2541; /* Espacio Oscuro / Nebulosa — tarjetas */
+  --c-cyan: #00f0ff; /* Cian Electrico — acentos, estados activos */
+  --c-gold: #ffd166; /* Polvo Estelar Dorado — destacados */
+  --c-star: #e2e8f0; /* Plata / Blanco Estelar — texto */
+  --c-white: #ffffff;
+
+  /* Derivados */
+  --glass-bg: rgba(28, 37, 65, 0.55);
+  --glass-brd: rgba(226, 232, 240, 0.14);
+  --glow-cyan: 0 0 24px rgba(0, 240, 255, 0.45);
+  --glow-gold: 0 0 22px rgba(255, 209, 102, 0.35);
+
+  /* Tipografia */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Ritmo */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --radius-card: 22px;
+  --ease-cosmic: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-space);
+  color: var(--c-star);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Respeto por quien pide menos movimiento (accesibilidad + ahorro de bateria) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "xv-galaxia",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Invitación digital de 15 años — temática galaxia cósmica. Mobile-first.",
+  "scripts": {
+    "dev": "vite --port 5199 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 5199 --strictPort"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^13.1.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0"
+  }
+}

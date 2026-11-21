@@ -1,0 +1,141 @@
+﻿Invitación Web de 15 Años — Temática Espacial
+Especificación de Arquitectura y Diseño de Experiencia Universos Cósmicos
+________________
+
+
+1. Visión General del Proyecto
+Objetivo Principal
+Diseñar y desarrollar una plataforma web interactiva e inmersiva como invitación digital para una celebración de 15 años. El proyecto está ambientado en la temática "Galaxia Cósmica y Profunda", concebido desde un enfoque mobile-first priorizando su apertura fluida desde aplicaciones de mensajería instantánea como WhatsApp, manteniendo adaptabilidad total a pantallas de escritorio (responsive design).
+Enfoque Técnico
+El sistema implementa una arquitectura híbrida que integra activos multimediales generados mediante Inteligencia Artificial (imágenes estáticas de alta resolución y secuencias cinematográficas en video corto) con una interfaz de usuario interactiva montada en React y Node.js. La experiencia visual se apoya en animaciones 3D de cuerpos celestes, efectos de renderizado de partículas y transiciones de estado continuas.
+Estética y Paleta de Colores
+La identidad visual evoca la inmensidad del espacio profundo mediante contrastes definidos, superficies en vidrio esmerilado (glassmorphism) y elementos luminosos focalizados.
+
+
+* Azul Marino Profundo (#0B132B): Fondo principal y contenedor espacial base.
+* Cian Eléctrico (#00F0FF): Acentuaciones de interfaz, estados activos, cursores y destellos de transición.
+* Plata / Blanco Estelar (#E2E8F0 / #FFFFFF): Tipografía principal, bordes delicados y campos de estrellas.
+* Polvo Estelar Dorado (#FFD166): Cálidos destellos en el núcleo galáctico y destacados especiales.
+* Espacio Oscuro / Nebulosa (#1C2541): Fondos secundarios y tarjetas de contenido esmeriladas.
+
+
+________________
+
+
+2. Flujo de la Experiencia (Máquina de Estados en 3 Etapas)
+La aplicación web opera bajo una máquina de estados finitos que gestiona la secuencia de entrada del usuario para garantizar la reproducción correcta de elementos multimedia y optimizar la carga de activos.
+
+
++------------------+         Acción: "Iniciar viaje"         +---------------------+
+
+
+|     ETAPA 1      | --------------------------------------> |       ETAPA 2       |
+|  Portada (idle)  |                                         |  Inmersión (warping)|
++------------------+                                         +---------------------+
+                                                                        |
+                                                                        | Tiempo = 5.5s / "Saltar"
+                                                                        v
+                                                             +---------------------+
+                                                             |       ETAPA 3       |
+                                                             |  Universo (universe)|
+                                                             +---------------------+
+Etapa 1: Portada (Estado: idle)
+* Presentación Visual: Muestra un fotograma cinematográfico estático (con micro-animaciones ambientales en bucle continuo y sin sonido) de una galaxia en espiral. Ocupa el 100% del encuadre visual (formato 9:16 para dispositivos móviles y 16:9 para monitores de escritorio).
+* Superposición de Interfaz (React / Tailwind):
+   * Tercio Superior: Tipografía flotante con el texto "Mis 15" seguido del nombre de la homenajeada con sutil sombra paralaje.
+   * Tercio Inferior: Botón interactivo de llamado a la acción (CTA) con el texto "Iniciar viaje". Este botón es indispensable para cumplir con las políticas de autoplay de los navegadores móviles, habilitando la reproducción sincrónica de audio y video mediante la interacción explícita del usuario.
+Etapa 2: El Viaje / Inmersión (Estado: warping — Duración: ~5.5 a 6.0 segundos)
+* Disparo de Eventos: Al accionar el botón "Iniciar viaje", se inicia la pista de audio espacial en segundo plano y se ejecuta la reproducción del video de avance acelerado (speed-warp) hacia el centro de la galaxia.
+* Transición Programática: Mediante el listener onTimeUpdate de la etiqueta de video, al alcanzar exactamente el segundo 5.5 se desencadena una animación en React compuesta por un aumento progresivo de escala (zoom-in) y un destello luminoso en tono cian/blanco (flash transition). Esto simula el traspaso directo del núcleo galáctico hacia el espacio interior sin cortes visibles.
+* Control de Salto: Se dispone un botón discreto en la esquina superior derecha denominado "Saltar →" que permite a usuarios recurrentes omitir la secuencia multimedia e ingresar inmediatamente a la etapa final.
+Etapa 3: Interior de la Invitación — Sistema Planetario (Estado: universe)
+El usuario ingresa a un entorno espacial continuo enriquecido con estrellas flotantes, polvo cósmico y planetas tridimensionales interactivos que representan las secciones del evento:
+
+
+Nodo / Planeta
+	Nombre de Sección
+	Descripción del Contenido y Funcionalidad
+	Planeta 1
+	Núcleo / Bienvenida
+	Mensaje de bienvenida, fecha del evento, contador regresivo en tiempo real y especificación de código de vestimenta (Dress Code).
+	Planeta 2
+	Ubicación y Horarios
+	Dirección física del centro de eventos, líneas de tiempo para la recepción y la fiesta, e integración con enlace directo a Google Maps.
+	Planeta 3
+	Confirmación (RSVP)
+	Formulario interactivo conectado al backend: nombre, pase de invitados asignados (mediante parámetro URL), menú especial y mensaje personalizado.
+	Planeta 4
+	Zona DJ / Música
+	Interfaz para que los invitados sugieran canciones a la lista de reproducción del evento.
+	Planeta 5
+	Mesa de Regalos
+	Datos bancarios detallados (Alias / CBU) con funcionalidad de copiado al portapapeles con un clic e información de buzón físico.
+	
+
+* Navegación: Se implementa un desplazamiento vertical guiado (smooth scroll) que simula un viaje interplanetario, complementado por una barra de navegación flotante inferior para acceso directo a cualquier planeta.
+
+
+________________
+
+
+3. Stack Tecnológico y Librerías Recomendadas
+Frontend
+* Core: React.js con Vite para una compilación ultra rápida.
+* Estilos: Tailwind CSS para la maquetación responsiva, utilidades de opacidad y capas de filtrado esmerilado (glassmorphism).
+Animaciones y Entorno 3D
+* Three.js & React Three Fiber: Frameworks @react-three/fiber y @react-three/drei para el renderizado de modelos 3D de planetas con texturas personalizadas, sistemas de anillos, fuentes de luz dinámicas y componentes de entorno como <Stars /> y <Sparkles />.
+* Framer Motion: Manejo de animaciones de entrada/salida de UI, renderizado condicional de tarjetas y efectos de movimiento al desplazarse.
+* tsParticles: Modulo @tsparticles/react utilizado como capa ligera de fondo para la generación de constelaciones de soporte y polvo estelar en 2D.
+* Lenis Scroll: Biblioteca @studio-freight/lenis para controlar la inercia del desplazamiento vertical, transmitiendo una sensación de gravedad cero.
+Backend & Persistencia (Node.js)
+* Servidor API: API REST construida sobre Node.js con Express (o Serverless API Routes dentro de un entorno Next.js).
+* Gestión de Invitaciones: Procesamiento de confirmaciones RSVP, captura de sugerencias musicales y lectura de parámetros dinámicos en la URL (?invitado=Familia-Perez&pases=4).
+* Base de Datos: Integración con MongoDB / PostgreSQL o sincronización directa a través de la API de Google Sheets para consulta en tiempo real por parte de los organizadores.
+
+
+________________
+
+
+4. Flujo de Producción de Activos con IA
+Para lograr una estética visual cinematográfica uniforme, la generación de los activos multimedia principales se estructura mediante las siguientes directrices de ingeniería de prompts:
+
+
+[Paso 1: Imagen Base] -------> [Paso 2: Image-to-Video] -------> [Paso 3: Audio MP3]
+ Generación estática IA          Animación de viaje espacial        Música Synthwave/Atmospheric
+ (9:16 mobile / 16:9 desktop)     en Kling AI (5.5 - 6s)             en Suno AI
+Paso 1 — Generación de Imagen Base (ImageFX / Leonardo.ai / Ideogram)
+* Prompt de Referencia:"Fotograma inicial cinematográfico de espacio profundo, vista frontal hacia una inmensa galaxia en espiral en tonos azul marino profundo, cian brillante y plata, con un núcleo luminoso suave en el centro, nubes de polvo cósmico, estrellas nítidas, cúmulos estelares y sutiles rayos de luz volumétrica, estética de astrofotografía realista de alta definición, sin texto, sin letras, sin botones, sin marcas."
+* Entregables: Una versión vertical en relación de aspecto 9:16 optimizada para pantallas móviles y una versión horizontal 16:9 para dispositivos de escritorio.
+Paso 2 — Animación Image-to-Video (Kling AI / Hailuo / Google Flow)
+* Prompt de Referencia:"Slow cinematic camera zoom in toward the glowing center of the spiral galaxy, subtle counter-clockwise rotation of the blue and silver cosmic dust arms, gentle twinkling stars, deep 3D space parallax, smooth and steady motion, high quality, no distortion."
+* Especificaciones: Duración de 6 segundos a 60 fps, asegurando un movimiento de cámara lineal enfocado en el centro del encuadre.
+Paso 3 — Producción Audio Ambiental (Suno AI)
+* Estilo: Ambient espacial instrumental, synthwave atmosférico suave, pad sintetizado envolvente sin percusiones agresivas.
+* Formato: Archivo MP3 comprimido a 192 kbps con un tamaño de archivo optimizado para la web.
+
+
+________________
+
+
+5. Checklist de Implementación (Hoja de Ruta)
+* Fase 1: Concepto y Diseño — Definir concepto visual y paleta de colores de galaxia cósmica profunda.
+* Fase 2: Generación Estática — Crear imágenes base en alta resolución (formatos 9:16 para mobile y 16:9 para desktop).
+* Fase 3: Animación IA — Generar la secuencia de video de inmersión para pantallas móviles con Kling AI.
+* Fase 4: Optimización Multimedia — Comprimir video MP4 (códec H.264, resolución 720x1280, peso estimado 2–5 MB) y procesar audio MP3 con fade-in.
+* Fase 5: Estructura React Base — Montar el repositorio con React + Vite + Tailwind CSS y validar el componente IntroGalaxy.jsx en dispositivos móviles reales.
+* Fase 6: Escena 3D e Interfaz — Desarrollar el entorno interior con React Three Fiber, renderizando los 5 planetas y las tarjetas informativas con estilo glassmorphism.
+* Fase 7: Backend e Integración — Conectar los endpoints de Node.js para recepción del formulario RSVP, sugerencias para el DJ y lectura de pases mediante parámetros de URL.
+* Fase 8: Adaptabilidad Desktop y Despliegue — Renderizar variante de video en 16:9, realizar pruebas de carga bajo redes móviles 4G y publicar en entorno de producción.
+
+
+
+
+6. Recomendación Técnica: Movimiento Ambiental en la Portada (idle)
+Para evitar que la pantalla inicial se sienta rígida antes de presionar "Iniciar viaje" y sin sumar archivos pesados (evitando el uso de GIFs, que tienen baja calidad y alto peso), se recomienda implementar un movimiento continuo ligero mediante una de estas dos estrategias (o combinándolas):
+1. Reutilización del video en bucle corto (Recomendada):
+   * Configurar la etiqueta <video> con autoPlay, muted y playsInline desde el inicio.
+   * Mientras el estado sea idle (!started), utilizar el evento onTimeUpdate para generar un bucle continuo de los primeros 2.5 segundos (if (video.currentTime >= 2.5) video.currentTime = 0).
+   * Al presionar "Iniciar viaje", desactivar muted, iniciar la pista de audio MP3 y permitir que el video continúe de corrido hasta el remate en el segundo 5.5.
+   * Ventaja: No requiere descargar ningún activo adicional y aprovecha el giro natural de la galaxia desde el primer instante.
+2. Micro-animación CSS / Framer Motion ("Respiración Cósmica"):
+   * Como complemento o alternativa sobre la imagen estática, aplicar una animación infinita y muy sutil de escala (scale: 1.0 a 1.06) y rotación mínima (0deg a 2deg) en modo ida y vuelta (alternate, duración ~12–15s) para generar sensación de flotación en gravedad cero con mínimo consumo de batería.
