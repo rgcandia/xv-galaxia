@@ -5,6 +5,7 @@
 
 | Fecha | Qué | Commit |
 |---|---|---|
+| 2026-11-21 | **`F6-a` · Desktop: escena al ancho de un teléfono.** Decisión A (`D-48`): el **cielo** queda a pantalla completa (la imagen está pensada en 16:9) y la **capa interactiva** se recorta a una columna de 440 px centrada, con los cuerpos ubicados por `calc(50% ± …)`. La Luna pasa a medir por **altura** (`46vh`): en un monitor, `62vw` daba 900 px. El video warp va `contain`, porque es vertical. | `pendiente` |
 | 2026-11-21 | **`Q1` · La llegada.** Primero los cuerpos (Luna → Júpiter → Saturno, ya escalonados) y el **texto entra último, a 1,2 s**: primero el asombro, después la pregunta. Con el `.aterrizaje` de `P2` el paso del video al universo ya no tiene corte seco. | `pendiente` |
 | 2026-11-21 | **`Q2` · El pulso que invita a tocar.** El halo de la Luna ya late solo; al apoyar el dedo (o al llegar con teclado, `:focus-visible`) se detiene, crece y se enciende. Es la única señal que necesita: responde sin ningún cartel. | `pendiente` |
 | 2026-11-21 | **`Q3` · La Luna gira.** Lo que rota es la **capa de cráteres**, no el cuerpo: el terminador queda fijo, como en una esfera iluminada de verdad. **4 minutos por vuelta** (`girar`, sólo `transform` de un pseudo: la GPU). Júpiter y Saturno quedan quietos a propósito: desplazar sus bandas arrastraría el terminador y la esfera dejaría de leerse. `prefers-reduced-motion` la deja quieta. | `pendiente` |

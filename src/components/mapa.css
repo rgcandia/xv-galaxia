@@ -696,3 +696,40 @@
     animation: none;
   }
 }
+
+/* ── F6-a · Desktop: la escena se fuerza al ancho de un teléfono ────────────
+   Decisión A (`D-48`): el CIELO queda a pantalla completa (la imagen está
+   pensada en 16:9 y ahí es donde luce), pero la capa INTERACTIVA —los tres
+   cuerpos y el texto— se recorta a una columna vertical de 440 px centrada.
+   Sin esto, en un monitor de 1400 px los planetas quedan flotando en las
+   puntas, a un metro de distancia del texto.
+   Los cuerpos se ubican con `calc(50% ± …)` porque su contenedor es toda la
+   pantalla: el 50 % es el centro real del escenario. */
+@media (min-width: 900px) {
+  .escena-texto {
+    left: calc(50% - 220px);
+    right: auto;
+    width: 440px;
+  }
+
+  .luna {
+    top: 10%;
+    right: auto;
+    left: calc(50% + 55px);
+  }
+
+  .luna .astro {
+    /* atada a la ALTURA: en 16:9 el 62vw daría una luna de 900 px */
+    width: min(clamp(200px, 62vw, 320px), 46vh);
+  }
+
+  .jupiter {
+    top: 48%;
+    left: calc(50% - 205px);
+  }
+
+  .saturno {
+    right: auto;
+    left: calc(50% + 45px);
+  }
+}

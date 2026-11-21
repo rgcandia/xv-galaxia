@@ -397,3 +397,14 @@
     opacity: 1;
   }
 }
+
+/* ── F6-a · Desktop (decisión A, `D-48`) ───────────────────────────────────
+   El video warp es VERTICAL: en 16:9 `cover` le corta el encuadre. `contain`
+   lo muestra entero sobre negro, que es como se lee el hiperspacio. Cuando
+   exista el video 16:9 propio (pendiente del usuario) esto se da vuelta. */
+@media (min-width: 900px) {
+  .warp-video {
+    object-fit: contain;
+    background: #000;
+  }
+}
