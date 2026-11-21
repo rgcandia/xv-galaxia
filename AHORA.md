@@ -1,60 +1,42 @@
-# AHORA.md — Invitación XV · Tiana (galaxia)
+# AHORA · 2026-11-21 19:36
 
-> **Estado:** portada, inmersión y universo **online y andando**. Rumbo nuevo aprobado
-> ([`guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md)): **la Luna manda**, Júpiter y Saturno se
-> quedan, el Sol y Venus salen, el video va completo y vuelve la confirmación de asistencia.
-> **URL:** https://galaxia.orangetech.com.ar
-> **Última actualización:** 2026-11-21
+> Puerta de entrada. Si algo no está acá, no es el trabajo de hoy.
+> Plan que manda: [`docs/guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md)
 
-## Tablero
+## Dónde estamos
 
-| | |
-|---|---|
-| **Rama / remoto** | `main` → `git@github.com:rgcandia/xv-galaxia.git` (deploy automático) |
-| **Dominio** | **`galaxia.orangetech.com.ar`** (200 verificado). El viejo ya no resuelve |
-| **Fases cerradas** | `F0` setup · `F1` portada · `F2` inmersión · `F3` universo (fondo, cuerpos, fugaces, anillo, viaje) |
-| **Plan que manda** | [`docs/guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md) para el rediseño; [`plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) para fases y cronograma |
-| **Código/online** | `2289cff` (B1 fondo real + P1 revertido), pusheado y online |
-| **Cerrados hoy (local, sin pushear)** | ✅ `L7` anillo de Saturno · ✅ `L8` siempre iluminados · ✅ `F6-a` desktop a columna · ✅ `F6-c` fondo nítido · ✅ `F6-d` movimiento leve · ✅ `I1` dominio · ✅ `P1` carga con estrellas · ✅ `P2` video completo + aterrizaje · ✅ `L1` elenco (Luna · Júpiter · Saturno) · ✅ `L2` la Luna manda + rótulos · ✅ `Q1` llegada · ✅ `Q2` pulso · ✅ `Q3` rotación |
-| **⏸️ En pausa a pedido del usuario** | `E0`–`E2` la estrella (confirmación) y `M0`–`M3` la memoria (fotos y audio): **se hacen al final** |
-| **Lo que queda** | `Q4` QA en celulares reales + textos/datos reales del evento |
-| **⏸️ En pausa a pedido del usuario** | **"La memoria"** (`M0`–`M3`: fotos, videos, voces) — primero se define el cómo |
-| **Costos** | **$0** (Cloudflare free + GitHub free + Apps Script) |
-| **Deadline** | **12/12**: link listo para mandar (después el 20/12 el plan entra en pausa) |
+**Fase:** `F3` (el universo) **cerrada** en lo visual + `F6-a` (desktop) en su primera versión.
+**Dominio:** **`galaxia.orangetech.com.ar`** (el viejo `xv-galaxia.` ya no resuelve).
+**Estado:** listo para que la cumpleañera lo vea en el celular.
 
-## Lo que ya funciona (probar en el celular)
+## Quién manda en la escena (pedido de la cumpleañera, `D-36`)
 
-1. Portada con la galaxia, estrellas animadas, "Una noche en el cosmos", **Mis 15**, **Tiana** (sin fecha).
-2. Botón **Iniciar viaje** → video warp **con sonido** → flash + zoom → universo. Botón **Saltar** y red de
-   seguridad si el video no arranca.
-3. Universo: fondo real (Helix Nebula), viñeta, grano, fugaces paralelas y satélite.
-4. **Luna** (protagonista: terminador, cráteres que giran, halo que late y responde al toque), **Júpiter** (bandas +
-   Gran Mancha Roja) y **Saturno** (anillo con perfil C/B/Cassini/A). Los secundarios están al 55 % hasta que el
-   dedo los toca. Al tocar, el cuerpo **viaja** hasta llenar la pantalla y entra la sección.
-5. Tres secciones: **Cuándo y dónde** (fecha, hora, lugar + Cómo llegar), **Cómo venir** (paleta) y
-   **Un mensaje al universo** (alias + copiar). Sin scroll, con volver.
+| Cuerpo | Rol | Sección |
+|---|---|---|
+| 🌕 **Luna** | protagonista (3× los demás, halo que late, textura real + terminador) | **La cita** |
+| 🪐 **Júpiter** | secundario (textura real, bandas + mancha) | **El brillo** |
+| 💍 **Saturno** | secundario (anillo ya en su lugar: `D-53`) | **Un detalle** |
+| ☀️ ♀️ | **afuera**: el Sol y Venus salieron del plano y de la precarga (−83 KB) | — |
 
-## Lo que cambia (y no está hecho todavía)
+## Lo que se cerró hoy
 
-| Qué | Estado |
-|---|---|
-| Dominio nuevo en `canonical`/`og:*` | ✅ hecho (se ve al pushear: la vista previa de WhatsApp se refresca recién con el deploy) |
-| Luna protagonista + Júpiter, afuera Sol y Venus | ✅ hecho |
-| Video completo (10 s) + aterrizaje por CSS | ✅ hecho |
-| Carga con tres estrellas, sin % | ✅ hecho |
-| Confirmación que enciende una estrella | ⏸️ al final (`E0`–`E2`) |
-| Recuerdos: fotos de bebé, videos, cápsula de audio | ⏸️ **en pausa**: falta definir |
+1. **Dominio** `galaxia.` en `og:*` y `canonical` (`I1`).
+2. **Portada**: tres estrellas en ola, **sin barra y sin botón** — la señal es el movimiento (`D-37`, `D-54`, `D-58`).
+3. **Video completo** (10 s) y **aterrizaje** que funde con el universo.
+4. **Nada que parezca un botón**: CTA y nav sin caja (`V1`, `V2`).
+5. **Movimiento devuelto**: el `*{animation-duration:0.001ms!important}` de `global.css` congelaba la invitación entera en equipos con animaciones del sistema apagadas (`D-56`).
+6. **Desktop**: sky a pantalla completa, cuerpos en columna de 440 px, y el video warp tratado como **portal vertical** con bordes fundidos (`D-48`, `D-57`).
 
-## Bloqueantes
+## Lo que sigue (en orden de pedido)
 
-- [ ] **Datos del evento**: hora, lugar + Maps, dress code, alias definitivo.
-- [ ] **Material de Tiana**: fotos de bebé y videos (cuando se defina "La memoria").
-- [ ] Confirmar **nombre** y **fecha** (`provisional: true`).
-- [ ] Respuestas abiertas de §10 de la guía (pases, cápsula curada o de invitados, nombres públicos o no).
+- [ ] **Cambios nuevos del usuario** (llegan después de verlo en el celular).
+- [ ] **Video 16:9**: es la solución de raíz para desktop. Mismo prompt, nuevo encuadre.
+- [ ] **Confirmación = estrella** (`E0`–`E2`): falta **una** decisión — Apps Script + Sheet (recomendado, $0) o tablita en el server propio.
+- [ ] ⏸️ **"La memoria"** (`M0`–`M3`): fotos + videos + cápsula de audio. En pausa hasta definir el cómo (`§5` de la guía).
+- [ ] **Datos reales del evento**: hora/lugar, Maps, dress code. Fecha `2/2/2027` sigue **provisional**.
 
-## Reglas no negociables
+## Reglas que no cambian
 
-1. 🔒 **El plan manda**: no se escribe código de un tramo sin OK del usuario.
-2. 🔒 **Un tramo = un commit**, y `npm run build` verde antes de commitear.
-3. 🔒 **No pushear sin OK** (1 push = 1 deploy de los 500/mes).
-4. 🔒 **Nada de datos reales de invitados** en el repo; los nombres viven en la planilla.
+- Un tramo = un commit · `npm run build` verde antes de commitear.
+- 🔒 **No se pushea sin OK** (cada push = 1 deploy de los 500 del plan free).
+- Cero datos de invitados en el repo · nombres solo en la planilla privada.

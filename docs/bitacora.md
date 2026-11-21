@@ -5,6 +5,7 @@
 
 | Fecha | Qué | Commit |
 |---|---|---|
+| 2026-11-21 | **Primer push del rediseño.** Se publica en `galaxia.orangetech.com.ar`: elenco nuevo (Luna/Júpiter/Saturno con texturas), portada sin botón ni barra, video completo con aterrizaje, movimiento devuelto a los equipos con animaciones reducidas y desktop en su primera versión (portal vertical). 25 commits agrupados en **1 deploy**. | `pendiente` |
 | 2026-11-21 | **`V7` · Fuera la memoria del salto.** El `sessionStorage` que recordaba el "Saltar" hacía que en la segunda visita el video **no apareciera nunca** — y obligaba a usar `?intro` para revisarlo. Ahora **cada carga muestra el viaje**; el que no lo quiere tiene el botón Saltar a la vista. Menos código, menos sorpresas. | `pendiente` |
 | 2026-11-21 | **`V6` · Sólo estrellas.** Se fue la barra de progreso de la portada: las tres estrellas en ola son el único indicador visual. El progreso real sigue anunciado a lectores de pantalla por el `role="progressbar"`, así que no se pierde accesibilidad al sacar el elemento visible (`D-58`). | `pendiente` |
 | 2026-11-21 | **`V5` · El viaje en desktop.** Dos causas del "zoom roto que desaparece sin música": (1) el video warp tenía `object-fit: contain` en desktop —una tira con franjas negras en vez de un hiperspacio—, ahora `cover`; (2) si el navegador bloqueaba el audio, el `catch` del `play()` **salteaba el video entero a los 1,1 s**. Ahora se reintenta **mudo**: el viaje se ve igual, y sólo si también falla se saltea. | `pendiente` |
