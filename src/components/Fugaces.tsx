@@ -34,7 +34,7 @@ export default function Fugaces() {
 
     let fugaces: Meteoro[] = []
     let satelites: Satelite[] = []
-    let proxFugaz = performance.now() + 2500
+    let proxFugaz = performance.now() + 1500
     let proxSat = performance.now() + 12000
 
     function medir() {
@@ -59,7 +59,7 @@ export default function Fugaces() {
         v: (fuerte ? 900 : 620) + Math.random() * 220,
         vida: 0,
         max: fuerte ? 0.95 : 0.5 + Math.random() * 0.35,
-        grosor: fuerte ? 2.1 : 1.1,
+        grosor: fuerte ? 4.2 : 2.4,
         brillo: fuerte ? 1 : 0.55 + Math.random() * 0.3,
       })
     }

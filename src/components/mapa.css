@@ -142,7 +142,9 @@
   width: clamp(190px, 58vw, 290px);
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 38% 34%, #fffdf2 0%, #ffe9a8 22%, #ffc148 46%, #e2761b 74%, #8a3d05 100%);
+    radial-gradient(circle at 38% 32%, rgba(255, 250, 230, 0.35) 0%, transparent 48%),
+    radial-gradient(circle at 74% 82%, rgba(90, 30, 0, 0.5) 0%, transparent 62%),
+    url('/media/sol.webp') center / cover no-repeat;
   box-shadow:
     0 0 60px -10px rgba(255, 180, 60, 0.75),
     0 0 160px -20px rgba(255, 150, 40, 0.55);
@@ -182,7 +184,9 @@
   width: clamp(78px, 24vw, 104px);
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 34% 30%, #fff6e2 0%, #f4d9a8 30%, #cf9f63 64%, #4a3116 100%);
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.3) 0%, transparent 46%),
+    radial-gradient(circle at 76% 82%, rgba(0, 0, 0, 0.55) 0%, transparent 60%),
+    url('/media/venus.webp') center / cover no-repeat;
   box-shadow:
     inset -8px -10px 22px rgba(0, 0, 0, 0.5),
     0 0 46px -6px rgba(244, 200, 130, 0.5);
