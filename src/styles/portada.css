@@ -212,6 +212,28 @@
   animation: flash-out 0.62s ease-out forwards;
 }
 
+/* P2 · El aterrizaje al universo. Una capa blanca que se apaga: lo único que
+   hace es coser el flash con la escena siguiente. 0 KB, sin imágenes. */
+.aterrizaje {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 46%, #fff 0%, rgb(255 255 255 / 0) 70%);
+  animation: aterrizar 0.95s ease-out forwards;
+}
+
+@keyframes aterrizar {
+  from {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
 @keyframes flash-out {
   from {
     opacity: 0;
@@ -272,6 +294,11 @@
   .estrella.is-activa {
     animation: none;
     background: rgba(0, 240, 255, 0.55);
+  }
+
+  .aterrizaje {
+    transform: none;
+    animation-duration: 0.4s;
   }
 
   .stage.is-revealed .top,

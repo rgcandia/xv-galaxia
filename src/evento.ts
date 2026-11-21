@@ -27,11 +27,11 @@ export const evento = {
   cta: 'Iniciar viaje',
 
   /**
-   * Segundo del video en el que se dispara el flash y se entra a la portada.
-   * El video dura 10.24 s. A 7.5 s deja respirar el final del audio sin que
-   * la intro se haga larga. Poner 10.24 para usarlo completo.
+   * D-38 · El video va COMPLETO: dura 10,03 s y su audio es la parte más
+   * dramática. Se dispara a 10 s (un pelo antes del final, para no mostrar un
+   * último frame congelado) y `onEnded` es la red por si el corte no llega.
    */
-  corteVideoSegundos: 7.5,
+  corteVideoSegundos: 10,
 
   /* ─────────────────────────────────────────────────────────────
      🟡 DATOS INVENTADOS (placeholder). Cambiar acá y nada más.

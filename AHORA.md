@@ -15,7 +15,8 @@
 | **Fases cerradas** | `F0` setup · `F1` portada · `F2` inmersión · `F3` universo (fondo, cuerpos, fugaces, anillo, viaje) |
 | **Plan que manda** | [`docs/guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md) para el rediseño; [`plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) para fases y cronograma |
 | **Código/online** | `2289cff` (B1 fondo real + P1 revertido), pusheado y online |
-| **Tramos escritos, esperando OK** | `I1` dominio · `P1` carga con estrellas · `P2` video completo + aterrizaje · `L1` elenco · `L2` la Luna manda |
+| **Cerrados hoy (local, sin pushear)** | ✅ `I1` dominio nuevo en los meta · ✅ `P1` carga con tres estrellas · ✅ `P2` video completo (10 s) + aterrizaje |
+| **Siguiente, esperando OK** | `L1` elenco (Luna · Júpiter · Saturno) · `L2` la Luna manda + rótulos · `E0`–`E2` la estrella |
 | **⏸️ En pausa a pedido del usuario** | **"La memoria"** (`M0`–`M3`: fotos, videos, voces) — primero se define el cómo |
 | **Costos** | **$0** (Cloudflare free + GitHub free + Apps Script) |
 | **Deadline** | **12/12**: link listo para mandar (después el 20/12 el plan entra en pausa) |
@@ -35,10 +36,10 @@
 
 | Qué | Estado |
 |---|---|
-| Dominio nuevo en `canonical`/`og:*` | ⬜ **roto hoy**: la vista previa de WhatsApp apunta al dominio muerto (`I1`) |
+| Dominio nuevo en `canonical`/`og:*` | ✅ hecho (se ve al pushear: la vista previa de WhatsApp se refresca recién con el deploy) |
 | Luna protagonista + Júpiter, afuera Sol y Venus | 📋 escrito (`L1`, `L2`) |
-| Video completo (10,24 s) + aterrizaje por CSS | 📋 escrito (`P2`) |
-| Carga con tres estrellas, sin % | 📋 escrito (`P1`) |
+| Video completo (10 s) + aterrizaje por CSS | ✅ hecho |
+| Carga con tres estrellas, sin % | ✅ hecho |
 | Confirmación que enciende una estrella | 📋 escrito (`E0`–`E2`) |
 | Recuerdos: fotos de bebé, videos, cápsula de audio | ⏸️ **en pausa**: falta definir |
 

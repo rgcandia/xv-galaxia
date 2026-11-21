@@ -17,6 +17,19 @@ const PESOS_IMG: Array<[string, number]> = [
 
 type Fase = 'idle' | 'warp' | 'flash' | 'revelado'
 
+/* P2 · El que ya saltó el viaje una vez no lo vuelve a ver en la misma sesión.
+   `sessionStorage` y no `localStorage`: al cerrar la pestaña se olvida, así un
+   "Saltar" apurado no le quita el video para siempre. */
+const SKIP_KEY = 'xv:salto'
+
+function yaSalto(): boolean {
+  try {
+    return sessionStorage.getItem(SKIP_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
 export default function App() {
   const [fase, setFase] = useState<Fase>('idle')
   const [vista, setVista] = useState<Vista>('mapa')
@@ -114,8 +127,25 @@ export default function App() {
     window.setTimeout(() => setFase('revelado'), 620)
   }
 
+  function saltar() {
+    try {
+      sessionStorage.setItem(SKIP_KEY, '1')
+    } catch {
+      /* modo privado o storage bloqueado: se salta igual, sólo no se recuerda */
+    }
+    entrar()
+  }
+
   function iniciar() {
     if (enViaje) return
+
+    // Ya lo saltó en esta sesión: entra directo al universo, sin repetir el viaje.
+    if (yaSalto()) {
+      setFase('flash')
+      window.setTimeout(() => setFase('revelado'), 620)
+      return
+    }
+
     terminado.current = false
     const v = videoRef.current
     if (!v) return
@@ -239,12 +269,16 @@ export default function App() {
           onEnded={entrar}
           onError={entrar}
         />
-        <button className="skip" onClick={entrar} type="button" tabIndex={enViaje ? 0 : -1}>
+        <button className="skip" onClick={saltar} type="button" tabIndex={enViaje ? 0 : -1}>
           Saltar
         </button>
       </div>
     </main>
     )}
+
+    {/* P2 · El aterrizaje: el blanco del flash se disuelve sobre el universo,
+        así el paso del video a la escena no corta en seco. */}
+    {fase === 'revelado' && vista === 'mapa' && <div className="aterrizaje" aria-hidden="true" />}
 
     {/* Etapa 3 · aparece recién cuando termina la inmersión. */}
     {fase === 'revelado' &&

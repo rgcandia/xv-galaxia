@@ -59,7 +59,7 @@ Estados: 🟢 pedido por el usuario · 📋 propuesto · ⏸️ en pausa · ⬜ 
 
 ### Ola 0 · El arranque (esta semana)
 
-#### `I1` · Dominio `galaxia.orangetech.com.ar` 🟢
+#### `I1` · Dominio `galaxia.orangetech.com.ar` ✅
 - **Contexto:** el usuario cambió el dominio en Cloudflare. Verificado el 2026-11-21: **`galaxia.orangetech.com.ar` → 200**
   y `xv-galaxia.orangetech.com.ar` **ya no resuelve**.
 - **Problema:** `index.html` todavía declara el dominio viejo en `og:url`, `canonical` y **`og:image`**. Como
@@ -69,7 +69,7 @@ Estados: 🟢 pedido por el usuario · 📋 propuesto · ⏸️ en pausa · ⬜ 
 - **Terminado cuando:** la vista previa de WhatsApp del dominio nuevo muestra imagen y título.
 - **Archivos:** `index.html` + docs.
 
-#### `P1` · La carga de la portada con tres estrellas 📋
+#### `P1` · La carga de la portada con tres estrellas ✅
 - **Hoy:** el botón muestra "Preparando el viaje" + barra + **porcentaje**.
 - **Decisión (`D-37`):** salen los puntitos y sale el **porcentaje** (grita "app"). Quedan **tres estrellas que
   se encienden en secuencia** (0 KB, pertenecen al cielo) + una **línea de 1 px** que avanza con el progreso real.
@@ -79,7 +79,7 @@ Estados: 🟢 pedido por el usuario · 📋 propuesto · ⏸️ en pausa · ⬜ 
   entra igual (se mantiene el rescate a los 8 s).
 - **Archivos:** `src/App.tsx`, `src/styles/portada.css`.
 
-#### `P2` · El video completo + el aterrizaje por CSS 📋
+#### `P2` · El video completo + el aterrizaje por CSS ✅
 - **Medido antes de decidir:** el original dura **10,24 s** (7,2 MB) y el que está online es un recorte de **7,5 s**
   (782 KB). La luminancia **sube** hacia el final (90 → 111): el video **termina en crescendo**, no se apaga.
   Por eso conviene usarlo entero.
