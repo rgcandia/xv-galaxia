@@ -2,7 +2,7 @@
 
 > Pedido: al tocar un planeta el acercamiento "pasa muy rápido"; el Sol no hace ninguna
 > animación; ¿conviene sonido? ¿un video de entrada? (esto último queda para después).
-> **Estado:** propuesto. No se toca código hasta el OK.
+> **Estado:** `Z1` y `Z2` hechos (2026-11-21). Falta la devolución del usuario y el push.
 
 ## 1. Qué pasa hoy
 

@@ -17,6 +17,21 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
   const p = evento.secciones
   const [saliendo, setSaliendo] = useState<Vista | null>(null)
   const ref = useRef<HTMLElement>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  /* Z2 · Whoosh del viaje. Se crea una vez y se reusa. Va acá y no en un
+     <audio> del JSX para poder llamar play() DENTRO del gesto del tap (si no,
+     iOS lo bloquea). Si falla, se ignora: el viaje no depende del sonido. */
+  useEffect(() => {
+    const a = new Audio('/media/whoosh.m4a')
+    a.preload = 'auto'
+    a.volume = 0.45
+    audioRef.current = a
+    return () => {
+      a.pause()
+      audioRef.current = null
+    }
+  }, [])
 
   /** Parallax suave: cada capa se mueve distinto (si el WebView lo permite). */
   useEffect(() => {
@@ -41,6 +56,17 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
 
   function viajar(v: Vista) {
     if (saliendo) return
+    const a = audioRef.current
+    if (a) {
+      try {
+        a.currentTime = 0
+      } catch {
+        /* sin metadata todavía: play() lo resuelve */
+      }
+      a.play().catch(() => {
+        /* autoplay bloqueado o audio no soportado: se sigue igual */
+      })
+    }
     setSaliendo(v)
     window.setTimeout(() => onIr(v), 2500)
   }
