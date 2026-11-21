@@ -9,7 +9,11 @@
   justify-content: center;
   padding: calc(74px + var(--safe-top)) 18px calc(34px + var(--safe-bottom));
   overflow-y: auto; /* red de seguridad si el contenido no entra en pantalla */
-  animation: aparecer 0.5s var(--ease-cosmic) both;
+  /* S7 · La sección NO se desplaza al entrar. Antes hacía `aparecer`:
+     `translate3d(0, 14px, 0) scale(0.985)` en 0,5 s. Con el texto quieto y el
+     planeta moviéndose encima, ese desplazamiento se lee como que la página
+     scrolleó — era la mitad del problema. Ahora el contenido entra en fundido
+     (`.s`) y el cielo se enciende debajo (`.universo::before`). */
   background:
     radial-gradient(120% 60% at 50% 0%, rgba(28, 37, 65, 0.9), transparent 70%),
     linear-gradient(180deg, #0b132b 0%, #070c1d 55%, #05070f 100%);
@@ -18,6 +22,8 @@
 }
 
 .s {
+  position: relative;
+  z-index: 1; /* por encima del planeta: el halo no tiene que lavar el texto */
   width: 100%;
   max-width: 520px;
   margin: 0 auto;
@@ -48,17 +54,6 @@
 .volver:active {
   color: var(--c-cyan);
   border-color: rgba(0, 240, 255, 0.4);
-}
-
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0) scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .s-eyebrow {
@@ -361,9 +356,10 @@
 
 /* S5 · La sección entra con un fundido, no con un desplazamiento: el
    desplazamiento del contenido se leía como "scroll" justo cuando el planeta
-   aterrizaba, y competía con el movimiento del planeta. */
+   aterrizaba, y competía con el movimiento del planeta. El retardo de 120 ms
+   deja que el planeta llegue primero: primero el cuerpo, después el texto. */
 .s {
-  animation: aparecer-suave 0.45s ease both;
+  animation: aparecer-suave 0.5s ease 0.12s both;
 }
 
 @keyframes aparecer-suave {
@@ -375,8 +371,10 @@
   }
 }
 
+/* Con movimiento reducido el fundido NO se cancela (`D-52`, `D-62`): un
+   cross-fade no marea a nadie. Sólo se acorta. */
 @media (prefers-reduced-motion: reduce) {
   .s {
-    animation: none;
+    animation: aparecer-suave 0.18s ease both;
   }
 }
