@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { evento } from '../evento'
 import type { Vista } from './Universo'
 import Fugaces from './Fugaces'
+import Starfield from './Starfield'
 import './mapa.css'
 
 /**
@@ -46,14 +47,21 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
 
   return (
     <section ref={ref} className={`escena ${saliendo ? 'is-saliendo' : ''}`} aria-label="Elegí un destino">
-      {/* Capa 1 · la misma galaxia de la portada, desenfocada y derivando */}
+      {/* Capa 0 · la misma galaxia de la portada, desenfocada y derivando */}
       <div className="capa lejana" aria-hidden="true" />
-      {/* Capa 2 · estrellas */}
-      <div className="capa media" aria-hidden="true" />
+      {/* Capa 0-b · nebulosa: la misma foto ampliada y deshecha, sólo suma luz */}
+      <div className="capa nebulosa" aria-hidden="true" />
+      {/* Capa 1 · estrellas reales (cientos, canvas) con parallax */}
+      <div className="capa media" aria-hidden="true">
+        <Starfield density={0.0007} />
+      </div>
       {/* Fugaces + satélite (capa media) */}
       <Fugaces />
-      {/* Capa 3 · polvo cercano */}
+      {/* Capa 2 · polvo cercano */}
       <div className="capa cerca" aria-hidden="true" />
+      {/* Capas de acabado: viñeta y grano (mata el look "plano digital") */}
+      <div className="vineta" aria-hidden="true" />
+      <div className="grano" aria-hidden="true" />
 
       <header className="escena-texto">
         <p className="mapa-eyebrow">El universo</p>

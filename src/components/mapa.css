@@ -1,4 +1,5 @@
-/* Etapa 3 · El universo — U1 (capas) + U2 (Sol / Venus / Saturno). */
+/* Etapa 3 · El universo — U1 (capas) + U2 (Sol / Venus / Saturno)
+   + U3-b (profundidad del fondo: nebulosa, estrellas reales, grano, viñeta). */
 
 .escena {
   --px: 0;
@@ -7,7 +8,7 @@
   z-index: 2;
   min-height: 100dvh;
   overflow: hidden;
-  background: #04060d;
+  background: #03040a;
   font-family: var(--font-ui);
   isolation: isolate;
 }
@@ -20,47 +21,88 @@
   will-change: transform;
 }
 
-/* La misma galaxia del inicio: continuidad (D-20) */
+/* Capa 0 · La misma galaxia del inicio, pero ya no plana: menos blur, más
+   contraste, y una segunda copia muy ampliada y difusa (nebulosa) detrás. */
 .lejana {
   background: url('/media/galaxia-mobile.webp') center / cover no-repeat;
-  filter: blur(9px) brightness(0.5) saturate(1.05);
+  filter: blur(6px) brightness(0.42) contrast(1.14) saturate(1.12);
   transform: translate3d(calc(var(--px) * -6px), calc(var(--py) * -6px), 0) scale(1.18);
   animation: deriva 70s ease-in-out infinite alternate;
 }
 
-/* Estrellas nítidas */
+/* Capa 0-b · Volumen de nebulosa: la misma foto, 2,2× más grande y deshecha.
+   En "screen" sólo suma luz, así que da halo y color sin tapar nada. */
+.nebulosa {
+  background:
+    radial-gradient(70% 55% at 22% 78%, rgba(96, 74, 190, 0.32) 0%, transparent 70%),
+    radial-gradient(60% 50% at 82% 22%, rgba(40, 118, 158, 0.26) 0%, transparent 72%),
+    url('/media/galaxia-mobile.webp') center / cover no-repeat;
+  filter: blur(26px) brightness(0.95) saturate(1.35);
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(2.2) rotate(6deg);
+  animation: respirar 110s ease-in-out infinite alternate;
+}
+
+/* Capa 1 · Estrellas reales (canvas): cientos, con tamaños y parpadeo
+   distintos. Reemplaza los 12 puntitos de degradado que se leían como patrón. */
 .media {
-  background-image:
-    radial-gradient(1.4px 1.4px at 18% 22%, #fff, transparent),
-    radial-gradient(1.2px 1.2px at 72% 12%, #dfe9ff, transparent),
-    radial-gradient(1.6px 1.6px at 44% 62%, #fff, transparent),
-    radial-gradient(1.1px 1.1px at 88% 48%, #cfe6ff, transparent),
-    radial-gradient(1.3px 1.3px at 12% 76%, #fff, transparent),
-    radial-gradient(1.2px 1.2px at 62% 88%, #eaf4ff, transparent),
-    radial-gradient(1.5px 1.5px at 30% 40%, #fff, transparent),
-    radial-gradient(1px 1px at 54% 30%, #fff, transparent);
-  opacity: 0.8;
   transform: translate3d(calc(var(--px) * 10px), calc(var(--py) * 10px), 0);
 }
 
-/* Polvo cercano, muy tenue */
+/* Capa 2 · Polvo cercano: pocas motas, grandes y fuera de foco */
 .cerca {
   background-image:
-    radial-gradient(2.4px 2.4px at 26% 34%, rgba(255, 255, 255, 0.5), transparent),
-    radial-gradient(3px 3px at 78% 68%, rgba(190, 225, 255, 0.4), transparent),
-    radial-gradient(2px 2px at 47% 82%, rgba(255, 235, 200, 0.42), transparent),
-    radial-gradient(2.6px 2.6px at 88% 30%, rgba(255, 255, 255, 0.35), transparent);
-  filter: blur(0.6px);
+    radial-gradient(2.6px 2.6px at 26% 34%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(3.2px 3.2px at 78% 68%, rgba(190, 225, 255, 0.34), transparent),
+    radial-gradient(2.2px 2.2px at 47% 82%, rgba(255, 235, 200, 0.36), transparent);
+  filter: blur(1.4px);
   transform: translate3d(calc(var(--px) * 22px), calc(var(--py) * 22px), 0);
+}
+
+/* Capa 3 · Viñeta: cierra los bordes y manda la mirada al centro */
+.vineta {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 42%, transparent 42%, rgba(2, 3, 9, 0.72) 100%);
+}
+
+/* Capa 4 · Grano: rompe las zonas oscuras lisas, que son las que se leen
+   como "fondo de CSS". SVG en línea: 0 KB de descarga. */
+.grano {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @keyframes deriva {
   from {
     background-position: 50% 50%;
-    transform: scale(1.18) translate3d(-2%, -1.5%, 0);
+    transform: translate3d(calc(var(--px) * -6px), calc(var(--py) * -6px), 0) scale(1.18)
+      translate3d(-2%, -1.5%, 0);
   }
   to {
-    transform: scale(1.26) translate3d(2%, 1.5%, 0);
+    transform: translate3d(calc(var(--px) * -6px), calc(var(--py) * -6px), 0) scale(1.26)
+      translate3d(2%, 1.5%, 0);
+  }
+}
+
+/* La nebulosa respira muy lento: da la sensación de volumen, no de foto fija */
+@keyframes respirar {
+  from {
+    transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(2.2) rotate(6deg)
+      translate3d(1%, 2%, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(2.42) rotate(2deg)
+      translate3d(-2%, -2%, 0);
   }
 }
 
@@ -293,6 +335,7 @@
   .venus,
   .saturno,
   .lejana,
+  .nebulosa,
   .sol .astro {
     animation: none;
   }

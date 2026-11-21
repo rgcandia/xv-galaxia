@@ -10,7 +10,7 @@
 |---|---|
 | **Rama / remoto** | `main` → `git@github.com:rgcandia/xv-galaxia.git` (deploy automático) |
 | **Fases cerradas** | `F0` setup · `F1` portada · `F2` inmersión |
-| **Fase abierta** | **`F3-a` — Universo, tramo 1**: secciones Núcleo (fecha/lugar) y Órbita (historia) + navegación flotante |
+| **Fase abierta** | **`F3` — El universo**: tramos `U1` + `U2` + `U3` cerrados, `U3-b` (profundidad del fondo) hecho. **Falta:** anillo real de Saturno, `U4` (la llegada) y `U5` (invitación a tocar) |
 | **Plan que manda** | [`docs/plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) |
 | **Costos** | **$0** (Cloudflare free + GitHub free + Apps Script) |
 
@@ -20,6 +20,8 @@
    - La portada **no muestra la fecha** (pedido del 2026-11-21).
 2. Botón **Iniciar viaje** → video warp **con sonido** → a los **7,5 s** flash + zoom → aparece la portada.
 3. Botón **Saltar** y red de seguridad si el video no arranca.
+4. Pantalla **El universo**: fondo con nebulosa, cientos de estrellas reales, viñeta y grano; fugaces cada 8-14 s; **Sol** (textura real), **Venus** (textura real + aureola) y **Saturno** (textura real, anillos todavía CSS).
+   - Pendiente: anillo con la imagen real y la "llegada" (`U4`).
 
 ## Bloqueantes
 
