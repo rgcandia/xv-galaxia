@@ -78,6 +78,14 @@ rsync -avh --progress -e "ssh -o ProxyCommand='cloudflared access ssh --hostname
 
 ---
 
+## Producción (✅ ya deployado)
+
+**URL real:** https://xv-galaxia.alejandrogcandia.workers.dev
+Deploy automático: cada `git push` a `main` reconstruye y publica (Cloudflare Workers Builds).
+
+> 📌 **El dominio aparece en UN solo lugar del código**: el `og:image` de `index.html`.
+> Si algún día se agrega dominio propio, se cambia esa línea y nada más.
+
 ## Producción (a partir de `F5`)
 
 | | |
