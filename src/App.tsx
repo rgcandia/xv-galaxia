@@ -78,7 +78,7 @@ export default function App() {
       </header>
 
       <footer className="bottom">
-        <button className="cta" onClick={iniciar} aria-label={`${evento.cta} — con sonido`}>
+        <button className="cta" onClick={iniciar} aria-label={evento.cta}>
           <span>{evento.cta}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
             <path
@@ -92,20 +92,6 @@ export default function App() {
           </svg>
         </button>
 
-        {/* Aviso de sonido: discreto, un ícono y dos palabras. */}
-        <p className="hint hint-sound">
-          <svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true">
-            <path
-              d="M4 9v6h3.5L12 19V5L7.5 9H4zm11.5-1.2a5 5 0 0 1 0 8.4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          {evento.hint}
-        </p>
       </footer>
 
       {/* Etapa 2 · Inmersión. Siempre montado, oculto: el play() sale del gesto. */}

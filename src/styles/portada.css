@@ -265,16 +265,3 @@
     animation: none;
   }
 }
-
-/* --- Aviso de sonido (chico, sin molestar) ------------------------------- */
-.hint-sound {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35em;
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgb(255 255 255 / 0.42);
-  margin-inline: auto;
-}
