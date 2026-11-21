@@ -560,32 +560,6 @@
   opacity: 0.32;
 }
 
-/* ── P1 · Parallax de los cuerpos ─────────────────────────────────────────
-   Las capas de fondo ya se movían; los planetas estaban clavados, y eso es
-   justo lo que rompe la ilusión de profundidad: lo cercano tiene que moverse
-   más que lo lejano.
-   Se usa la propiedad `translate` y NO `transform`, a propósito: `flotar` y
-   `pulso` animan `transform`, y pisarlo fue exactamente el bug que dejó al Sol
-   sin viajar. `translate` es independiente y se compone con la animación, así
-   que los cuerpos flotan Y se desplazan sin pelearse.
-   Magnitudes: Saturno es el más cercano (26 px) y el Sol el más lejano (12 px). */
-.cuerpo {
-  translate: calc(var(--px) * 12px) calc(var(--py) * 12px);
-  will-change: translate;
-}
-
-.cuerpo.venus {
-  translate: calc(var(--px) * 18px) calc(var(--py) * 18px);
-}
-
-.cuerpo.saturno {
-  translate: calc(var(--px) * 26px) calc(var(--py) * 26px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cuerpo,
-  .cuerpo.venus,
-  .cuerpo.saturno {
-    translate: none;
-  }
-}
+/* P1 revertido: el parallax de los cuerpos se probó en producción y se sentía
+   tosco y exagerado en el celular. Los planetas vuelven a quedar fijos; el
+   fondo conserva su parallax, que es el que funciona. */
