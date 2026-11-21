@@ -52,6 +52,7 @@ function animarVuelo(
   arco: number,
   opDesde: number,
   opHasta: number,
+  k0 = 1,
 ) {
   const r = el.getBoundingClientRect()
   const L = Math.hypot(dx, dy) || 1
@@ -171,16 +172,24 @@ export default function Mapa({
     const r = astro.getBoundingClientRect()
     const rincon = medirRincon()
 
-    fijar(btn, { left: rincon.left, top: rincon.top, width: rincon.tam })
+    /* S23 · La caja conserva el tamaño de CASA (no el del rincón) y se centra
+       dentro del rincón. Así el `.astro` nunca cambia de tamaño de maquetado:
+       la imagen se rasteriza una sola vez y no hay cuadro negro al aterrizar. */
+    fijar(btn, {
+      left: rincon.left + (rincon.tam - r.width) / 2,
+      top: rincon.top + (rincon.tam - r.height) / 2,
+      width: r.width,
+    })
     btn.classList.add('is-elegido') // el ancho del `.astro` pasa a 100 % AHORA
     setLlegando(volverDe)
 
     const dx = r.left + r.width / 2 - (rincon.left + rincon.tam / 2)
     const dy = r.top + r.height / 2 - (rincon.top + rincon.tam / 2)
-    const k = r.width / rincon.tam
+    const k = 1
+    const k0 = rincon.tam / r.width
     const arco = reducido ? 0 : Math.min(90, Math.hypot(dx, dy) * 0.11)
 
-    const anim = animarVuelo(btn, dx, dy, k, dur, arco, 0.9, 1)
+    const anim = animarVuelo(btn, dx, dy, k, dur, arco, 0.9, 1, k0)
     const posar = () => {
       /* Cancelar y soltar en el mismo cuadro (antes de que se pinte): el cuerpo
          vuelve a ser el botón del mapa, sin rastros de la animación. */
