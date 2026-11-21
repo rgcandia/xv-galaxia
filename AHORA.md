@@ -11,6 +11,7 @@
 | **Rama / remoto** | `main` → `git@github.com:rgcandia/xv-galaxia.git` (deploy automático) |
 | **Fases cerradas** | `F0` setup · `F1` portada · `F2` inmersión |
 | **Fase abierta** | **`F3` — El universo**: `U1` fondo · `U2` cuerpos · `U3` fugaces · `U3-b` profundidad · `R1`/`R2` texturas reales · `U5-a` anillo de Saturno → **cerrados**. **Siguiente:** rotación de los planetas, `U4` (la llegada) y `U5` (latido que invita a tocar) |
+| **Plan pendiente de OK** | [`docs/plan-carga-2026-11-21.md`](docs/plan-carga-2026-11-21.md) — peso y orden de carga (tramos `C1`–`C5`) |
 | **Plan que manda** | [`docs/plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) |
 | **Costos** | **$0** (Cloudflare free + GitHub free + Apps Script) |
 
