@@ -15,7 +15,7 @@
 | **Fases cerradas** | `F0` setup · `F1` portada · `F2` inmersión · `F3` universo (fondo, cuerpos, fugaces, anillo, viaje) |
 | **Plan que manda** | [`docs/guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md) para el rediseño; [`plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) para fases y cronograma |
 | **Código/online** | `2289cff` (B1 fondo real + P1 revertido), pusheado y online |
-| **Cerrados hoy (local, sin pushear)** | ✅ `I1` dominio · ✅ `P1` carga con estrellas · ✅ `P2` video completo + aterrizaje · ✅ `L1` elenco (Luna · Júpiter · Saturno) · ✅ `L2` la Luna manda + rótulos · ✅ `Q1` llegada · ✅ `Q2` pulso · ✅ `Q3` rotación |
+| **Cerrados hoy (local, sin pushear)** | ✅ `L7` anillo de Saturno · ✅ `L8` siempre iluminados · ✅ `F6-a` desktop a columna · ✅ `F6-c` fondo nítido · ✅ `F6-d` movimiento leve · ✅ `I1` dominio · ✅ `P1` carga con estrellas · ✅ `P2` video completo + aterrizaje · ✅ `L1` elenco (Luna · Júpiter · Saturno) · ✅ `L2` la Luna manda + rótulos · ✅ `Q1` llegada · ✅ `Q2` pulso · ✅ `Q3` rotación |
 | **⏸️ En pausa a pedido del usuario** | `E0`–`E2` la estrella (confirmación) y `M0`–`M3` la memoria (fotos y audio): **se hacen al final** |
 | **Lo que queda** | `Q4` QA en celulares reales + textos/datos reales del evento |
 | **⏸️ En pausa a pedido del usuario** | **"La memoria"** (`M0`–`M3`: fotos, videos, voces) — primero se define el cómo |

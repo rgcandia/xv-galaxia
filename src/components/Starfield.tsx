@@ -48,14 +48,14 @@ export default function Starfield({ density = 0.00018 }: { density?: number }) {
       ctx.clearRect(0, 0, w, h)
       for (const s of stars) {
         // parpadeo suave, desfasado por estrella
-        const tw = reduced ? s.a : s.a + Math.sin(t * 0.001 + s.x * 0.05) * 0.22
+        const tw = s.a + Math.sin(t * 0.001 + s.x * 0.05) * (reduced ? 0.09 : 0.22)
         ctx.globalAlpha = Math.max(0.05, Math.min(1, tw))
         ctx.fillStyle = s.r > 1.1 ? '#ffffff' : '#cfe3ff'
         ctx.beginPath()
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
         ctx.fill()
-        if (!reduced) {
-          s.y -= s.v
+        {
+          s.y -= s.v * (reduced ? 0.35 : 1)
           if (s.y < -2) {
             s.y = h + 2
             s.x = Math.random() * w

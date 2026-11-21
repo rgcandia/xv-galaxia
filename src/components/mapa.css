@@ -736,3 +736,45 @@
 .saturno .astro::after {
   z-index: 2;
 }
+
+/* ── F6-c · El fondo, nítido ────────────────────────────────────────────────
+   El usuario: "el fondo se ve demasiado borroso, nebuloso". El problema no era
+   la foto (Helix, Hubble) sino dos capas de blur encimadas: 5 px sobre la base
+   y 26 px sobre el lavado de color. En una pantalla grande se lee como mancha.
+   Se baja el desenfoque para que la foto se reconozca como foto y el lavado
+   queda sólo como temperatura, no como niebla. */
+.lejana {
+  filter: blur(1.5px) brightness(0.72) contrast(1.18) saturate(1.06);
+}
+
+.nebulosa {
+  opacity: 0.16;
+}
+
+/* ── F6-d · Movimiento reducido: leve, no inmóvil ───────────────────────────
+   Diagnóstico: en el desktop no se veía NADA moverse (ni los planetas, ni las
+   estrellas). La causa no era el CSS: ese sistema tiene las animaciones del
+   sistema operativo apagadas, y el sitio las respetaba al pie de la letra
+   apagando TODO.
+   Política nueva (`D-52`): con "movimiento reducido" se apagan sólo los
+   movimientos grandes o de profundidad (el zoom del viaje, la deriva del
+   fondo); se conservan los que no marean — el flotar de los cuerpos, el latido
+   del halo y el titilar de las estrellas — a la mitad de velocidad. Un planeta
+   que flota 14 px en 20 s no dispara vértigo; un zoom 12× sí. */
+@media (prefers-reduced-motion: reduce) {
+  .cuerpo.luna {
+    animation: flotar 20s ease-in-out infinite alternate;
+  }
+
+  .cuerpo.jupiter {
+    animation: flotar 18s ease-in-out -3s infinite alternate;
+  }
+
+  .cuerpo.saturno {
+    animation: flotar 19s ease-in-out -6s infinite alternate;
+  }
+
+  .luna .astro::before {
+    animation: latir 16s ease-in-out infinite;
+  }
+}
