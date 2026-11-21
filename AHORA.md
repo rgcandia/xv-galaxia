@@ -6,15 +6,15 @@
 | | |
 |---|---|
 | **Rama** | `main` (única). Remote: **`git@github.com:rgcandia/xv-galaxia.git`** — ⚠️ **sin credencial todavía** (ver §GitHub). |
-| **Fase abierta** | **Ninguna.** `F0` + prototipo de `F1` hechos y **congelados**: el usuario pidió plan primero. **No escribir código hasta autorización.** |
+| **Fase abierta** | **`F2` — Inmersión** (video ya recibido y verificado). `F0` y `F1` **cerradas**. |
 | **Plan que manda** | [`docs/plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) |
 | **Datos del evento** | [`docs/datos-evento.md`](docs/datos-evento.md) — **provisionales** (nombre y fecha pueden cambiar) |
-| **Próximo tramo propuesto** | **`F1-b` — Portada final** con Tiana + 2 de febrero + optimización de imágenes + `og:image` |
+| **Próximo tramo propuesto** | **`F2` — Inmersión**: comprimir el video (6.9 MB → ~1.2 MB), poster, frame del flash, y la transición a la portada. Requiere definir el **segundo de corte** (el video dura 10.24 s). |
 | **Bloqueante #1** | 🔴 **Video de inmersión**: el MP4 del Drive devuelve 404 incluso en `/view` (el archivo no está compartido; las imágenes de la misma carpeta sí bajan). Verificado 6 endpoints. |
 | **Bloqueante #2** | 🔴 **Credenciales de GitHub**: la llave SSH del server es un *deploy key* de `colegionorbridge/Portal-Norbridge`, **no puede pushear a `rgcandia`**. |
 | **Costo** | $0 (Cloudflare Pages + Apps Script + Sheet). Opcional: dominio propio ~USD 12/año. |
 
-## Datos que faltan (para cerrar `F1-b`)
+## Datos que faltan (para cerrar los textos)
 
 1. Cómo le dicen a **Tiana** (el nombre corto que va en la portada).
 2. **Hora** de la fiesta y si hay ceremonia aparte.

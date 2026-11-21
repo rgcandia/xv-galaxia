@@ -94,6 +94,21 @@
   text-shadow: var(--glow-gold);
 }
 
+.fecha {
+  margin: 0.85em 0 0;
+  font-size: clamp(0.68rem, 3.1vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.74);
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.5);
+}
+
+.fecha .anio {
+  letter-spacing: 0.16em;
+  opacity: 0.6;
+}
+
 /* --- CTA ----------------------------------------------------------------- */
 .cta {
   display: inline-flex;
