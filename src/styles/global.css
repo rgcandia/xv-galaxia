@@ -58,10 +58,12 @@ body {
    Con "movimiento reducido" activo (ajuste común en Windows) la invitación
    quedaba congelada: el fondo no respiraba, los planetas no flotaban y las
    estrellas no titilaban. No era el sistema: éramos nosotros obedeciendo de más.
-   Ahora la regla es selectiva: se aceleran sólo los movimientos GRANDES o de
-   profundidad (el zoom del viaje al tocar un planeta); lo sutil se conserva. */
+   Ahora la regla es selectiva, y el zoom del viaje NO se acelera (`D-60`):
+   era la causa de que en desktop el planeta quedara quieto al tocarlo —
+   sonaba el whoosh, se difuminaba el resto y el cuerpo no se movía, porque
+   esta hoja le ponía `animation-duration: 0.001ms`. Con movimiento reducido
+   el viaje se hace igual, más corto y con menos ampliación, no se cancela. */
 @media (prefers-reduced-motion: reduce) {
-  .cuerpo.is-elegido,
   .aterrizaje {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
