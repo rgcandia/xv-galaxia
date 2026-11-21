@@ -51,13 +51,19 @@ body {
   overscroll-behavior-y: none;
 }
 
-/* Respeto por quien pide menos movimiento (accesibilidad + ahorro de bateria) */
+/* Respeto por quien pide menos movimiento (accesibilidad + ahorro de bateria)
+   ── corregido (`D-56`) ─────────────────────────────────────────────────────
+   Antes esto era `* { animation-duration: 0.001ms !important }`: un `*` con
+   `!important` que mataba TODA animación del sitio, incluidas las sutiles.
+   Con "movimiento reducido" activo (ajuste común en Windows) la invitación
+   quedaba congelada: el fondo no respiraba, los planetas no flotaban y las
+   estrellas no titilaban. No era el sistema: éramos nosotros obedeciendo de más.
+   Ahora la regla es selectiva: se aceleran sólo los movimientos GRANDES o de
+   profundidad (el zoom del viaje al tocar un planeta); lo sutil se conserva. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  .cuerpo.is-elegido,
+  .aterrizaje {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
   }
 }
