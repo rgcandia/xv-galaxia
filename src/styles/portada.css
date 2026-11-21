@@ -206,19 +206,44 @@
   will-change: transform;
 }
 
-/* Flash: el video se acerca y se quema en blanco, la portada queda debajo. */
+/* Flash · S25 · El último zoom. El video se va comiendo la pantalla: 2,35×
+   (antes 1,38×, que se leía como un temblor) con brillo y desenfoque, y más
+   rápido que el zoom de entrada — acelera, no frena. La `transition` va acá y
+   no en `.warp-video` porque la que manda es la del estado de destino. */
 .warp.is-flash .warp-video {
-  transform: scale(1.38);
-  filter: brightness(2.1) blur(5px);
+  transform: scale(2.35);
+  filter: brightness(3) blur(9px);
+  transition:
+    transform 0.52s cubic-bezier(0.45, 0, 0.9, 0.4),
+    filter 0.48s ease-in;
 }
 
-.warp.is-flash::after {
-  content: "";
-  position: absolute;
+/* S25 · El quemado: blanco de PANTALLA COMPLETA (antes era un radial que dejaba
+   los bordes al descubierto y ahí se veía el cuadro pausado). Va por encima del
+   warp y termina opaco: el video se suelta recién cuando ya no se ve. */
+.quemar {
+  position: fixed;
   inset: 0;
+  z-index: 55; /* encima del warp (40), debajo de nada */
   pointer-events: none;
-  background: radial-gradient(circle at 50% 48%, #fff 0%, rgb(255 255 255 / 0) 72%);
-  animation: flash-out 0.62s ease-out forwards;
+  /* Blanco en todos los stops —el núcleo apenas cálido— para que no quede
+     ningún borde translúcido por donde mirar. */
+  background: radial-gradient(
+    circle at 50% 46%,
+    #fff 0 22%,
+    rgb(255 246 231) 52%,
+    #fff 100%
+  );
+  animation: quemar 0.48s cubic-bezier(0.4, 0, 0.9, 0.5) forwards;
+}
+
+@keyframes quemar {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* P2 · El aterrizaje al universo. Una capa blanca que se apaga: lo único que
@@ -229,29 +254,17 @@
   z-index: 50;
   pointer-events: none;
   background: radial-gradient(circle at 50% 46%, #fff 0%, rgb(255 255 255 / 0) 70%);
-  animation: aterrizar 0.95s ease-out forwards;
+  animation: aterrizar 0.75s ease-out forwards;
 }
 
 @keyframes aterrizar {
   from {
-    opacity: 0.85;
+    opacity: 1;
     transform: scale(1.02);
   }
   to {
     opacity: 0;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes flash-out {
-  from {
-    opacity: 0;
-  }
-  16% {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
+    transform: scale(1.12);
   }
 }
 
@@ -307,6 +320,10 @@
   .aterrizaje {
     transform: none;
     animation-duration: 0.4s;
+  }
+
+  .quemar {
+    animation-duration: 0.2s;
   }
 
   .stage.is-revealed .top,

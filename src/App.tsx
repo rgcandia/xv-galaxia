@@ -137,14 +137,26 @@ export default function App() {
     if (progreso >= 99.5) setListo(true)
   }, [progreso])
 
-  /** Cierra la inmersión: flash -> portada. Idempotente. */
+  /** Cierra la inmersión: flash -> portada. Idempotente.
+   *
+   *  S25 · El final, quemado. Antes acá se PAUSABA el video y el flash era un
+   *  blanco radial (opaco en el centro, transparente al 72 %): el cuadro
+   *  pausado quedaba visible y quieto en todo el marco durante ~0,6 s — eso era
+   *  la "imagen congelada". Ahora el video NO se pausa: corre sus últimos
+   *  130 ms solo y nunca se ve un cuadro quieto mientras el zoom final (2,35×
+   *  con brillo y desenfoque) lo va comiendo. Una capa blanca de PANTALLA
+   *  COMPLETA tapa todo en 480 ms; recién ahí se suelta el video (se desmonta
+   *  con la portada), se monta el mapa debajo y el blanco se disuelve
+   *  (`aterrizaje`). Nunca hay un cuadro descubierto: o hay imagen viva, o hay
+   *  blanco lleno. */
+  const DUR_QUEMAR = 480
+
   function entrar() {
     if (terminado.current) return
     terminado.current = true
     if (failsafe.current) window.clearTimeout(failsafe.current)
-    videoRef.current?.pause()
     setFase('flash')
-    window.setTimeout(() => setFase('revelado'), 620)
+    window.setTimeout(() => setFase('revelado'), DUR_QUEMAR)
   }
 
   function saltar() {
@@ -294,6 +306,12 @@ export default function App() {
       </div>
     </main>
     )}
+
+    {/* S25 · El quemado: blanco de pantalla completa mientras el video hace su
+        último zoom. Vive FUERA de `<main>` a propósito: la portada (y con ella
+        el `<video>`) se desmonta al revelar, y el blanco tiene que sobrevivir
+        ese cambio de commit para no dejar un cuadro al descubierto. */}
+    {fase === 'flash' && <div className="quemar" aria-hidden="true" />}
 
     {/* P2 · El aterrizaje: el blanco del flash se disuelve sobre el universo,
         así el paso del video a la escena no corta en seco. */}

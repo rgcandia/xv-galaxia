@@ -28,10 +28,14 @@ export const evento = {
 
   /**
    * D-38 · El video va COMPLETO: dura 10,03 s y su audio es la parte más
-   * dramática. Se dispara a 10 s (un pelo antes del final, para no mostrar un
-   * último frame congelado) y `onEnded` es la red por si el corte no llega.
+   * dramática. Se dispara a 9,9 s y `onEnded` es la red por si el corte no
+   * llega.
+   * S25 · Por qué 9,9 y no 10: el final ya no pausa el video (`App.tsx`), así
+   * que el corte tiene que llegar ANTES del último cuadro para que el zoom
+   * final arranque con imagen viva. Si se cortara al final, el primer cuadro
+   * del zoom ya sería el último frame, quieto.
    */
-  corteVideoSegundos: 10,
+  corteVideoSegundos: 9.9,
 
   /* ─────────────────────────────────────────────────────────────
      🟡 DATOS INVENTADOS (placeholder). Cambiar acá y nada más.
