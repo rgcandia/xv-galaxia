@@ -315,6 +315,9 @@
   inset: 0;
   z-index: 1;
   border-radius: 50%;
+  /* S20 · recorta a sus hijos: así el pedazo de anillo que pasa por delante no
+     necesita una segunda copia recortada a mano, lo limita este mismo borde. */
+  overflow: hidden;
   background:
     radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.28) 0%, transparent 45%),
     radial-gradient(circle at 74% 80%, rgba(0, 0, 0, 0.55) 0%, transparent 62%),
@@ -322,11 +325,19 @@
   box-shadow: inset -7px -9px 20px rgba(0, 0, 0, 0.55);
 }
 
+/* El pedazo de adelante: el mismo anillo, dibujado dentro de la cara y sólo
+   visible donde el disco lo recorta. `z-index: 1` lo deja por encima de la
+   sombra (`::after`, sin z-index) sin salirse del recorte. */
+.saturno .superficie::before {
+  z-index: 1;
+  opacity: 0.95;
+}
+
 /* El anillo: elipse achatada con un agujero central del tamaño del planeta.
    El degradado radial reproduce el perfil real (C tenue · B brillante ·
    Cassini · A) muestreado de la textura, en vez de un borde de 1 px. */
 .saturno .astro::before,
-.saturno .astro::after {
+.saturno .superficie::before {
   content: '';
   position: absolute;
   left: 50%;
@@ -366,30 +377,26 @@
    de adelante a propósito (S18): con 0,72 contra 0,95 el escalón se veía justo
    en los dos extremos del planeta y, sumado a la sombra de la cara, se leía
    como UNA línea recta cruzando el anillo. */
-/* S19 · El anillo son dos mitades, pero NO se cortan con `clip-path`.
-   Con un corte duro las dos copias semitransparentes se tocan borde con borde
-   y, en el píxel donde se solapan, el alfa se compone dos veces:
-   1-(1-a)(1-a) > a. Como la banda es casi blanca sobre un cielo casi negro, ese
-   solape subpixel se veía como una LÍNEA CLARA justo en el plano del anillo.
-   Ahora se separan con dos máscaras complementarias que se cruzan en 1,6 %:
-   en la franja del cruce el alfa de una baja y el de la otra sube en la misma
-   proporción, así que siempre suman 1 y no hay nada que se duplique. La franja
-   mide ~1,5 px, o sea que el planeta sigue tapando el cruce.
-   (`-webkit-` va primero: Safari viejo sólo entiende esa). */
+/* ── S20 · El anillo deja de partirse en dos ───────────────────────────────
+   S18 y S19 fueron dos intentos de tapar una costura: primero el escalón de
+   opacidad, después el corte con `clip-path` (que se leía como línea clara) y
+   las máscaras complementarias (que se leían como línea oscura, porque un
+   cruce de alfas nunca suma 1: 1-(1-a)(1-b) con a+b=1 baja a 0,75 en el
+   medio). El problema era el diseño, no el número: **dos copias
+   semitransparentes que se tocan siempre dejan una junta visible**.
+   Ahora hay UNA sola copia del anillo, entera, detrás del planeta. Donde pasa
+   por atrás la tapa la cara opaca de `.superficie`: no hay recorte, no hay
+   junta, no hay nada que componer dos veces. Y el pedazo de adelante no es otra
+   copia recortada a mano: `.superficie` ahora RECORTA a sus hijos
+   (`overflow: hidden`), así que su `::before` dibuja el mismo anillo y sólo se
+   ve la parte que cae dentro del disco. Las dos capas nunca se solapan: se
+   encuentran justo en el borde del planeta, que ya es un borde real.
+       0 · anillo completo (el planeta lo tapa)  →  1 · superficie
+       (dentro de la cara: sombra del anillo; encima, su pedazo de adelante) */
 .saturno .astro::before {
-  z-index: -1;
+  z-index: 0;
   opacity: 0.9;
   filter: blur(0.3px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 49%, transparent 50.6%);
-  mask-image: linear-gradient(to bottom, #000 49%, transparent 50.6%);
-}
-
-/* mitad de adelante: pasa por delante del planeta */
-.saturno .astro::after {
-  z-index: 2;
-  opacity: 0.95;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 49%, #000 50.6%);
-  mask-image: linear-gradient(to bottom, transparent 49%, #000 50.6%);
 }
 
 @keyframes pulso {
@@ -964,8 +971,8 @@
   }
 }
 
-/* Mismo tiempo y sin desfase: las dos mitades en el mismo compás. */
-.saturno .astro::after {
+/* Mismo tiempo y sin desfase: las dos partes en el mismo compás. */
+.saturno .superficie::before {
   animation: anillo-respira-frente 13s ease-in-out infinite;
 }
 
@@ -976,7 +983,7 @@
 /* Misma política que el resto (`D-52`): el brillo no marea, sólo se hace más
    lento. Nada de apagarlo ni de cambiar la geometría. */
 @media (prefers-reduced-motion: reduce) {
-  .saturno .astro::after {
+  .saturno .superficie::before {
     animation-duration: 26s;
   }
 
