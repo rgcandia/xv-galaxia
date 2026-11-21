@@ -1,4 +1,4 @@
-# AHORA · 2026-11-21 20:10
+# AHORA · 2026-11-21 20:25
 
 > Puerta de entrada. Si algo no está acá, no es el trabajo de hoy.
 > Plan que manda: [`docs/guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md)
@@ -7,8 +7,8 @@
 
 **Fase:** `F3` (el universo) cerrada + `F6-a` (desktop) v1 + **el viaje reescrito** (`S7`, `S8`).
 **Dominio:** **`galaxia.orangetech.com.ar`** (el viejo `xv-galaxia.` ya no resuelve).
-**Estado:** el planeta **vuela** de su lugar al rincón en vez de hacer zoom. **Local, sin pushear**
-(2 commits nuevos sobre `ae9e121`). Pendiente: que el usuario lo mire en localhost.
+**Estado:** el planeta **vuela** de su lugar al rincón, más suave, **y vuelve** a su lugar. **Local, sin
+pushear** (4 commits nuevos sobre `ae9e121`). Pendiente: que el usuario lo mire en localhost.
 
 ## Quién manda en la escena (pedido de la cumpleañera, `D-36`)
 
@@ -41,9 +41,25 @@ Ahora hay **un solo cuerpo**, medido en píxeles en los dos extremos (`src/lib/r
 donde está, hace un arco y se acomoda arriba a la derecha; el cielo se apaga y la sección se enciende
 debajo. Saturno, de paso, **conserva el anillo** al aterrizar.
 
+## El tramo abierto: el viaje, suave y de ida y vuelta (`S9`)
+
+Lo que cambió después de verlo el usuario:
+
+1. **La curva.** Eran dos tramos de easing pegados en la mitad y en el empalme la velocidad saltaba
+   **2,4×** — de ahí la sensación de brusco. Ahora se muestrea **una** curva continua
+   (`smootherstep`, 15 fotogramas con easing lineal): sale suave, viaja, se posa.
+   El número es **uno**: `DUR_VUELO` en `Mapa.tsx` (1600 ms · 1000 con movimiento reducido).
+2. **La vuelta.** El destino del regreso no existe hasta que el mapa está montado, así que se anima
+   **en el mapa**: al tocar "Universo" la sección se apaga, queda el planeta solo sobre `#03040a`, y
+   el mapa monta con un **velo del mismo negro**; antes del primer pintado se mide el lugar real del
+   cuerpo y se lo trae por **el mismo arco**. El pasaje no corta: es un apagón y el planeta volviendo.
+
+Los tres números que se pueden mover: **duración** (`DUR_VUELO`), **arco** (11 % del recorrido, tope
+90 px) y **tamaño del destino** (`min(58vw, 460px)` en `.universo .planeta-fondo` ⇄ `medirRincon()`).
+
 ## Lo que sigue (en orden de pedido)
 
-- [ ] **Ver el viaje en localhost** y ajustar (velocidad 1400 ms, arco, tamaño del destino).
+- [ ] **Ver el vuelo y la vuelta en localhost** y ajustar (`DUR_VUELO`, arco, tamaño del destino).
 - [ ] **El anillo de Saturno, animado** (`T-ring`): sombra del anillo sobre la cara + brillo que recorre la banda.
 - [ ] **La Luna tiene el terminador muerto**: hay dos `.luna .astro::after` y la segunda pisa a la primera.
       Es un bug viejo, no de este tramo. ¿Se arregla? (cambia el look de la protagonista).

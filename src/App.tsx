@@ -20,6 +20,12 @@ type Fase = 'idle' | 'warp' | 'flash' | 'revelado'
 export default function App() {
   const [fase, setFase] = useState<Fase>('idle')
   const [vista, setVista] = useState<Vista>('mapa')
+  /* S9 · La vuelta: al salir de una sección se recuerda de cuál, para que el
+     mapa sepa qué cuerpo tiene que volar desde el rincón hasta su lugar. */
+  const [volverDe, setVolverDe] = useState<Vista | null>(null)
+  /* El aterrizaje blanco es para coser el flash del video con la escena: una
+     sola vez. Sin esto, cada vuelta al mapa re-disparaba el destello. */
+  const [yaEntro, setYaEntro] = useState(false)
   const [progreso, setProgreso] = useState(0)
   const [listo, setListo] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -291,14 +297,28 @@ export default function App() {
 
     {/* P2 · El aterrizaje: el blanco del flash se disuelve sobre el universo,
         así el paso del video a la escena no corta en seco. */}
-    {fase === 'revelado' && vista === 'mapa' && <div className="aterrizaje" aria-hidden="true" />}
+    {fase === 'revelado' && vista === 'mapa' && !yaEntro && (
+      <div className="aterrizaje" aria-hidden="true" />
+    )}
 
     {/* Etapa 3 · aparece recién cuando termina la inmersión. */}
     {fase === 'revelado' &&
       (vista === 'mapa' ? (
-        <Mapa onIr={setVista} />
+        <Mapa
+          onIr={(v) => {
+            setYaEntro(true)
+            setVista(v)
+          }}
+          volverDe={volverDe}
+        />
       ) : (
-        <Universo vista={vista} onVolver={() => setVista('mapa')} />
+        <Universo
+          vista={vista}
+          onVolver={() => {
+            setVolverDe(vista)
+            setVista('mapa')
+          }}
+        />
       ))}
       {dbg && (
         <div

@@ -45,6 +45,40 @@
   }
 }
 
+/* ── S9 · La vuelta: la sección se apaga, no se corta ──────────────────────
+   Orden del apagado: primero el texto (deja de leerse), después el cielo, y
+   el planeta del rincón se queda solo sobre `#03040a` — que es exactamente el
+   primer cuadro del mapa al volver, con el velo puesto. Sin este paso, el
+   regreso empezaba con un corte de pantalla y después el planeta "aparecía"
+   en el rincón: dos objetos otra vez.
+   Las transiciones ganan sobre el `animation … both` de `encender` y de
+   `aparecer-suave`, así que alcanza con pedir `opacity: 0`. */
+.universo.is-saliendo .s {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.universo.is-saliendo .volver {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.universo.is-saliendo::before {
+  opacity: 0;
+  transition: opacity 0.36s ease;
+}
+
+/* S9 · El planeta se DETIENE antes de viajar. `derivar` lo pasea hasta 8/10 px
+   para que la sección no se sienta una foto; pero el vuelo de regreso arranca
+   midiendo el rincón exacto, así que esos píxeles se veían como un saltito en
+   el cambio de pantalla. `translate` es propiedad propia (no pisa el
+   `transform`), y la transición le gana a la animación: en los 380 ms del
+   apagado el cuerpo vuelve a su lugar y el empalme queda clavado. */
+.universo.is-saliendo .planeta-fondo {
+  translate: 0 0;
+  transition: translate 0.3s ease;
+}
+
 .s {
   position: relative;
   z-index: 1; /* por encima del planeta: el halo no tiene que lavar el texto */

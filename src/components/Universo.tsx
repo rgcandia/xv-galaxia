@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { evento } from '../evento'
 import './universo.css'
 
@@ -31,6 +31,33 @@ function Titulo({ eyebrow, children }: { eyebrow: string; children: React.ReactN
  */
 export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: () => void }) {
   const [copiado, setCopiado] = useState(false)
+  const [saliendo, setSaliendo] = useState(false)
+  const saliendoRef = useRef(false)
+
+  /* S9 · La vuelta empieza acá: la sección se apaga (el texto primero, el cielo
+     después) y el planeta del rincón queda solo sobre `#03040a`. Ese es
+     exactamente el primer cuadro del mapa cuando vuelve, así que el cambio de
+     pantalla no se ve: no hay corte, hay continuidad. El planeta, mientras
+     tanto, no se mueve todavía — el viaje de regreso lo anima `Mapa` en cuanto
+     monta (ahí es donde existe su lugar de destino). */
+  function volver() {
+    if (saliendoRef.current) return
+    saliendoRef.current = true
+
+    /* El mismo whoosh de la ida, disparado dentro del gesto (iOS no deja sonar
+       audio nacido de un `setTimeout`). Si falla, la vuelta no depende del
+       sonido. */
+    try {
+      const a = new Audio('/media/whoosh.m4a')
+      a.volume = 0.45
+      a.play().catch(() => {})
+    } catch {
+      /* sin audio */
+    }
+
+    setSaliendo(true)
+    window.setTimeout(onVolver, 380)
+  }
 
   const { nucleo, orbita, senal } = evento.secciones
 
@@ -45,8 +72,8 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
   }
 
   return (
-    <div className="universo" key={vista}>
-      <button className="volver" onClick={onVolver} type="button">
+    <div className={`universo ${saliendo ? 'is-saliendo' : ''}`} key={vista}>
+      <button className="volver" onClick={volver} type="button">
         <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
           <path
             d="M19 12H6m0 0 5-5m-5 5 5 5"

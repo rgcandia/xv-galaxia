@@ -403,7 +403,10 @@
    anima la Web Animations API en `Mapa.tsx`, midiendo de dónde sale y a dónde
    llega; estas reglas son sólo la parte estática — fijar el cuerpo en el lugar
    exacto donde estaba antes de que arranque el primer cuadro. */
-.cuerpo.is-elegido {
+/* `.escena` en el selector no es adorno: `.cuerpo.jupiter` (0,2,0) se declara
+   más abajo y, con la misma especificidad, le ganaba a este `animation: none`.
+   Con dos clases la animación del vuelo convivía con el `flotar` del CSS. */
+.escena .cuerpo.is-elegido {
   position: fixed;
   z-index: 40;
   margin: 0;
@@ -510,6 +513,29 @@
   animation:
     flotar 10s ease-in-out -5s infinite alternate,
     entrar 0.75s ease 0.54s backwards;
+}
+
+/* ── S9 · El velo de la vuelta ─────────────────────────────────────────────
+   El "apagón" de la ida, dado vuelta: el negro con el que termina la sección
+   (`#03040a`, el fondo de `.universo`) se disuelve sobre el mapa mientras el
+   planeta viaja de regreso. Va entre el fondo y el cuerpo que vuela, así que
+   lo único que se ve sobre el negro es el planeta volviendo. */
+.velo {
+  position: fixed;
+  inset: 0;
+  z-index: 30; /* debajo del cuerpo que vuela (40), encima de todo lo demás */
+  pointer-events: none;
+  background: #03040a;
+  animation: desvelar 0.95s ease-out forwards;
+}
+
+@keyframes desvelar {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* B1-b · Los cuerpos son fotografía y se mueven: capa propia, rasterizada una
@@ -622,6 +648,16 @@
   }
 }
 
+/* S9 · Al volver no se "entra" al mapa: se vuelve. El texto ya estaba ahí, así
+   que aparece en cuanto el velo se disuelve y no con el escalonado de la
+   primera llegada (1,2 s de espera + 0,9 s de fundido), que en el regreso se
+   leía como que faltaba contenido. */
+@media (prefers-reduced-motion: no-preference) {
+  .escena.is-vuelta .escena-texto {
+    animation: entrar 0.7s ease 0.15s backwards;
+  }
+}
+
 /* ── F6-a · Desktop: la escena se fuerza al ancho de un teléfono ────────────
    Decisión A (`D-48`): el CIELO queda a pantalla completa (la imagen está
    pensada en 16:9 y ahí es donde luce), pero la capa INTERACTIVA —los tres
@@ -729,3 +765,17 @@
    que hizo que el empalme se viera roto en el equipo del usuario. Ahora el
    único ajuste es la duración (1400 ms → 900 ms) y el arco, que se anula.
    Lo decide `Mapa.tsx`, en un solo lugar. */
+
+/* ── S9 · El cuerpo que ya volvió no vuelve a "entrar" ─────────────────────
+   Al posarse, el planeta suelta la clase del vuelo y el navegador re-dispara
+   TODO el `animation` del cuerpo: `entrar` (opacidad 0 → 1 con 0,1 s de
+   retardo) hacía parpadear el planeta justo cuando se posaba.
+   Esta regla deja sólo el `flotar`, sin retardo, así arranca desde cero y no
+   salta al soltar la animación del vuelo (con el retardo negativo de cada
+   cuerpo, el flotar arrancaría a mitad de camino: un salto de hasta 14 px).
+   La duración no se toca: con movimiento reducido sigue a 20/18/19 s (`D-52`).
+   Va al final a propósito, para ganarle a los bloques de más abajo. */
+.cuerpo.en-casa {
+  animation-name: flotar;
+  animation-delay: 0s;
+}
