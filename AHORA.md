@@ -46,6 +46,19 @@ Ahora hay **un solo cuerpo**, medido en píxeles en los dos extremos (`src/lib/r
 donde está, hace un arco y se acomoda arriba a la derecha; el cielo se apaga y la sección se enciende
 debajo. Saturno, de paso, **conserva el anillo** al aterrizar.
 
+## Cerrado: el anillo de Saturno (`S11`–`S21`)
+
+Costó cinco tramos y el aprendizaje quedó en `D-67`/`D-72`/`D-73`/`D-74`/`D-75`/`D-76`: dos copias
+semitransparentes del anillo que se tocan **siempre** dejan juntura (clara con `clip-path`, oscura con
+máscaras). La solución es una sola copia entera detrás del planeta + su mitad de adelante dibujada
+dentro de la cara y recortada por ella. **Se ve bien, no tocar.**
+
+## Próximo tramo (a definir con el usuario): el contenido de las secciones
+
+Pedido: **sin chips ni tarjetas** — el contenido va directo sobre el espacio. Cada planeta con su
+propia forma de mostrar y su propia animación (satélite orbitando, tránsito, etc.).
+Pendiente: elegir el lenguaje de cada sección antes de escribir código.
+
 ## El tramo abierto: el viaje, suave y de ida y vuelta (`S9`)
 
 Lo que cambió después de verlo el usuario:
