@@ -9,7 +9,8 @@ import './styles/portada.css'
    no manda Content-Length, así que el progreso se mide contra estos números. */
 const PESOS_IMG: Array<[string, number]> = [
   ['/media/galaxia-mobile.avif', 53746],
-  /* L1 · La Luna y Júpiter son CSS puro: no hay textura que precargar. */
+  ['/media/luna.avif', 22965],
+  ['/media/jupiter.avif', 6495],
   ['/media/poster.webp', 24134],
   ['/media/saturno.webp', 4486],
 ]

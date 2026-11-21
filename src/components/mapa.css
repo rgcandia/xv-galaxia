@@ -187,18 +187,32 @@
 .luna .astro {
   width: clamp(200px, 62vw, 320px);
   aspect-ratio: 1;
-  background:
-    radial-gradient(
-      circle at 66% 32%,
-      transparent 0 44%,
-      rgba(8, 12, 26, 0.45) 60%,
-      rgba(4, 7, 16, 0.9) 80%
-    ),
-    radial-gradient(circle at 66% 30%, #fdfcf6 0%, #eee9db 26%, #cfc7b4 50%, #8f8a7c 72%, #34363d 100%);
+  background: url('/media/luna.webp') center / cover no-repeat;
+  background-image: image-set(
+    url('/media/luna.avif') type('image/avif'),
+    url('/media/luna.webp') type('image/webp')
+  );
   box-shadow:
     0 0 60px -12px rgba(226, 232, 240, 0.5),
     0 0 150px -24px rgba(120, 170, 255, 0.4);
 }
+
+/* El terminador es NUESTRO, no viene en la foto: un degradado que entra desde
+   abajo-izquierda y le da volumen de esfera iluminada. Sin esto, la textura es
+   un disco plano con manchas. */
+.luna .astro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 68% 30%,
+    transparent 0 38%,
+    rgba(6, 10, 22, 0.5) 62%,
+    rgba(2, 4, 12, 0.94) 88%
+  );
+}
+
 
 /* halo frío: la luna no emite luz, la refleja */
 .luna .astro::before {
@@ -241,23 +255,30 @@
 .jupiter .astro {
   width: clamp(94px, 28vw, 122px);
   aspect-ratio: 1;
-  background:
-    radial-gradient(circle at 34% 26%, rgba(255, 246, 228, 0.3) 0%, transparent 46%),
-    radial-gradient(circle at 74% 80%, rgba(18, 10, 0, 0.6) 0%, transparent 64%),
-    repeating-linear-gradient(
-      176deg,
-      #d9b184 0 6%,
-      #c4905f 6% 10%,
-      #e8cda6 10% 15%,
-      #b5834f 15% 19%,
-      #dfbd94 19% 25%,
-      #a4713f 25% 29%,
-      #eed9b7 29% 36%
-    );
+  background: url('/media/jupiter.webp') center / cover no-repeat;
+  background-image: image-set(
+    url('/media/jupiter.avif') type('image/avif'),
+    url('/media/jupiter.webp') type('image/webp')
+  );
   box-shadow:
-    inset -8px -10px 24px rgba(0, 0, 0, 0.55),
-    0 0 44px -8px rgba(230, 190, 130, 0.45);
+    0 0 44px -8px rgba(230, 190, 130, 0.45),
+    inset -10px -12px 26px rgba(0, 0, 0, 0.5);
 }
+
+/* Terminador propio, igual que la Luna: la foto viene iluminada de frente. */
+.jupiter .astro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 34% 28%,
+    transparent 0 40%,
+    rgba(10, 8, 4, 0.45) 66%,
+    rgba(2, 2, 6, 0.9) 90%
+  );
+}
+
 
 .jupiter .astro::before {
   content: '';
@@ -270,22 +291,6 @@
 }
 
 /* la Gran Mancha Roja: el "detalle que te distingue" */
-.jupiter .astro::after {
-  content: '';
-  position: absolute;
-  left: 26%;
-  top: 58%;
-  width: 28%;
-  height: 15%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 42% 40%,
-    rgba(214, 108, 74, 0.95) 0%,
-    rgba(168, 70, 44, 0.85) 58%,
-    rgba(140, 60, 40, 0.45) 100%
-  );
-  filter: blur(0.4px);
-}
 
 
 /* 💍 SATURNO — anillo de verdad: banda con agujero (perfil real del anillo:
@@ -650,9 +655,7 @@
    verdad. 4 minutos por vuelta: no se lee "animado", se lee VIVO.
    Júpiter y Saturno quedan quietos a propósito — desplazar sus bandas
    arrastraría el terminador con ellas y la esfera dejaría de leerse. */
-.luna .astro::after {
-  animation: girar 240s linear infinite;
-}
+
 
 @keyframes girar {
   to {

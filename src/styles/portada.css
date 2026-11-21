@@ -291,9 +291,8 @@
     transform: none;
     transition: none;
   }
-  .estrella.is-activa {
+  .estrella {
     animation: none;
-    background: rgba(0, 240, 255, 0.55);
   }
 
   .aterrizaje {
@@ -374,16 +373,28 @@
   background: rgba(255, 255, 255, 0.16);
   clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
   transition: background 0.5s ease, filter 0.5s ease;
+  /* Titilan SIEMPRE mientras están en pantalla, escalonadas: así hay
+     movimiento de carga aunque la red termine en 200 ms. La que llega se
+     queda quieta y encendida. */
+  animation: titilar 1.6s ease-in-out infinite;
 }
 
 /* La que está cargando: titila. La que ya llegó: queda encendida, no vuelve
    atrás (si la red se frena, la estrella no se apaga). */
+.estrella:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.estrella:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
 .estrella.is-activa {
   background: rgba(0, 240, 255, 0.55);
-  animation: titilar 1.3s ease-in-out infinite;
 }
 
 .estrella.is-llena {
+  animation: none;
   background: var(--c-white);
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.75));
 }
