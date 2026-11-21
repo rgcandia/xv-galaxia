@@ -139,6 +139,17 @@ Se generó una llave **exclusiva**, sin passphrase:
 ~/.ssh/id_ed25519_xvgalaxia.pub   (pública)
 ```
 
+**Estado: ✅ instalada y funcionando** (2026-11-21) — deploy key con write access en `rgcandia/xv-galaxia`.
+El repo ya tiene `core.sshCommand` seteado, así que **`git push` funciona sin flags**:
+
+```bash
+cd /home/tic/proyectos/xv-galaxia
+git push          # listo, usa la llave correcta
+```
+
+> ⚠️ El `-o IdentitiesOnly=yes` es clave: sin eso, SSH ofrece primero la llave del portal y GitHub
+> responde "repository not found" (porque esa llave es de otro repo).
+
 **Instalación (una vez, por el usuario):**
 GitHub → repo `xv-galaxia` → *Settings* → *Deploy keys* → *Add deploy key* → pegar la pública →
 **tildar "Allow write access"**.
