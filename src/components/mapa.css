@@ -52,10 +52,7 @@
 
 /* Capa 2 · Polvo cercano: pocas motas, grandes y fuera de foco */
 .cerca {
-  background-image:
-    radial-gradient(2.6px 2.6px at 26% 34%, rgba(255, 255, 255, 0.45), transparent),
-    radial-gradient(3.2px 3.2px at 78% 68%, rgba(190, 225, 255, 0.34), transparent),
-    radial-gradient(2.2px 2.2px at 47% 82%, rgba(255, 235, 200, 0.36), transparent);
+  /* P1-b · sin motas CSS: el canvas pone todas las estrellas */
   filter: blur(1.4px);
   transform: translate3d(calc(var(--px) * 22px), calc(var(--py) * 22px), 0);
 }
@@ -249,7 +246,7 @@
    mitades para que pase por detrás y por delante del planeta. */
 .saturno {
   bottom: 13%;
-  right: 9%;
+  right: 15%;
 }
 
 .saturno .astro {
@@ -561,4 +558,34 @@
    color tenue para que la foto y los planetas compartan temperatura. */
 .nebulosa {
   opacity: 0.32;
+}
+
+/* ── P1 · Parallax de los cuerpos ─────────────────────────────────────────
+   Las capas de fondo ya se movían; los planetas estaban clavados, y eso es
+   justo lo que rompe la ilusión de profundidad: lo cercano tiene que moverse
+   más que lo lejano.
+   Se usa la propiedad `translate` y NO `transform`, a propósito: `flotar` y
+   `pulso` animan `transform`, y pisarlo fue exactamente el bug que dejó al Sol
+   sin viajar. `translate` es independiente y se compone con la animación, así
+   que los cuerpos flotan Y se desplazan sin pelearse.
+   Magnitudes: Saturno es el más cercano (26 px) y el Sol el más lejano (12 px). */
+.cuerpo {
+  translate: calc(var(--px) * 12px) calc(var(--py) * 12px);
+  will-change: translate;
+}
+
+.cuerpo.venus {
+  translate: calc(var(--px) * 18px) calc(var(--py) * 18px);
+}
+
+.cuerpo.saturno {
+  translate: calc(var(--px) * 26px) calc(var(--py) * 26px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cuerpo,
+  .cuerpo.venus,
+  .cuerpo.saturno {
+    translate: none;
+  }
 }
