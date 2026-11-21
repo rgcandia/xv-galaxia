@@ -281,3 +281,56 @@
   opacity: 0.5;
   cursor: default;
 }
+
+/* C5-b · El propio botón es el indicador: sin overlay ni spinner. Misma forma
+   que `.cta` para que el cambio de "preparando" a "iniciar viaje" no mueva
+   nada de sitio (evita el salto de layout). */
+.cta-carga {
+  display: inline-grid;
+  justify-items: center;
+  gap: 7px;
+  width: min(262px, 76vw);
+  padding: 13px 26px;
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(0, 240, 255, 0.1), rgba(0, 240, 255, 0.02));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  color: var(--c-white);
+  font-family: var(--font-ui);
+  text-align: center;
+  align-content: center;
+  min-height: 49px;
+}
+
+.cta-carga-texto {
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.82);
+}
+
+.cta-carga-barra {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.cta-carga-barra > i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.9), rgba(255, 224, 168, 0.95));
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+  transition: width 0.3s ease;
+}
+
+.cta-carga-pct {
+  font-size: 0.54rem;
+  letter-spacing: 0.22em;
+  color: rgba(0, 240, 255, 0.72);
+  font-variant-numeric: tabular-nums;
+}

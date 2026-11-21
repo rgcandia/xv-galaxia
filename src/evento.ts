@@ -23,6 +23,7 @@ export const evento = {
   /** Título grande. */
   titulo: 'Mis 15',
   /** Texto del botón principal. */
+  cargando: 'Preparando el viaje',
   cta: 'Iniciar viaje',
 
   /**

@@ -475,3 +475,12 @@
     flotar 10s ease-in-out -5s infinite alternate,
     entrar 0.75s ease 0.54s backwards;
 }
+
+/* Z3-b · El Sol es 3x más grande que Venus y Saturno: al escalar 12x el
+   navegador RE-RASTERIZA el fondo (2 radial-gradients + foto) en cada frame y
+   en el celular no llega. Promover la capa lo rasteriza una sola vez y el
+   resto lo hace la GPU. Era el motivo de que sólo el Sol se viera roto. */
+.astro {
+  will-change: transform;
+  backface-visibility: hidden;
+}

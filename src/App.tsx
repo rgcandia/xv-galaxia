@@ -2,10 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import Starfield from './components/Starfield'
 import Mapa from './components/Mapa'
 import Universo, { type Vista } from './components/Universo'
-import Loader from './components/Loader'
 import { evento } from './evento'
 import './styles/portada.css'
-import './components/loader.css'
 
 /* C5 · Pesos reales de los assets críticos (bytes exactos del build). Cloudflare
    no manda Content-Length, así que el progreso se mide contra estos números. */
@@ -24,7 +22,6 @@ export default function App() {
   const [vista, setVista] = useState<Vista>('mapa')
   const [progreso, setProgreso] = useState(0)
   const [listo, setListo] = useState(false)
-  const [verCargador, setVerCargador] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const terminado = useRef(false)
   const failsafe = useRef<number | null>(null)
@@ -92,16 +89,9 @@ export default function App() {
       setListo(true)
     }, 8000)
 
-    // Si en 500 ms no terminó, recién ahí aparece el loader (nada peor que un
-    // cartel de carga por un archivo que ya estaba).
-    const aparecer = window.setTimeout(() => {
-      if (vivo) setVerCargador(true)
-    }, 500)
-
     return () => {
       vivo = false
       window.clearTimeout(rescate)
-      window.clearTimeout(aparecer)
       v?.removeEventListener('progress', onProgress)
       imgs.forEach((i) => {
         i.onload = null
@@ -113,10 +103,6 @@ export default function App() {
   useEffect(() => {
     if (progreso >= 99.5) setListo(true)
   }, [progreso])
-
-  useEffect(() => {
-    if (listo) setVerCargador(false)
-  }, [listo])
 
   /** Cierra la inmersión: flash -> portada. Idempotente. */
   function entrar() {
@@ -192,7 +178,25 @@ export default function App() {
       </header>
 
       <footer className="bottom">
-        <button className="cta" onClick={iniciar} disabled={!listo} aria-label={evento.cta}>
+        {!listo && (
+          <div
+            className="cta-carga"
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progreso)}
+            aria-label="Preparando el viaje"
+          >
+            <span className="cta-carga-texto">{evento.cargando}</span>
+            <span className="cta-carga-barra">
+              <i style={{ width: `${Math.round(progreso)}%` }} />
+            </span>
+            <span className="cta-carga-pct">{Math.round(progreso)}%</span>
+          </div>
+        )}
+
+        {listo && (
+        <button className="cta" onClick={iniciar} aria-label={evento.cta}>
           <span>{evento.cta}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
             <path
@@ -205,10 +209,9 @@ export default function App() {
             />
           </svg>
         </button>
+        )}
 
       </footer>
-
-      <Loader progreso={progreso} visible={verCargador} />
 
       {/* Etapa 2 · Inmersión. Siempre montado, oculto: el play() sale del gesto. */}
       <div className={`warp ${enViaje ? 'is-on' : ''} ${fase === 'flash' ? 'is-flash' : ''}`}>
