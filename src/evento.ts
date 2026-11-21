@@ -46,7 +46,7 @@ export const evento = {
   /** Etapa 3 · secciones. */
   secciones: {
     nucleo: {
-      nav: 'Cuándo',
+      nav: 'La cita',
       eyebrow: 'Núcleo',
       titulo: 'Cuándo y dónde',
       hora: '21:00 hs',
@@ -56,7 +56,7 @@ export const evento = {
       maps: 'https://maps.google.com/?q=Av.+de+los+Constituyentes+4500,+CABA',
     },
     orbita: {
-      nav: 'Vestimenta',
+      nav: 'El brillo',
       eyebrow: 'Órbita',
       titulo: 'Cómo venir',
       estilo: 'Elegante sport galáctico',
@@ -66,7 +66,7 @@ export const evento = {
       aviso: 'El blanco lo reserva Tiana 🤍',
     },
     senal: {
-      nav: 'Regalos',
+      nav: 'Un detalle',
       eyebrow: 'Señal',
       titulo: 'Un mensaje al universo',
       texto: 'Tu presencia es el regalo. Si además querés dejarme algo:',
