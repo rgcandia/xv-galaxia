@@ -1,0 +1,160 @@
+/* Etapa 3 · El universo — mapa de planetas. */
+
+.mapa {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: calc(48px + var(--safe-top)) 18px calc(40px + var(--safe-bottom));
+  text-align: center;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  background:
+    radial-gradient(60% 40% at 50% 8%, rgba(28, 37, 65, 0.85), transparent 72%),
+    radial-gradient(50% 40% at 82% 70%, rgba(0, 240, 255, 0.07), transparent 70%),
+    linear-gradient(180deg, #05070f 0%, #0b132b 45%, #070c1d 100%);
+}
+
+.mapa-eyebrow {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(0, 240, 255, 0.7);
+}
+
+.mapa-titulo {
+  margin: 8px 0 4px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  color: var(--c-gold);
+  text-shadow: 0 0 26px rgba(255, 209, 102, 0.25);
+}
+
+/* --- Los tres destinos, escalonados -------------------------------------- */
+.orbitas {
+  width: 100%;
+  max-width: 360px;
+  margin: 18px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+}
+
+.destino {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  /* el planeta "flota" */
+  animation: flotar 7s var(--ease-cosmic) infinite alternate;
+}
+
+.destino:nth-child(2) {
+  margin-left: 46%;
+  animation-delay: -2.4s;
+}
+
+.destino:nth-child(3) {
+  margin-right: 42%;
+  animation-delay: -4.8s;
+}
+
+.destino:active .planeta {
+  transform: scale(0.94);
+}
+
+.destino-nombre {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.85);
+}
+
+/* --- Planetas ------------------------------------------------------------ */
+.planeta {
+  display: block;
+  border-radius: 50%;
+  transition: transform 0.25s var(--ease-cosmic);
+  will-change: transform;
+  /* luz que envuelve al planeta */
+  box-shadow: 0 0 44px -6px currentColor;
+}
+
+.lg .planeta {
+  width: 104px;
+  height: 104px;
+}
+
+.md .planeta {
+  width: 82px;
+  height: 82px;
+}
+
+.sm .planeta {
+  width: 64px;
+  height: 64px;
+}
+
+/* Núcleo — dorado, con bandas */
+.p-nucleo {
+  color: rgba(255, 209, 102, 0.55);
+  background:
+    radial-gradient(circle at 32% 28%, #fff3cf 0%, #ffd166 32%, #c98b1e 68%, #4a2f07 100%),
+    #ffd166;
+  box-shadow:
+    inset -10px -12px 26px rgba(0, 0, 0, 0.55),
+    0 0 44px -6px rgba(255, 209, 102, 0.55);
+}
+
+/* Órbita — cian, anillo visible */
+.p-orbita {
+  color: rgba(0, 240, 255, 0.5);
+  background:
+    radial-gradient(circle at 34% 30%, #d6ffff 0%, #56e6ff 30%, #0b8fb0 66%, #04222e 100%);
+  box-shadow:
+    inset -8px -10px 22px rgba(0, 0, 0, 0.6),
+    0 0 40px -4px rgba(0, 240, 255, 0.55);
+}
+
+/* Señal — violeta profundo */
+.p-senal {
+  color: rgba(180, 140, 255, 0.5);
+  background:
+    radial-gradient(circle at 36% 32%, #efe2ff 0%, #a679ff 32%, #5a3aa8 68%, #170c33 100%);
+  box-shadow:
+    inset -7px -9px 18px rgba(0, 0, 0, 0.6),
+    0 0 36px -4px rgba(160, 120, 255, 0.5);
+}
+
+@keyframes flotar {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+.mapa-pie {
+  margin: 34px 0 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.28);
+}
+
+/* --- Quien pidió no animar, no ve nada animado --------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .destino {
+    animation: none;
+  }
+}

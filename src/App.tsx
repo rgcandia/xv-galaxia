@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Starfield from './components/Starfield'
+import Mapa from './components/Mapa'
 import Universo from './components/Universo'
 import { evento } from './evento'
 import './styles/portada.css'
@@ -118,7 +119,12 @@ export default function App() {
     </main>
 
     {/* Etapa 3 · aparece recién cuando termina la inmersión. */}
-    {fase === 'revelado' && <Universo />}
+    {fase === 'revelado' && (
+      <>
+        <Mapa />
+        <Universo />
+      </>
+    )}
     </>
   )
 }
