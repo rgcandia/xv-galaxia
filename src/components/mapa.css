@@ -779,3 +779,87 @@
   animation-name: flotar;
   animation-delay: 0s;
 }
+
+/* ── S11 · El anillo, vivo (Saturno) ───────────────────────────────────────
+   Dos cosas, las dos sobre el planeta que menos se mueve (22 s flotando):
+   1) LA SOMBRA. El anillo tapa el Sol: proyecta una banda oscura sobre la cara
+      del planeta, en el mismo plano inclinado que el anillo (-17°). Sin esto
+      el anillo se lee como una calcomanía puesta encima de la foto; con esto,
+      planeta y anillo son el mismo objeto. La mitad de adelante del anillo ya
+      tapa la parte de abajo de la banda, así que se ve el borde: es lo que
+      pasa en la foto real de Saturno.
+   2) EL BRILLO. Las dos mitades respiran en CONTRACONTRASTE: mientras la de
+      adelante se enciende, la de atrás se apaga. El ojo lee "la luz recorre el
+      anillo" sin que nada se mueva de lugar. Se descartó rotar la superficie
+      (las bandas de la foto son casi uniformes: girarlas no se ve) y oscilar
+      el anillo ±2° (a 90 px se lee como temblor).
+      Se anima `filter` y no `opacity` a propósito: la mitad de atrás tiene
+      opacidad 0,72 y la de adelante 0,95 — con una sola curva de opacidad la
+      de atrás quedaría más brillante que antes. Y `filter` mantiene el
+      `blur(0.3px)` de la mitad de atrás, que hay que repetir en los keyframes
+      porque `filter` se reemplaza entero. */
+
+.saturno .superficie::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  /* 163° = perpendicular a la inclinación del anillo: la banda queda acostada
+     sobre el mismo plano que el anillo. */
+  background: linear-gradient(
+    163deg,
+    transparent 0 32%,
+    rgba(12, 8, 3, 0.16) 40%,
+    rgba(10, 7, 2, 0.4) 46%,
+    rgba(8, 5, 1, 0.5) 50%,
+    rgba(10, 7, 2, 0.38) 55%,
+    rgba(12, 8, 3, 0.14) 61%,
+    transparent 69%
+  );
+  /* multiply hunde la sombra en la foto en vez de pintarla encima. */
+  mix-blend-mode: multiply;
+}
+
+@keyframes anillo-late-frente {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.22);
+  }
+}
+
+@keyframes anillo-late-atras {
+  0%,
+  100% {
+    filter: blur(0.3px) brightness(0.9);
+  }
+  50% {
+    filter: blur(0.3px) brightness(1.06);
+  }
+}
+
+.saturno .astro::after {
+  animation: anillo-late-frente 13s ease-in-out infinite;
+}
+
+/* -6,5 s: media vuelta de diferencia, para que el brillo cruce de una mitad a
+   la otra en vez de encenderse todo junto. */
+.saturno .astro::before {
+  animation: anillo-late-atras 13s ease-in-out -6.5s infinite;
+}
+
+/* Misma política que el resto (`D-52`): el brillo no marea, sólo se hace más
+   lento. Nada de apagarlo ni de cambiar la geometría. */
+@media (prefers-reduced-motion: reduce) {
+  .saturno .astro::after {
+    animation-duration: 26s;
+  }
+
+  .saturno .astro::before {
+    animation-duration: 26s;
+    animation-delay: -13s;
+  }
+}

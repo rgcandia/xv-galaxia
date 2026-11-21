@@ -8,9 +8,11 @@
 **Fase:** `F3` (el universo) cerrada + `F6-a` (desktop) v1 + **el viaje reescrito** (`S7`, `S8`).
 **Dominio:** **`galaxia.orangetech.com.ar`** (el viejo `xv-galaxia.` ya no resuelve).
 **Estado:** el planeta **vuela** de su lugar al rincón, más suave, **y vuelve** a su lugar. **Saturno ya
-se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta). **Local,
-sin pushear** (5 commits nuevos sobre `ae9e121`). Pendiente: que el usuario lo mire en localhost y
-decida el anillo animado (`T-ring`).
+se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta) y **su
+anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). **Local, sin pushear**
+(6 commits nuevos sobre `ae9e121`). Pendiente: mirar en localhost · decidir el desfase del sonido en la
+vuelta (el whoosh suena ~0,4 s antes de que arranque el vuelo, porque iOS exige dispararlo dentro del
+tap).
 
 ## Quién manda en la escena (pedido de la cumpleañera, `D-36`)
 
