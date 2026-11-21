@@ -120,7 +120,9 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
         className={`cuerpo saturno ${saliendo === 'regalos' ? 'is-elegido' : ''}`}
         onClick={() => viajar('regalos')}
       >
-        <span className="astro" aria-hidden="true" />
+        <span className="astro" aria-hidden="true">
+          <span className="superficie" />
+        </span>
         <span className="astro-nombre">{p.senal.nav}</span>
       </button>
     </section>

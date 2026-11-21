@@ -304,14 +304,22 @@
 .saturno .astro {
   width: clamp(76px, 23vw, 98px);
   aspect-ratio: 1;
-  /* PRUEBA (R1): textura fotografica real en vez de degradado */
+  /* Sin fondo: el planeta vive en `.superficie` para poder quedar EN MEDIO de
+     las dos mitades del anillo (L7). Sólo queda el resplandor. */
+  box-shadow: 0 0 40px -8px rgba(230, 200, 140, 0.45);
+}
+
+/* La superficie: la foto + las luces. Capa propia, z-index 1. */
+.saturno .superficie {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
   background:
     radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.28) 0%, transparent 45%),
     radial-gradient(circle at 74% 80%, rgba(0, 0, 0, 0.55) 0%, transparent 62%),
     url('/media/saturno.webp') center / cover no-repeat;
-  box-shadow:
-    inset -7px -9px 20px rgba(0, 0, 0, 0.55),
-    0 0 40px -8px rgba(230, 200, 140, 0.45);
+  box-shadow: inset -7px -9px 20px rgba(0, 0, 0, 0.55);
 }
 
 /* El anillo: elipse achatada con un agujero central del tamaño del planeta.
@@ -330,7 +338,7 @@
   border-radius: 0;
   box-shadow: none;
   background: radial-gradient(
-    closest-side,
+    ellipse 50% 50% at 50% 50%,
     transparent 0 36.5%,
     rgba(120, 108, 96, 0.1) 40%,
     rgba(152, 140, 126, 0.34) 43%,
@@ -708,4 +716,23 @@
     right: auto;
     left: calc(50% + 45px);
   }
+}
+
+/* ── L7 · El anillo en su lugar ─────────────────────────────────────────────
+   El bug: la mitad de atrás del anillo tenía `z-index: -1` esperando quedar
+   DETRÁS del planeta, pero un pseudo con z-index negativo se pinta DESPUÉS del
+   fondo de su propio elemento. O sea: quedaba encima de la cara del planeta y
+   se leía como si el planeta fuera transparente.
+   Arreglo: el planeta deja de ser el fondo del `.astro` y pasa a ser una capa
+   propia (`.superficie`) en el medio de la pila:
+       0 · anillo de atrás  →  1 · superficie  →  2 · anillo de adelante
+   Y el anillo deja de ser un círculo: `closest-side` lo hacía de 0,74 del
+   planeta, o sea un donut DIBUJADO EN LA CARA. Con `ellipse 50% 50%` es la
+   elipse ancha que Saturno tiene de verdad. */
+.saturno .astro::before {
+  z-index: 0;
+}
+
+.saturno .astro::after {
+  z-index: 2;
 }
