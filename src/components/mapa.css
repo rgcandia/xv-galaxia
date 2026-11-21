@@ -50,6 +50,12 @@
 
 .destino {
   display: flex;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
   flex-direction: column;
   align-items: center;
   gap: 12px;
@@ -133,6 +139,28 @@
   box-shadow:
     inset -7px -9px 18px rgba(0, 0, 0, 0.6),
     0 0 36px -4px rgba(160, 120, 255, 0.5);
+}
+
+/* Al elegir: el planeta crece y se lo traga la pantalla */
+.destino.is-elegido .planeta {
+  transform: scale(7);
+  opacity: 0;
+  transition:
+    transform 0.44s cubic-bezier(0.6, 0, 0.9, 0.3),
+    opacity 0.44s ease-in;
+}
+
+.destino.is-elegido .destino-nombre,
+.mapa.is-saliendo .mapa-eyebrow,
+.mapa.is-saliendo .mapa-titulo,
+.mapa.is-saliendo .mapa-pie {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.mapa.is-saliendo .destino:not(.is-elegido) {
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
 }
 
 @keyframes flotar {

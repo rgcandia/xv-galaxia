@@ -2,23 +2,7 @@ import { useState } from 'react'
 import { evento } from '../evento'
 import './universo.css'
 
-/** Navegación flotante entre secciones. */
-function Nav() {
-  const items = [
-    ['cuando', evento.secciones.nucleo.nav],
-    ['vestimenta', evento.secciones.orbita.nav],
-    ['regalos', evento.secciones.senal.nav],
-  ]
-  return (
-    <nav className="nav" aria-label="Secciones">
-      {items.map(([id, label]) => (
-        <a key={id} href={`#${id}`} className="nav-item">
-          {label}
-        </a>
-      ))}
-    </nav>
-  )
-}
+export type Vista = 'mapa' | 'cuando' | 'vestimenta' | 'regalos'
 
 function Titulo({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
   return (
@@ -29,8 +13,11 @@ function Titulo({ eyebrow, children }: { eyebrow: string; children: React.ReactN
   )
 }
 
-/** Etapa 3 · Universo. Secciones posteriores a la portada. */
-export default function Universo() {
+/**
+ * Etapa 3 · Una sección por pantalla (sin scroll vertical).
+ * Se entra desde el mapa de planetas y se vuelve con el botón de arriba.
+ */
+export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: () => void }) {
   const [copiado, setCopiado] = useState(false)
   const { nucleo, orbita, senal } = evento.secciones
 
@@ -45,76 +32,90 @@ export default function Universo() {
   }
 
   return (
-    <div className="universo">
-      {/* ── Núcleo · cuándo y dónde ─────────────────────────────── */}
-      <section id="cuando" className="s">
-        <Titulo eyebrow={nucleo.eyebrow}>{nucleo.titulo}</Titulo>
+    <div className="universo" key={vista}>
+      <button className="volver" onClick={onVolver} type="button">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <path
+            d="M19 12H6m0 0 5-5m-5 5 5 5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        Universo
+      </button>
 
-        <div className="card">
-          <p className="dato-grande">{evento.fechaTexto}</p>
-          <p className="dato-medio">{evento.anio}</p>
-          <div className="linea" />
-          <p className="dato-medio">{nucleo.hora}</p>
-          <p className="dato-chico">{nucleo.recepcion}</p>
-        </div>
+      <div className="s">
+        {vista === 'cuando' && (
+          <>
+            <Titulo eyebrow={nucleo.eyebrow}>{nucleo.titulo}</Titulo>
 
-        <div className="card">
-          <p className="dato-grande">{nucleo.lugar}</p>
-          <p className="dato-chico">{nucleo.direccion}</p>
-          <a className="mapa" href={nucleo.maps} target="_blank" rel="noreferrer noopener">
-            Cómo llegar
-            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-              <path
-                d="M7 17 17 7M9 7h8v8"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-        </div>
-      </section>
+            <div className="card">
+              <p className="dato-grande">{evento.fechaTexto}</p>
+              <p className="dato-medio">{evento.anio}</p>
+              <div className="linea" />
+              <p className="dato-medio">{nucleo.hora}</p>
+              <p className="dato-chico">{nucleo.recepcion}</p>
+            </div>
 
-      {/* ── Órbita · vestimenta ─────────────────────────────────── */}
-      <section id="vestimenta" className="s">
-        <Titulo eyebrow={orbita.eyebrow}>{orbita.titulo}</Titulo>
+            <div className="card">
+              <p className="dato-grande">{nucleo.lugar}</p>
+              <p className="dato-chico">{nucleo.direccion}</p>
+              <a className="mapa-link" href={nucleo.maps} target="_blank" rel="noreferrer noopener">
+                Cómo llegar
+                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                  <path
+                    d="M7 17 17 7M9 7h8v8"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </>
+        )}
 
-        <div className="card">
-          <p className="vestimenta">{orbita.estilo}</p>
-          <p className="dato-chico">{orbita.texto}</p>
+        {vista === 'vestimenta' && (
+          <>
+            <Titulo eyebrow={orbita.eyebrow}>{orbita.titulo}</Titulo>
 
-          <div className="paleta" role="list" aria-label="Paleta sugerida">
-            {orbita.paleta.map((c) => (
-              <span key={c} className="swatch" style={{ background: c }} role="listitem" />
-            ))}
-          </div>
+            <div className="card">
+              <p className="vestimenta">{orbita.estilo}</p>
+              <p className="dato-chico">{orbita.texto}</p>
 
-          <p className="dato-chico destacado">{orbita.aviso}</p>
-        </div>
-      </section>
+              <div className="paleta" role="list" aria-label="Paleta sugerida">
+                {orbita.paleta.map((c) => (
+                  <span key={c} className="swatch" style={{ background: c }} role="listitem" />
+                ))}
+              </div>
 
-      {/* ── Señal · regalos ─────────────────────────────────────── */}
-      <section id="regalos" className="s">
-        <Titulo eyebrow={senal.eyebrow}>{senal.titulo}</Titulo>
+              <p className="dato-chico destacado">{orbita.aviso}</p>
+            </div>
+          </>
+        )}
 
-        <div className="card">
-          <p className="dato-chico">{senal.texto}</p>
-          <p className="alias">{evento.regalos.alias}</p>
-          <button className="copiar" onClick={copiarAlias} type="button">
-            {copiado ? 'Copiado ✓' : 'Copiar alias'}
-          </button>
-          <p className="dato-chico">{evento.regalos.titular}</p>
-        </div>
-      </section>
+        {vista === 'regalos' && (
+          <>
+            <Titulo eyebrow={senal.eyebrow}>{senal.titulo}</Titulo>
 
-      <footer className="pie">
-        <p>{evento.nombreCompleto}</p>
-        <p className="pie-nota">{evento.secciones.pie}</p>
-      </footer>
+            <div className="card">
+              <p className="dato-chico">{senal.texto}</p>
+              <p className="alias">{evento.regalos.alias}</p>
+              <button className="copiar" onClick={copiarAlias} type="button">
+                {copiado ? 'Copiado ✓' : 'Copiar alias'}
+              </button>
+              <p className="dato-chico">{evento.regalos.titular}</p>
+            </div>
 
-      <Nav />
+            <p className="pie">{evento.secciones.pie}</p>
+          </>
+        )}
+      </div>
     </div>
   )
 }

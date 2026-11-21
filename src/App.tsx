@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Starfield from './components/Starfield'
 import Mapa from './components/Mapa'
-import Universo from './components/Universo'
+import Universo, { type Vista } from './components/Universo'
 import { evento } from './evento'
 import './styles/portada.css'
 
@@ -9,6 +9,7 @@ type Fase = 'idle' | 'warp' | 'flash' | 'revelado'
 
 export default function App() {
   const [fase, setFase] = useState<Fase>('idle')
+  const [vista, setVista] = useState<Vista>('mapa')
   const videoRef = useRef<HTMLVideoElement>(null)
   const terminado = useRef(false)
   const failsafe = useRef<number | null>(null)
@@ -54,9 +55,10 @@ export default function App() {
     )
   }
 
+  // Sin scroll vertical en ninguna etapa: cada pantalla es 100dvh (plan, Etapa 3).
   useEffect(() => {
-    document.body.style.overflow = fase === 'revelado' ? '' : 'hidden'
-  }, [fase])
+    document.body.style.overflow = 'hidden'
+  }, [])
 
   useEffect(() => () => {
     if (failsafe.current) window.clearTimeout(failsafe.current)
@@ -119,12 +121,12 @@ export default function App() {
     </main>
 
     {/* Etapa 3 · aparece recién cuando termina la inmersión. */}
-    {fase === 'revelado' && (
-      <>
-        <Mapa />
-        <Universo />
-      </>
-    )}
+    {fase === 'revelado' &&
+      (vista === 'mapa' ? (
+        <Mapa onIr={setVista} />
+      ) : (
+        <Universo vista={vista} onVolver={() => setVista('mapa')} />
+      ))}
     </>
   )
 }

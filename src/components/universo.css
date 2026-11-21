@@ -3,7 +3,13 @@
 .universo {
   position: relative;
   z-index: 2;
-  padding: 0 18px calc(92px + var(--safe-bottom));
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(74px + var(--safe-top)) 18px calc(34px + var(--safe-bottom));
+  overflow-y: auto; /* red de seguridad si el contenido no entra en pantalla */
+  animation: aparecer 0.5s var(--ease-cosmic) both;
   background:
     radial-gradient(120% 60% at 50% 0%, rgba(28, 37, 65, 0.9), transparent 70%),
     linear-gradient(180deg, #0b132b 0%, #070c1d 55%, #05070f 100%);
@@ -12,10 +18,47 @@
 }
 
 .s {
+  width: 100%;
   max-width: 520px;
   margin: 0 auto;
-  padding: 64px 0 8px;
   text-align: center;
+}
+
+/* Botón "Universo" (volver) */
+.volver {
+  position: absolute;
+  top: calc(16px + var(--safe-top));
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 15px 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--glass-brd);
+  background: rgba(11, 19, 43, 0.7);
+  backdrop-filter: blur(12px);
+  color: rgba(226, 232, 240, 0.8);
+  font-family: var(--font-ui);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.volver:active {
+  color: var(--c-cyan);
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .s-eyebrow {
@@ -79,7 +122,7 @@
 }
 
 /* --- Botón "Cómo llegar" ------------------------------------------------- */
-.mapa {
+.mapa-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
