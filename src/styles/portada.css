@@ -64,6 +64,25 @@
   pointer-events: none;
 }
 
+/* S30 · Un scrim detrás del bloque de arriba. En desktop el nombre dorado cae
+   justo sobre el núcleo más brillante de la galaxia y pierde fuerza: el
+   `text-shadow` no alcanza porque suma brillo, no contraste. Esto es un óvalo
+   OSCURO muy suave, sin caja ni bordes, que vive dentro de `.top` (`z-index`
+   negativo = detrás del texto, delante del fondo). Cero bytes, cero imágenes. */
+.top::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -18% -14% -6%;
+  pointer-events: none;
+  background: radial-gradient(
+    58% 62% at 50% 44%,
+    rgb(3 4 10 / 0.5),
+    rgb(3 4 10 / 0.28) 55%,
+    transparent 78%
+  );
+}
+
 /* --- Tipografia ---------------------------------------------------------- */
 .top,
 .bottom {
@@ -82,12 +101,18 @@
   padding-bottom: calc(20px + var(--safe-bottom) + clamp(28px, 7vh, 88px));
 }
 
+/* S30 · El kicker ("Mis 15") gana presencia: a 0,68rem y con alfa 0,72 se leía
+   como nota al pie. Sube a 0,8rem, peso 600 y tracking 0,3em (con cuerpo más
+   grande, 0,42em separaba demasiado). El color va a CHAMPAGNE y no a dorado
+   pleno: el dorado es la firma de Tiana, y dos dorados se pelean el ojo. */
 .eyebrow {
   margin: 0 0 10px;
-  font-size: 0.68rem;
-  letter-spacing: 0.42em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.72);
+  color: rgba(255, 224, 170, 0.82);
+  text-shadow: 0 1px 14px rgb(0 0 0 / 0.55);
 }
 
 .mis {
@@ -175,6 +200,16 @@
   .mis {
     font-size: 4.6rem;
     max-width: 10em;
+  }
+  /* En desktop el núcleo de la galaxia queda más grande detrás del texto. */
+  .top::before {
+    inset: -22% -26% -8%;
+    background: radial-gradient(
+      52% 58% at 50% 45%,
+      rgb(3 4 10 / 0.62),
+      rgb(3 4 10 / 0.34) 55%,
+      transparent 78%
+    );
   }
   .nombre {
     font-size: 3.2rem;
@@ -545,14 +580,31 @@
 }
 
 .cta svg {
-  display: none;
+  /* S30 · La línea de 1 px era la única señal de "se toca" y quedaba muda. La
+     flecha vuelve —abajo, chica, latiendo con la línea— sin recuperar la caja:
+     la píldora de vidrio (V1) sigue fuera. */
+  display: block;
+  opacity: 0.6;
+  animation: respirar-flecha 3.4s ease-in-out infinite;
+}
+
+@keyframes respirar-flecha {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(3px);
+  }
 }
 
 .cta::after {
   content: '';
   width: 26px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 1), transparent);
   animation: respirar-linea 3.4s ease-in-out infinite;
 }
 

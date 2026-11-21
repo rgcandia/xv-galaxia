@@ -271,9 +271,11 @@ export default function App() {
         {puedeEntrar && (
         <button className="cta" onClick={iniciar} aria-label={evento.cta}>
           <span>{evento.cta}</span>
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          {/* S30 · Chevron hacia abajo: la señal de "se toca" que la línea sola
+              no daba. Sigue sin caja: la píldora de vidrio se fue en V1. */}
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
             <path
-              d="M5 12h13m0 0-5-5m5 5-5 5"
+              d="M6 9.5l6 6 6-6"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.6"
