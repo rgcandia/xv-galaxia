@@ -49,8 +49,8 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
         { transform: 'translate(0, 0) scale(1)', opacity: 0.9, offset: 1 },
       ],
       {
-        duration: reducido ? 600 : 950,
-        easing: 'cubic-bezier(.22,.8,.3,1)',
+        duration: reducido ? 1100 : 1500,
+        easing: "cubic-bezier(.33,0,.2,1)",
         fill: 'both',
       },
     )
