@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { evento } from '../evento'
 import type { Vista } from './Universo'
+import Fugaces from './Fugaces'
 import './mapa.css'
 
 /**
@@ -49,6 +50,8 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
       <div className="capa lejana" aria-hidden="true" />
       {/* Capa 2 · estrellas */}
       <div className="capa media" aria-hidden="true" />
+      {/* Fugaces + satélite (capa media) */}
+      <Fugaces />
       {/* Capa 3 · polvo cercano */}
       <div className="capa cerca" aria-hidden="true" />
 
