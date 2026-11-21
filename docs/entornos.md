@@ -43,6 +43,41 @@ npm run preview   # sirve dist/ en :5199
 - **Sin backend**: el RSVP habla con Google Apps Script (dominio `script.google.com`), no con el servidor.
 - El material pesado (`material/raw/`) no se publica: lo que se sirve está en `public/media/`.
 
+## Acceso al servidor (Cloudflare Tunnel)
+
+La entrada SSH **no** es por IP ni por el puerto 22: pasa por un túnel de Cloudflare.
+
+```bash
+ssh -o ProxyCommand="cloudflared access ssh --hostname %h" tic@ssh.alejndrogcandia.online
+```
+
+Para no repetir el flag, en `~/.ssh/config` **de la máquina del usuario**:
+
+```
+Host xv
+    HostName ssh.alejndrogcandia.online
+    User tic
+    ProxyCommand cloudflared access ssh --hostname %h
+```
+
+### Subir archivos al server
+
+```bash
+scp TU_ARCHIVO.mp4 xv:/home/tic/proyectos/xv-galaxia/material/raw/video/
+```
+
+Con progreso y reanudable (el túnel corta en subidas largas):
+
+```bash
+rsync -avh --progress -e "ssh -o ProxyCommand='cloudflared access ssh --hostname %h'" \
+  TU_ARCHIVO.mp4 tic@ssh.alejndrogcandia.online:/home/tic/proyectos/xv-galaxia/material/raw/video/
+```
+
+> `cloudflared` corre en la **máquina del usuario**, no en el server.
+> Un MP4 ya comprimido no gana nada con `-C`: no usar.
+
+---
+
 ## Producción (a partir de `F5`)
 
 | | |
