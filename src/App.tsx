@@ -71,10 +71,6 @@ export default function App() {
         <p className="eyebrow">{evento.eyebrow}</p>
         <h1 className="mis">{evento.titulo}</h1>
         <h2 className="nombre">{evento.nombre}</h2>
-        <p className="fecha">
-          {evento.fechaTexto}
-          <span className="anio"> · {evento.anio}</span>
-        </p>
       </header>
 
       <footer className="bottom">
