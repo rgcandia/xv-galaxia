@@ -53,6 +53,21 @@ export default function App() {
 
   const puedeEntrar = listo && minEspera
 
+  // Diagnóstico temporal: `?debug` muestra si el navegador pide "movimiento
+  // reducido" y cuántas animaciones CSS están vivas. Sin esto estamos
+  // adivinando por qué no se ve movimiento en un equipo y sí en otro.
+  const [dbg, setDbg] = useState('')
+
+  useEffect(() => {
+    if (!window.location.search.includes('debug')) return
+    const t = window.setTimeout(() => {
+      const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const anims = document.getAnimations ? document.getAnimations().length : -2
+      setDbg(`reduce=${reducido ? 'SI' : 'no'} · anim=${anims} · dpr=${window.devicePixelRatio} · ${window.innerWidth}px`)
+    }, 1500)
+    return () => window.clearTimeout(t)
+  }, [])
+
   /* C5 · Carga con progreso real. El invitado se queda leyendo la portada un
      par de segundos: ese tiempo se usa para bajar los planetas y el video.
      Las imágenes valen 55 % de la barra; el video otro 45 %, y se considera
@@ -300,6 +315,23 @@ export default function App() {
       ) : (
         <Universo vista={vista} onVolver={() => setVista('mapa')} />
       ))}
+      {dbg && (
+        <div
+          style={{
+            position: 'fixed',
+            left: 8,
+            bottom: 8,
+            zIndex: 9999,
+            font: '11px ui-monospace, monospace',
+            color: '#ffd479',
+            background: 'rgba(0,0,0,.75)',
+            padding: '4px 8px',
+            borderRadius: 4,
+          }}
+        >
+          {dbg}
+        </div>
+      )}
     </>
   )
 }
