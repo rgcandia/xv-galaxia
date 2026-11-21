@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
  *
  * Regla de física: las fugaces de una lluvia real son PARALELAS — todas vienen
  * del mismo radiante. Direcciones distintas se leen como error (D-22).
- * Una cada 8-14 s; 1 de cada 5 más brillante y más larga (la irregularidad
+ * Una cada 4-7 s; 1 de cada 4 más brillante y más larga (la irregularidad
  * es lo que la hace creíble). El satélite cruza lento cada 25-40 s.
  * Un solo requestAnimationFrame, se apaga si la pestaña no está visible.
  */
@@ -34,7 +34,7 @@ export default function Fugaces() {
 
     let fugaces: Meteoro[] = []
     let satelites: Satelite[] = []
-    let proxFugaz = performance.now() + 1500
+    let proxFugaz = performance.now() + 800
     let proxSat = performance.now() + 12000
 
     function medir() {
@@ -47,7 +47,7 @@ export default function Fugaces() {
     }
 
     function lanzarFugaz() {
-      const fuerte = Math.random() < 0.2 // 1 de cada 5
+      const fuerte = Math.random() < 0.25 // 1 de cada 4
       const len = fuerte ? 210 + Math.random() * 90 : 90 + Math.random() * 80
       // nacen arriba y a la izquierda del centro; algunas fuera de cuadro
       const x = Math.random() * w * 1.1 - w * 0.25
@@ -59,7 +59,7 @@ export default function Fugaces() {
         v: (fuerte ? 900 : 620) + Math.random() * 220,
         vida: 0,
         max: fuerte ? 0.95 : 0.5 + Math.random() * 0.35,
-        grosor: fuerte ? 4.2 : 2.4,
+        grosor: fuerte ? 4.6 : 2.8,
         brillo: fuerte ? 1 : 0.55 + Math.random() * 0.3,
       })
     }
@@ -81,7 +81,7 @@ export default function Fugaces() {
 
       if (t > proxFugaz) {
         lanzarFugaz()
-        proxFugaz = t + 8000 + Math.random() * 6000
+        proxFugaz = t + 4000 + Math.random() * 3000
       }
       if (t > proxSat) {
         lanzarSatelite()

@@ -8,10 +8,10 @@ import './mapa.css'
 /**
  * Etapa 3 · El universo (plan-universo, tramos U1 + U2).
  *
- * Escena con profundidad: 3 capas de fondo (galaxia desenfocada, estrellas,
- * polvo) que se desplazan distinto con el dedo, y tres cuerpos con
- * significado — Sol (cuándo), Venus (vestimenta), Saturno (regalos).
- * Todo CSS: 0 KB de imágenes nuevas (D-24).
+ * Escena con profundidad: nebulosa + estrellas en canvas + polvo que se
+ * desplazan distinto con el dedo, viñeta y grano de acabado, y tres cuerpos
+ * con significado — Sol (cuándo), Venus (vestimenta), Saturno (regalos).
+ * Todo CSS + canvas: 0 KB de imágenes nuevas (D-24).
  */
 export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
   const p = evento.secciones
@@ -53,7 +53,7 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
       <div className="capa nebulosa" aria-hidden="true" />
       {/* Capa 1 · estrellas reales (cientos, canvas) con parallax */}
       <div className="capa media" aria-hidden="true">
-        <Starfield density={0.0007} />
+        <Starfield density={0.00028} />
       </div>
       {/* Fugaces + satélite (capa media) */}
       <Fugaces />
