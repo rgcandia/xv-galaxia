@@ -27,6 +27,13 @@ export const evento = {
   /** Aviso debajo del botón. */
   hint: 'Se recomienda ver con sonido',
 
+  /**
+   * Segundo del video en el que se dispara el flash y se entra a la portada.
+   * El video dura 10.24 s; cortar a los 6 s deja el mejor tramo sin hacerse largo.
+   * Poner 10.24 para usarlo completo.
+   */
+  corteVideoSegundos: 6,
+
   /** 🟡 true mientras los datos no estén confirmados. */
   provisional: true,
 } as const
