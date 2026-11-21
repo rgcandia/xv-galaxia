@@ -5,6 +5,7 @@
 
 | Fecha | Qué | Commit |
 |---|---|---|
+| 2026-11-21 | **`V3` · Las estrellas, en ola.** Se prendían una tras otra y **quedaban llenas** — eso es una barra de progreso dibujada con estrellas. Ahora **se prenden y se apagan de a una en bucle** (0,22 s de desfase, 1,9 s por vuelta): las estrellas comunican *"seguí esperando"*, y **la barra de 1 px es la que informa el avance real** (`D-55`). Se conserva con movimiento reducido, más lento. | `pendiente` |
 | 2026-11-21 | **`V1` · La portada sin botón.** Fuera la píldora de vidrio del CTA: queda el texto en versalitas con más aire y una **línea de 1 px que respira** (22 → 44 px cada 3,4 s). Se conserva lo que la caja resolvía: **área táctil de 64 px** y foco de teclado visible (la línea crece en vez de dibujar un recuadro). Se oculta la flecha: el movimiento es la señal. | `pendiente` |
 | 2026-11-21 | **`V2` · El nav y la carga sin caja.** Mismo criterio en el resto: el nav pierde la píldora (queda el nombre, con 10 px de aire arriba y abajo para no perder el dedo) y la carga pierde el contenedor: **tres estrellas y la línea fina sobre el cielo**, que se lee "el cielo se está preparando" y no "barra de progreso". | `pendiente` |
 | 2026-11-21 | **`F6-c` · El fondo, nítido.** El usuario lo veía "demasiado borroso, nebuloso": no era la foto (Helix) sino **dos blurs encimados** (5 px en la base + 26 px en el lavado de color). Base a **1,5 px**, más brillo y contraste; el lavado de la nebulosa baja a **0,16** de opacidad: temperatura, no niebla. | `pendiente` |

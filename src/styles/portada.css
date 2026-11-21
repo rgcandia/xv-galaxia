@@ -373,10 +373,10 @@
   background: rgba(255, 255, 255, 0.16);
   clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
   transition: background 0.5s ease, filter 0.5s ease;
-  /* Titilan SIEMPRE mientras están en pantalla, escalonadas: así hay
-     movimiento de carga aunque la red termine en 200 ms. La que llega se
-     queda quieta y encendida. */
-  animation: titilar 1.6s ease-in-out infinite;
+  /* D-55 · Se prenden y se apagan de una en una, en ola, en bucle: eso es lo
+     que comunica "cargando". La barra de abajo es la que informa el avance
+     real; las estrellas sólo dicen "seguí esperando". */
+  animation: prender 1.9s ease-in-out infinite;
 }
 
 /* La que está cargando: titila. La que ya llegó: queda encendida, no vuelve
@@ -394,7 +394,6 @@
 }
 
 .estrella.is-llena {
-  animation: none;
   background: var(--c-white);
   filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.75));
 }
@@ -490,4 +489,55 @@
   box-shadow: none;
   padding: 8px 0;
   width: min(240px, 70vw);
+}
+
+/* ── D-55 · La ola ──────────────────────────────────────────────────────────
+   Lo que el usuario pidió: se prenden y se apagan DE A UNA, en ola, sin
+   quedarse llenas. La barra de abajo (1 px) es la que informa el progreso
+   real: las estrellas son ritmo, no medición. */
+@keyframes prender {
+  0%,
+  100% {
+    background: rgba(255, 255, 255, 0.14);
+    transform: scale(0.82);
+    filter: none;
+  }
+  30% {
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.16);
+    filter: drop-shadow(0 0 5px rgba(160, 220, 255, 0.95));
+  }
+  62% {
+    background: rgba(255, 255, 255, 0.32);
+    transform: scale(0.92);
+    filter: none;
+  }
+}
+
+.estrella:nth-child(1),
+.estrella.is-activa:nth-child(1),
+.estrella.is-llena:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.estrella:nth-child(2),
+.estrella.is-activa:nth-child(2),
+.estrella.is-llena:nth-child(2) {
+  animation-delay: 0.22s;
+}
+
+.estrella:nth-child(3),
+.estrella.is-activa:nth-child(3),
+.estrella.is-llena:nth-child(3) {
+  animation-delay: 0.44s;
+}
+
+/* `D-52` · La ola es un cambio de luz, no un desplazamiento: se conserva con
+   movimiento reducido, a la mitad de velocidad. */
+@media (prefers-reduced-motion: reduce) {
+  .estrella,
+  .estrella.is-activa,
+  .estrella.is-llena {
+    animation: prender 3.4s ease-in-out infinite;
+  }
 }
