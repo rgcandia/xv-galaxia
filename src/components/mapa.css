@@ -920,34 +920,40 @@
   mix-blend-mode: multiply;
 }
 
-@keyframes anillo-late-frente {
+/* S17 · El anillo respira ENTERO. Antes latía en contrafase (`D-67`) y eso se
+   leía como un anillo CORTADO AL MEDIO: una mitad encendida y la otra apagada
+   no dice "la luz recorre la banda", dice "son dos piezas". Ahora las dos
+   mitades suben y bajan juntas, y apenas un 7 %: se mueve, pero nunca hay
+   contraste entre adelante y atrás. La diferencia de brillo que sí queda es
+   fija y la da la física: la sombra del planeta sobre la mitad de atrás y la
+   opacidad de cada mitad, no una animación. */
+@keyframes anillo-respira-frente {
   0%,
   100% {
     filter: brightness(1);
   }
   50% {
-    filter: brightness(1.22);
+    filter: brightness(1.07);
   }
 }
 
-@keyframes anillo-late-atras {
+@keyframes anillo-respira-atras {
   0%,
   100% {
-    filter: blur(0.3px) brightness(0.9);
+    filter: blur(0.3px) brightness(1);
   }
   50% {
-    filter: blur(0.3px) brightness(1.06);
+    filter: blur(0.3px) brightness(1.07);
   }
 }
 
+/* Mismo tiempo y sin desfase: las dos mitades en el mismo compás. */
 .saturno .astro::after {
-  animation: anillo-late-frente 13s ease-in-out infinite;
+  animation: anillo-respira-frente 13s ease-in-out infinite;
 }
 
-/* -6,5 s: media vuelta de diferencia, para que el brillo cruce de una mitad a
-   la otra en vez de encenderse todo junto. */
 .saturno .astro::before {
-  animation: anillo-late-atras 13s ease-in-out -6.5s infinite;
+  animation: anillo-respira-atras 13s ease-in-out infinite;
 }
 
 /* Misma política que el resto (`D-52`): el brillo no marea, sólo se hace más
@@ -959,6 +965,5 @@
 
   .saturno .astro::before {
     animation-duration: 26s;
-    animation-delay: -13s;
   }
 }
