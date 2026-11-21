@@ -40,3 +40,11 @@ Formato: `D-xx` · decisión · **por qué** · qué la revertiría.
 | A-03 | ¿RSVP con pases por familia o abierto? | Con pases (recomendado) · sin pases | Usuario |
 | A-05 | Métricas | Cloudflare Web Analytics (sin cookies) · ninguna | Usuario |
 | A-06 | Dress code | Recomendado: "elegante sport en clave galaxia, evitá el blanco" | Usuario |
+
+## Agregadas después del arranque
+
+| ID | Decisión | Motivo |
+|---|---|---|
+| `D-17` | **La portada no muestra la fecha** | Pedido del usuario (2026-11-21). La fecha va en la sección *Núcleo*, no en la entrada. |
+| `D-18` | **El `<video>` está siempre montado y oculto** (`preload="none"`) | Montarlo bajo demanda dejaba `videoRef.current = null` en el click: el CTA no arrancaba. Además, `play()` dentro del gesto es lo que habilita el audio en iOS. |
+| `D-19` | **Corte del video en 7,5 s** (el video dura 10,24 s) | Con 6 s el audio se cortaba a mitad de frase. Es una constante: `corteVideoSegundos`. |
