@@ -58,3 +58,20 @@ Formato: `D-xx` · decisión · **por qué** · qué la revertiría.
 | `D-32` | **El audio se crea con `new Audio()` en vez de un `<audio>` en el JSX** | Permite `play()` dentro del gesto del tap (iOS lo exige) y que el componente lo reutilice. Si el navegador lo bloquea, el viaje sigue igual. |
 | `D-33` | **El fondo del universo es una foto real (Helix Nebula, Hubble/Spitzer, NASA-JPL, dominio público), no una ilustración** | Los planetas ya eran fotografía; una base dibujada hacía que el ojo detectara lo falso justo en el fondo. 30 KB en AVIF (el anterior pesaba 54). Desenfoque de 5 px en vez de 9: una foto real no necesita disimulo. |
 | `D-34` | **El viaje al planeta se anima con `@keyframes` en el contenedor, nunca con `transition` sobre un elemento animado** | Lección del bug del Sol: `pulso` animaba el `transform` del `.astro`; al quitarle la animación, el navegador libera la propiedad y el `transition` no tiene valor de partida → salta al final. Con `@keyframes` el `from` está escrito explícito y no depende del estado previo. |
+
+## Rearmado del universo (2026-11-21)
+
+> Pedido de la cumpleañera: la Luna como protagonista, Júpiter y Saturno porque son sus favoritos, el Sol afuera,
+> y una confirmación de asistencia que encienda una estrella. Plan completo en
+> [`guia-contenido-2026-11-21.md`](guia-contenido-2026-11-21.md).
+
+| ID | Decisión | Por qué | Se revierte si… |
+|---|---|---|---|
+| `D-35` | **Dominio `galaxia.orangetech.com.ar`** (el anterior deja de usarse) | El usuario lo cambió en Cloudflare. Verificado 2026-11-21: el nuevo responde **200**, el viejo ya no resuelve | Que se vuelva a mover el dominio |
+| `D-36` | **Elenco: Luna protagonista + Júpiter + Saturno.** El Sol sale del plano (solo queda un resplandor fuera de encuadre) y **Venus sale** | Pedido explícito de la cumpleañera. Sin un Sol como destino, la escena quedaba sin fuente de luz: el resplandor fuera de cuadro resuelve eso sin competir con la Luna | Que ella cambie de idea |
+| `D-37` | **La carga de la portada son tres estrellas que se encienden, sin porcentaje.** El cohete, si aparece, va como ícono del botón | Los puntitos son el idioma universal de "cargando" (profesional) y las estrellas pertenecen al cielo. El "62 %" grita app; el cohete con humo se lee infantil en una invitación de 15 | Que el usuario pida el cohete |
+| `D-38` | **Video completo (10,24 s) + aterrizaje por CSS.** ⛔ Revierte `D-19` (corte en 7,5 s) | Se midió el original: el brillo **sube** hacia el final (YAVG 90 → 111), o sea que termina en crescendo y su audio completo es la parte más dramática. El CSS continúa el movimiento para que no haya corte seco | Que la espera se sienta larga en las pruebas |
+| `D-39` | **Vuelve la confirmación de asistencia**: se pide el **nombre completo** al entrar —en una tarjeta blanda, con "Solo mirar"— y la confirmación **enciende una estrella** en su cielo. ⛔ Revierte "RSVP afuera" (2026-11-21, mañana) | Pedido del usuario: confirmar deja de ser un trámite y pasa a ser un regalo visible. Blando y no bloqueante porque el invitado que llega de WhatsApp no tiene paciencia antes del impacto | Si la fricción espanta invitados en las pruebas |
+| `D-40` | **Fotos y videos de Tiana sí van.** ⛔ Revierte la decisión §7 de `plan-universo` ("no van") | Cambió el pedido: hay fotos de bebé y videos que quiere mostrar. **En pausa**: primero se define el cómo (§5 de la guía) | Que se decida que no van |
+| `D-41` | **Rótulos en dos capas:** el **destino** tiene nombre poético (`La cita`, `El brillo`, `Un detalle`) y la **sección adentro** mantiene el título funcional (`Cuándo y dónde`, `Cómo venir`) | "Vestimenta" y "Regalos" suenan a menú de banco; pero sin título claro el invitado se pierde. Dos capas resuelven las dos cosas | Que el usuario prefiera otra familia de nombres |
+| `D-42` | **Los nombres de los invitados no se publican**: el sitio muestra solo el **total de estrellas**; los nombres viven en la planilla del usuario | Un link público con nombres y apellidos de invitados es un problema de privacidad que no compensa ninguna funcionalidad | Que el usuario pida lo contrario para un círculo cerrado |

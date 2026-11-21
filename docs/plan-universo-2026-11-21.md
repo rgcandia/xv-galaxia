@@ -1,8 +1,8 @@
 # Plan · El Universo (Etapa 3)
 
-**Estado:** 📋 aprobado en concepto · pendiente de construir
+**Estado:** ⛔ superado por [`guia-contenido-2026-11-21.md`](guia-contenido-2026-11-21.md) — se conserva como registro del elenco anterior (Sol · Venus · Saturno)
 **Fecha:** 2026-11-21
-**Manda:** este documento para todo lo visual del universo. El plan general (`plan-invitacion-xv-2026-11-21.md`) sigue mandando en fases y alcance.
+**Manda / lo reemplaza:** lo reemplaza la **guía de contenido** (`D-36` cambia el elenco: Luna protagonista + Júpiter + Saturno, el Sol y Venus salen; `D-40` revierte el §7 "las fotos no van"). Lo que sigue vigente de este doc: el fondo en tres capas, las reglas de las fugaces (§3.3), el presupuesto y los riesgos (§5–6).
 
 ---
 

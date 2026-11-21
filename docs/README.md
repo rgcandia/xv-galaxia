@@ -16,6 +16,7 @@
 |---|---|---|
 | **¿Qué estamos haciendo HOY?** | [`../AHORA.md`](../AHORA.md) | fase abierta, bloqueantes, próximo tramo. **Se lee primero** |
 | **¿Qué estamos construyendo y en qué orden?** | [`plan-invitacion-xv-2026-11-21.md`](plan-invitacion-xv-2026-11-21.md) | las fases `F0…F7`, cada una con su «terminado cuando» y su presupuesto de peso |
+| **¿Qué cambió del universo y en qué tramos?** | [`guia-contenido-2026-11-21.md`](guia-contenido-2026-11-21.md) | **el rumbo nuevo**: Luna protagonista, Júpiter y Saturno, video completo, confirmación con estrella, y los tramos `I1` · `P1` · `P2` · `L1` · `L2` · `E0`–`E2` · `Q1`–`Q4` |
 | **¿Para quién, cuándo y dónde es?** | [`datos-evento.md`](datos-evento.md) | nombre, fecha, lugar, dress code, regalos. **Todo provisional** hasta que el usuario lo cierre |
 | **¿De dónde salió todo esto?** | [`analisis-material-2026-11-21.md`](analisis-material-2026-11-21.md) | inventario del Drive, huecos del material, riesgos técnicos |
 | **¿Qué se decidió y por qué?** | [`decisiones.md`](decisiones.md) | `D-01…`: stack, 2.5D en vez de 3D, RSVP en Sheet, puerto, deploy. **Si un plan lo contradice, manda la tabla** |
@@ -23,6 +24,7 @@
 | **¿Dónde corre y cómo se publica?** | [`entornos.md`](entornos.md) | puerto 5199, comandos, aislamiento, deploy en Cloudflare Pages |
 | **¿Cómo se trabaja en este repo?** | [`../AGENTS.md`](../AGENTS.md) | plan-primero, tramos cortos, qué no se toca |
 | **¿Qué queda pendiente?** | [`../TASK.md`](../TASK.md) | backlog abierto e ideas anotadas |
+| **¿Cambió el elenco o el contenido?** | [`guia-contenido-2026-11-21.md`](guia-contenido-2026-11-21.md) | el rumbo del rediseño y sus tramos |
 
 ---
 
@@ -31,6 +33,7 @@
 | Doc | Qué es | Cuándo se toca |
 |---|---|---|
 | [`plan-invitacion-xv-2026-11-21.md`](plan-invitacion-xv-2026-11-21.md) | **El plan que manda.** Fases, alcance, presupuesto de peso. | Al abrir/cerrar cada fase |
+| [`guia-contenido-2026-11-21.md`](guia-contenido-2026-11-21.md) | **El rearmado del universo.** Elenco nuevo, contenido, confirmación con estrella, tramos y reglas de peso/privacidad. | Al abrir/cerrar cada tramo del rediseño |
 | [`decisiones.md`](decisiones.md) | **El ADR.** La decisión manda sobre el plan. | Al decidir algo que cruza más de una fase |
 | [`bitacora.md`](bitacora.md) | **El diario.** Qué pasó, cuándo, con qué commit. | **Al cerrar cada tramo: una línea** |
 | [`entornos.md`](entornos.md) | **Dónde corre**: puerto, comandos, deploy, aislamiento. | Cuando cambie el deploy o el puerto |
