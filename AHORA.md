@@ -5,31 +5,41 @@
 
 | | |
 |---|---|
-| **Rama** | `main` (único). Repo **local**, sin remote todavía. |
-| **Fase abierta** | **Ninguna.** `F0` (setup aislado) y un **prototipo de `F1`** (portada) están hechos y **congelados**: el usuario pidió *"dejalo hasta acá, primero el plan"*. **No escribir código hasta autorización.** |
+| **Rama** | `main` (única). Remote: **`git@github.com:rgcandia/xv-galaxia.git`** — ⚠️ **sin credencial todavía** (ver §GitHub). |
+| **Fase abierta** | **Ninguna.** `F0` + prototipo de `F1` hechos y **congelados**: el usuario pidió plan primero. **No escribir código hasta autorización.** |
 | **Plan que manda** | [`docs/plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) |
-| **Estado del plan** | `📋 aprobado en concepto` — la recomendación técnica fue aceptada (*"me gustó mucho"*). Falta el OK fase por fase. |
-| **Próximo tramo propuesto** | **`F1-b` — Portada final**: aplicar nombre y fecha reales, tipografía definitiva, `og:image` de WhatsApp. Requiere los datos de §Datos faltantes. |
-| **Bloqueante #1** | 🔴 **El video de inmersión no está**: el MP4 del Drive devuelve 404 en todos los endpoints de descarga (verificado 2026-11-21 13:14 y 13:20). Sin él, `F2` no arranca. Mientras tanto hay fallback CSS. |
-| **Bloqueante #2** | 🔴 **Datos del evento**: nombre de la homenajeada, fecha y hora, lugar + Maps, dress code, RSVP, regalos, y 3-4 fotos de ella. |
+| **Datos del evento** | [`docs/datos-evento.md`](docs/datos-evento.md) — **provisionales** (nombre y fecha pueden cambiar) |
+| **Próximo tramo propuesto** | **`F1-b` — Portada final** con Tiana + 2 de febrero + optimización de imágenes + `og:image` |
+| **Bloqueante #1** | 🔴 **Video de inmersión**: el MP4 del Drive devuelve 404 incluso en `/view` (el archivo no está compartido; las imágenes de la misma carpeta sí bajan). Verificado 6 endpoints. |
+| **Bloqueante #2** | 🔴 **Credenciales de GitHub**: la llave SSH del server es un *deploy key* de `colegionorbridge/Portal-Norbridge`, **no puede pushear a `rgcandia`**. |
 | **Costo** | $0 (Cloudflare Pages + Apps Script + Sheet). Opcional: dominio propio ~USD 12/año. |
 
-## Datos faltantes (para arrancar `F1-b`)
+## Datos que faltan (para cerrar `F1-b`)
 
-1. Nombre completo de ella y cómo le dicen.
-2. Fecha y hora exactas (¿15 de diciembre? ¿ceremonia y fiesta separadas?).
-3. Lugar + link de Google Maps + dress code.
-4. RSVP: ¿confirmación? ¿pases por familia? ¿menú especial?
-5. Regalos: ¿alias/CBU, buzón físico, o "no es necesario"?
-6. 3-4 fotos de ella + una frase o canción que la identifique.
+1. Cómo le dicen a **Tiana** (el nombre corto que va en la portada).
+2. **Hora** de la fiesta y si hay ceremonia aparte.
+3. **Lugar real** + link de Google Maps.
+4. **Dress code** (recomendación en [`datos-evento.md`](docs/datos-evento.md)).
+5. **Alias/CBU + titular** para los regalos.
+6. **3-4 fotos** de ella + una frase o canción.
+7. RSVP: ¿pases por familia? ¿menú especial?
+
+## GitHub — falta la credencial
+
+- Repo creado y **vacío**: `https://github.com/rgcandia/xv-galaxia.git` (verificado: `ls-remote` no devuelve refs).
+- La llave `~/.ssh/id_ed25519` del server autentica como **`colegionorbridge/Portal-Norbridge`** (deploy key
+  de otro repo). **No sirve** para `rgcandia`.
+- Dos caminos (elegir uno):
+  - **(A) Deploy key nueva, sólo para este repo** — recomendado: genero `~/.ssh/id_ed25519_xvgalaxia`,
+    el usuario la pega en *Settings → Deploy keys* con **Allow write access**. No da acceso a nada más.
+  - **(B) Personal Access Token** — el usuario crea un token fine-grained con *Contents: read & write*
+    sólo en `rgcandia/xv-galaxia` y lo pasa una vez; queda en `~/.git-credentials` (chmod 600).
 
 ## Lo que ya existe en el repo
 
-- `src/` — prototipo de portada (Etapa 1): imagen 9:16, respiración cósmica, campo de estrellas en
-  Canvas 2D, CTA "Iniciar viaje". **Funciona** (`npm run dev` → :5199; build 71 KB gzip).
-- `material/raw/img/` — las dos imágenes del Drive (mobile 768×1344 y desktop 1344×768).
-- `public/media/` — esas mismas imágenes servidas tal cual (sin optimizar todavía).
-- `docs/` — análisis, plan, decisiones, bitácora, entornos.
+- `src/` — prototipo de portada: imagen 9:16, respiración cósmica, estrellas en Canvas 2D, CTA. Build 71 KB gzip.
+- `material/raw/img/` — las dos imágenes del Drive (768×1344 y 1344×768). `material/raw/video/` vacío (bloqueante).
+- `docs/` — plan, análisis, decisiones, bitácora, entornos, datos del evento.
 
 ## Las 3 guardas que no se negocian
 

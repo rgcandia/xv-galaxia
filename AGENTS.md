@@ -35,7 +35,9 @@ Este proyecto nació de un pedido explícito: *"primero el plan"*. Por eso:
 - Este proyecto **no tiene staging**: no hay usuarios concurrentes ni datos críticos. Si algún día hace
   falta (por el RSVP), se decide y se anota; **no se improvisa**.
 - 🔒 **Antes de commitear, verificar la rama** (`git branch --show-current`) y decirle al usuario cuál es.
-- 🔒 **No pushear a remoto sin confirmación explícita.** Hoy el repo es **local**, sin remote.
+- 🔒 **No pushear sin confirmación explícita.** El remote es `git@github.com:rgcandia/xv-galaxia.git`.
+  La llave SSH del server es un *deploy key* de otro repo (`colegionorbridge/Portal-Norbridge`):
+  **no sirve acá** — hace falta la credencial de `D-16` o el push falla.
 
 ## 🧱 Cómo se trabaja: tramos cortos
 

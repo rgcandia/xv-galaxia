@@ -198,29 +198,45 @@ Detalle y motivos en [`decisiones.md`](decisiones.md). Resumen:
 
 ---
 
-## 8. Cronograma propuesto (asumiendo evento el 15/12)
+## 8. Cronograma propuesto (evento el **2 de febrero**, 2027)
+
+> Hoy faltan **73 días**, pero **diciembre y enero son feriados**: la gente desaparece y cualquier
+> bloqueo (un video que no llega, una respuesta que tarda) cuesta una semana, no un día.
+> **Por eso el objetivo real es terminar `F5` antes del 20/12** y dejar enero sólo para retoques.
 
 | Semana | Fases | Hito |
 |---|---|---|
-| 21–23/11 | `F1` portada final + optimización de assets | La portada se manda por WhatsApp y se ve bien |
-| 24–27/11 | `F2` inmersión (necesita el video) | El "wow" de los primeros 7 segundos |
-| 28/11–02/12 | `F3` + `F3-b` universo y extras | Recorrido completo |
-| 03–06/12 | `F4` RSVP / DJ / regalos | Confirmaciones reales llegando |
-| 07–09/12 | `F5` QA + deploy | Link público |
-| 10–12/12 | `F6` desktop + `F7` textos, QR | Congelado |
-| 13–14/12 | — | Envío |
+| 21–27/11 | `F1` portada final (Tiana + 2 de febrero) + optimización de assets | La portada se manda por WhatsApp y se ve bien |
+| 28/11–05/12 | `F2` inmersión (necesita el video) | El "wow" de los primeros 7 segundos |
+| 06–13/12 | `F3` universo (dos tramos: secciones 1-3 y 4-5) + `F3-b` extras | Recorrido completo |
+| 14–19/12 | `F4` RSVP / DJ / regalos + `F5` QA | **Link público antes del 20/12** |
+| 20/12–10/1 | 🎄 pausa — sólo correcciones urgentes | — |
+| 11–20/1 | `F6` desktop 16:9 + retoques | Se ve intencional en PC |
+| 21–28/1 | `F7` textos finales, QR, congelar | Congelado |
+| 29/1–1/2 | — | Envío |
 
-> Si la fecha real es otra, el cronograma se reescala: las fases no cambian, los días sí.
+> ⚠️ La fecha es **provisional** (el usuario avisó que puede cambiar). Si se mueve, se reescala el
+> cronograma: las fases no cambian, los días sí. Lo único crítico es que `F1` y `F2` no dependan de la
+> fecha — y no dependen.
+
+> 📅 **Ojo con el día de la semana:** el 2 de febrero de 2027 cae **martes**. Si la fiesta es un sábado,
+> probablemente sea el **30 de enero** o el **6 de febrero**. Confirmar antes de escribir los textos.
 
 ---
 
 ## 9. Qué necesito para arrancar `F1-b`
 
-1. Nombre completo de ella (y cómo le dicen).
-2. Fecha y hora exactas.
-3. Lugar + link de Maps + dress code.
-4. 3-4 fotos de ella.
-5. El video (o el OK para generarlo de nuevo).
-6. Imagen mobile en 1080×1920 si se puede regenerar.
+Ya hay (provisional, ver [`datos-evento.md`](datos-evento.md)):
+**Tiana Anahí González Candia** · **2 de febrero** · **alias para regalos**.
 
-Sin 1 y 2 no hay portada final. Con eso, `F1-b` cierra en un tramo.
+Falta:
+
+1. **Cómo le dicen** (el nombre corto que va grande en la portada).
+2. **Hora** de la fiesta (y si hay ceremonia aparte).
+3. **Lugar real** + link de Maps.
+4. **Dress code** (recomendación en `datos-evento.md`).
+5. **El alias/CBU + titular**.
+6. **3-4 fotos** de ella.
+7. **El video** (o el OK para regenerarlo).
+
+Con 1, 2 y 3, `F1-b` cierra en un tramo. Lo demás puede entrar después sin rehacer nada.

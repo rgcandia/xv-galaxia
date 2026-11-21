@@ -16,6 +16,7 @@
 |---|---|---|
 | **¿Qué estamos haciendo HOY?** | [`../AHORA.md`](../AHORA.md) | fase abierta, bloqueantes, próximo tramo. **Se lee primero** |
 | **¿Qué estamos construyendo y en qué orden?** | [`plan-invitacion-xv-2026-11-21.md`](plan-invitacion-xv-2026-11-21.md) | las fases `F0…F7`, cada una con su «terminado cuando» y su presupuesto de peso |
+| **¿Para quién, cuándo y dónde es?** | [`datos-evento.md`](datos-evento.md) | nombre, fecha, lugar, dress code, regalos. **Todo provisional** hasta que el usuario lo cierre |
 | **¿De dónde salió todo esto?** | [`analisis-material-2026-11-21.md`](analisis-material-2026-11-21.md) | inventario del Drive, huecos del material, riesgos técnicos |
 | **¿Qué se decidió y por qué?** | [`decisiones.md`](decisiones.md) | `D-01…`: stack, 2.5D en vez de 3D, RSVP en Sheet, puerto, deploy. **Si un plan lo contradice, manda la tabla** |
 | **¿Qué pasó y con qué commit?** | [`bitacora.md`](bitacora.md) | el diario: una línea por tramo |
@@ -33,6 +34,7 @@
 | [`decisiones.md`](decisiones.md) | **El ADR.** La decisión manda sobre el plan. | Al decidir algo que cruza más de una fase |
 | [`bitacora.md`](bitacora.md) | **El diario.** Qué pasó, cuándo, con qué commit. | **Al cerrar cada tramo: una línea** |
 | [`entornos.md`](entornos.md) | **Dónde corre**: puerto, comandos, deploy, aislamiento. | Cuando cambie el deploy o el puerto |
+| [`datos-evento.md`](datos-evento.md) | **El contenido**: nombre, fecha, lugar, dress code, alias. | Cada vez que el usuario confirme o cambie un dato |
 | [`../AHORA.md`](../AHORA.md) | **El estado.** 2 líneas, no bitácora. | Al abrir y al cerrar cada tramo |
 
 ## Los documentos que **no** se actualizan (registro)

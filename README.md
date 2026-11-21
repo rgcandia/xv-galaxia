@@ -41,6 +41,7 @@ xv-galaxia/
 │  ├─ decisiones.md                              # ADR D-01…D-14
 │  ├─ bitacora.md                                # el diario
 │  ├─ entornos.md                                # puerto, comandos, deploy
+│  ├─ datos-evento.md                            # nombre, fecha, lugar, dress code, alias
 │  └─ fuente-drive-spec.txt                      # spec original del Drive
 ├─ material/
 │  ├─ raw/img/          # originales del Drive (9:16 y 16:9)

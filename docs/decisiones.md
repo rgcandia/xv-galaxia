@@ -22,13 +22,21 @@ Formato: `D-xx` · decisión · **por qué** · qué la revertiría.
 | **D-12** | **Plan-primero**: ningún tramo de código arranca sin OK explícito | Pedido explícito del 2026-11-21 (*"primero el plan"*) | Que el usuario pida modo autónomo |
 | **D-13** | **Una sola rama (`main`)**, sin staging | Proyecto chico, sin usuarios concurrentes ni datos críticos | Que el RSVP empiece a recibir datos reales y haya que probar cambios |
 | **D-14** | **Pista de audio instrumental libre** (Suno / Pixabay) | Un tema con copyright en un link público se silencia o se bloquea | Que el usuario tenga licencia del tema que quiere |
+| **D-15** | **Los datos del evento viven en un único `src/evento.ts`** (nombre, fecha, hora, lugar, alias) | El nombre y la fecha son **provisionales**: cambiarlos tiene que ser un archivo, no diez pantallas | — |
+| **D-16** | **Credencial de GitHub dedicada a este repo** (deploy key con write, o PAT fine-grained) | La llave SSH del server es un *deploy key* de `colegionorbridge/Portal-Norbridge` y no puede pushear a `rgcandia`. Una llave por repo no da acceso al resto de la cuenta | Que el usuario prefiera una llave de cuenta |
+
+## Decisiones cerradas (2026-11-21)
+
+| # | Pregunta | Decisión |
+|---|---|---|
+| A-01 | Nombre de la carpeta | ✅ **`xv-galaxia`** |
+| A-04 | Mesa de regalos | ✅ **Alias / CBU por transferencia** (falta el alias concreto) |
 
 ## Decisiones abiertas
 
 | # | Pregunta | Opciones | Quién decide |
 |---|---|---|---|
-| A-01 | Nombre definitivo de la carpeta | `xv-galaxia` (actual) · otro | Usuario |
 | A-02 | Dominio propio | `*.pages.dev` gratis · dominio propio ~USD 12/año | Usuario |
 | A-03 | ¿RSVP con pases por familia o abierto? | Con pases (recomendado) · sin pases | Usuario |
-| A-04 | ¿Mesa de regalos? | Alias/CBU · buzón físico · "no es necesario" | Usuario |
 | A-05 | Métricas | Cloudflare Web Analytics (sin cookies) · ninguna | Usuario |
+| A-06 | Dress code | Recomendado: "elegante sport en clave galaxia, evitá el blanco" | Usuario |
