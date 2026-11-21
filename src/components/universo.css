@@ -406,3 +406,105 @@
     animation: aparecer-suave 0.18s ease both;
   }
 }
+
+/* ── C1 · El contenido, sin caja ─────────────────────────────────────────────
+   El usuario: "no me gusta que las secciones tengan como chips... ¿podemos
+   poner el contenido directamente en la web sin chips?".
+   La tarjeta de vidrio era lo que hacía que la sección se leyera como una web
+   con una caja encima en vez de un lugar del espacio. Se va el fondo, el borde,
+   la sombra y el blur; queda el texto y el aire. Lo que separa dos bloques es
+   la distancia, no una línea.
+   `.s .card` (0,2,0) le gana a `.card` (0,1,0) sin depender del orden. */
+.s .card {
+  margin: 0 0 clamp(34px, 7vh, 60px);
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* Un solo tamaño grande por sección: el dato manda, el resto acompaña. */
+.s .dato-grande {
+  font-size: clamp(1.8rem, 7.6vw, 2.45rem);
+  letter-spacing: -0.01em;
+}
+
+.s .dato-chico {
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* El separador se acorta: ahora es una pausa, no un divisor. */
+.s .linea {
+  width: 28px;
+  margin: clamp(20px, 3.5vh, 30px) auto;
+  opacity: 0.85;
+}
+
+/* "Cómo llegar" deja de ser una píldora: es una línea de texto con un subrayado
+   que se enciende. El área táctil no cambia (mismo padding), sólo deja de
+   parecer un botón. */
+.s .mapa-link {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 12px 8px;
+  color: var(--c-gold);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+  background-size: 42% 1px;
+  transition: background-size 0.35s ease, color 0.25s ease;
+}
+
+.s .mapa-link:hover,
+.s .mapa-link:focus-visible {
+  background-size: 78% 1px;
+}
+
+/* El revelado: el texto no aparece, LLEGA. Cada bloque entra una línea después
+   del anterior, con un desenfoque mínimo que se abre — la misma idea de "señal"
+   que el resto de la invitación. */
+@keyframes revelar-linea {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.s > * {
+  animation: revelar-linea 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.s > :nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+.s > :nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.s > :nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.s > :nth-child(4) {
+  animation-delay: 0.42s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s > * {
+    animation-duration: 0.4s;
+    filter: none;
+  }
+}
