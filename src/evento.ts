@@ -27,10 +27,10 @@ export const evento = {
 
   /**
    * Segundo del video en el que se dispara el flash y se entra a la portada.
-   * El video dura 10.24 s; cortar a los 6 s deja el mejor tramo sin hacerse largo.
-   * Poner 10.24 para usarlo completo.
+   * El video dura 10.24 s. A 7.5 s deja respirar el final del audio sin que
+   * la intro se haga larga. Poner 10.24 para usarlo completo.
    */
-  corteVideoSegundos: 6,
+  corteVideoSegundos: 7.5,
 
   /** 🟡 true mientras los datos no estén confirmados. */
   provisional: true,
