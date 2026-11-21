@@ -408,7 +408,6 @@
 .cuerpo.is-elegido .astro {
   transform: scale(12);
   box-shadow: none;
-  animation: tragar 0.7s ease-in 1.7s forwards;
   transition: transform 2.15s cubic-bezier(0.45, 0, 0.55, 1);
 }
 
@@ -442,8 +441,8 @@
 }
 
 .escena.is-saliendo .cuerpo:not(.is-elegido) {
-  opacity: 0.15;
-  transition: opacity 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 /* ── Accesibilidad ─────────────────────────────────────────────────────── */
@@ -539,9 +538,7 @@
   z-index: 10;
   will-change: transform;
   pointer-events: none;
-  animation:
-    viajar 2.15s cubic-bezier(0.45, 0, 0.55, 1) forwards,
-    tragar 0.7s ease-in 1.7s forwards;
+  animation: viajar 2.15s cubic-bezier(0.45, 0, 0.55, 1) forwards;
 }
 
 /* Se apaga el zoom viejo del cuerpo y su pulso: si `pulso` siguiera corriendo,
@@ -799,7 +796,6 @@
     }
     to {
       transform: scale(4);
-      opacity: 0;
     }
   }
 }
