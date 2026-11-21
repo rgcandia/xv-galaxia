@@ -80,7 +80,7 @@ rsync -avh --progress -e "ssh -o ProxyCommand='cloudflared access ssh --hostname
 
 ## Producción (✅ ya deployado)
 
-**URL pública (dominio propio):** https://xv-galaxia.orangetech.com.ar
+**URL pública (dominio propio):** https://galaxia.orangetech.com.ar
 **URL interna del Worker:** https://xv-galaxia.alejandrogcandia.workers.dev (misma app)
 Deploy automático: cada `git push` a `main` reconstruye y publica (Cloudflare Workers Builds).
 
@@ -185,7 +185,7 @@ git config core.sshCommand 'ssh -i ~/.ssh/id_ed25519_xvgalaxia'
 `/media/*` 7 días + `stale-while-revalidate`, `/` y `/index.html` siempre frescas.
 
 **Verificado el 2026-11-21 (deploy `9dcfcf5`): Cloudflare Workers SÍ respeta `_headers`.** Se comprueba con
-`curl -sI https://xv-galaxia.orangetech.com.ar/media/warp.mp4 | grep -i cache-control`.
+`curl -sI https://galaxia.orangetech.com.ar/media/warp.mp4 | grep -i cache-control`.
 Si sigue devolviendo `max-age=0, must-revalidate`, Workers Assets no lo lee y hay que hacerlo con una
 **Cache Rule** del panel (Rules → Cache Rules → Cache eligibility: eligible, Edge TTL: 7 días, para
 `/media/*`). Mismo resultado, gratis.
