@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Starfield from './components/Starfield'
+import Universo from './components/Universo'
 import { evento } from './evento'
 import './styles/portada.css'
 
@@ -52,11 +53,16 @@ export default function App() {
     )
   }
 
+  useEffect(() => {
+    document.body.style.overflow = fase === 'revelado' ? '' : 'hidden'
+  }, [fase])
+
   useEffect(() => () => {
     if (failsafe.current) window.clearTimeout(failsafe.current)
   }, [])
 
   return (
+    <>
     <main className={`stage ${fase === 'revelado' ? 'is-revealed' : ''}`}>
       <picture className="bg">
         <source media="(min-width: 900px)" srcSet="/media/galaxia-desktop.webp" />
@@ -110,5 +116,9 @@ export default function App() {
         </button>
       </div>
     </main>
+
+    {/* Etapa 3 · aparece recién cuando termina la inmersión. */}
+    {fase === 'revelado' && <Universo />}
+    </>
   )
 }

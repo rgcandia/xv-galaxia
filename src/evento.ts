@@ -32,6 +32,47 @@ export const evento = {
    */
   corteVideoSegundos: 7.5,
 
+  /* ─────────────────────────────────────────────────────────────
+     🟡 DATOS INVENTADOS (placeholder). Cambiar acá y nada más.
+     ───────────────────────────────────────────────────────────── */
+  regalos: {
+    /** Alias para transferencias. */
+    alias: 'tiana.mis15.mp',
+    /** Titular de la cuenta. */
+    titular: 'a nombre de Anahí G. Candia',
+  },
+
+  /** Etapa 3 · secciones. */
+  secciones: {
+    nucleo: {
+      nav: 'Cuándo',
+      eyebrow: 'Núcleo',
+      titulo: 'Cuándo y dónde',
+      hora: '21:00 hs',
+      recepcion: 'Recepción a las 20:30',
+      lugar: 'Salón Estelar',
+      direccion: 'Av. de los Constituyentes 4500, CABA',
+      maps: 'https://maps.google.com/?q=Av.+de+los+Constituyentes+4500,+CABA',
+    },
+    orbita: {
+      nav: 'Vestimenta',
+      eyebrow: 'Órbita',
+      titulo: 'Cómo venir',
+      estilo: 'Elegante sport galáctico',
+      texto:
+        'Negro, azul noche, plata y dorado. Lo que te haga sentir parte del cielo.',
+      paleta: ['#0b132b', '#1c2541', '#00f0ff', '#ffd166'],
+      aviso: 'El blanco lo reserva Tiana 🤍',
+    },
+    senal: {
+      nav: 'Regalos',
+      eyebrow: 'Señal',
+      titulo: 'Un mensaje al universo',
+      texto: 'Tu presencia es el regalo. Si además querés dejarme algo:',
+    },
+    pie: 'Te espero para volar juntos.',
+  },
+
   /** 🟡 true mientras los datos no estén confirmados. */
   provisional: true,
 } as const
