@@ -485,6 +485,56 @@
 
 }
 
+/* ── S15 · Desktop: la galaxia acostada también en el mapa ────────────────
+   `.lejana` y `.nebulosa` apuntaban SIEMPRE a `galaxia-mobile` (768×1344,
+   vertical). En un celular esa foto entra casi completa; en desktop el `cover`
+   la escala 1,78× para llenar el ancho, así que se veía **sólo la franja
+   central ampliada**: las nubes enormes y fuera de foco que no aparecen en el
+   teléfono. La misma toma en horizontal (`galaxia-desktop`, 1344×768) entra
+   casi a escala 1:1, y el fondo vuelve a leerse igual que en mobile.
+   El AVIF va en un bloque `@supports` POSTERIOR (no dentro de éste): si
+   compartieran bloque, o el minificador borra el WebP o se pierde el AVIF. */
+@media (min-width: 900px) {
+  .lejana {
+    background-image: url('/media/galaxia-desktop.webp');
+  }
+
+  .nebulosa {
+    background-image:
+      radial-gradient(70% 55% at 22% 78%, rgba(96, 74, 190, 0.32) 0%, transparent 70%),
+      radial-gradient(60% 50% at 82% 22%, rgba(40, 118, 158, 0.26) 0%, transparent 72%),
+      url('/media/galaxia-desktop.webp');
+    /* El `scale(2.2)` del celular acá no da el mismo grano. Cuentas: el tamaño
+       aparente de la nebulosa = (escala del `cover`) × (este `scale`). Mobile:
+       0,63 × 2,2 ≈ 1,4. Desktop con la foto vertical: 1,78 × 2,2 ≈ 3,9 — tres
+       veces más grande. Con la foto horizontal: 1,02 × 1,36 ≈ 1,4, o sea el
+       mismo cielo que en el teléfono. */
+    transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(1.36)
+      rotate(6deg);
+  }
+}
+
+@media (min-width: 900px) {
+  @supports (background-image: image-set(url('/media/x.avif') type('image/avif'))) {
+    .lejana {
+      background-image: image-set(
+        url('/media/galaxia-desktop.avif') type('image/avif'),
+        url('/media/galaxia-desktop.webp') type('image/webp')
+      );
+    }
+
+    .nebulosa {
+      background-image:
+        radial-gradient(70% 55% at 22% 78%, rgba(96, 74, 190, 0.32) 0%, transparent 70%),
+        radial-gradient(60% 50% at 82% 22%, rgba(40, 118, 158, 0.26) 0%, transparent 72%),
+        image-set(
+          url('/media/galaxia-desktop.avif') type('image/avif'),
+          url('/media/galaxia-desktop.webp') type('image/webp')
+        );
+    }
+  }
+}
+
 /* U4-lite · Entrada escalonada: Luna -> Júpiter -> Saturno. `backwards` y no
    `both` a propósito: así, al terminar, la opacidad vuelve a la normal y la
    regla de `.is-saliendo` sigue pudiendo atenuar los que no se eligieron. */
