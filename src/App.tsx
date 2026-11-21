@@ -188,10 +188,21 @@ export default function App() {
             aria-label="Preparando el viaje"
           >
             <span className="cta-carga-texto">{evento.cargando}</span>
+            {/* D-37 · Tres estrellas en vez de puntitos y sin porcentaje: se
+                encienden con el progreso REAL (una al 33 %, otra al 66 %, la
+                última al 100 %) y la que está en curso titila. */}
+            <span className="cta-carga-estrellas" aria-hidden="true">
+              {[0, 1, 2].map((i) => {
+                const desde = i * 33.34
+                const hasta = desde + 33.34
+                const estado =
+                  progreso >= hasta - 0.5 ? 'is-llena' : progreso >= desde ? 'is-activa' : ''
+                return <i key={i} className={`estrella ${estado}`} />
+              })}
+            </span>
             <span className="cta-carga-barra">
               <i style={{ width: `${Math.round(progreso)}%` }} />
             </span>
-            <span className="cta-carga-pct">{Math.round(progreso)}%</span>
           </div>
         )}
 

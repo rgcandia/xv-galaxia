@@ -269,6 +269,11 @@
     transform: none;
     transition: none;
   }
+  .estrella.is-activa {
+    animation: none;
+    background: rgba(0, 240, 255, 0.55);
+  }
+
   .stage.is-revealed .top,
   .stage.is-revealed .bottom {
     animation: none;
@@ -313,9 +318,9 @@
 .cta-carga-barra {
   display: block;
   width: 100%;
-  height: 2px;
+  height: 1px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
@@ -328,9 +333,40 @@
   transition: width 0.3s ease;
 }
 
-.cta-carga-pct {
-  font-size: 0.54rem;
-  letter-spacing: 0.22em;
-  color: rgba(0, 240, 255, 0.72);
-  font-variant-numeric: tabular-nums;
+/* D-37 · Las tres estrellas de la carga. La forma (sparkle de 4 puntas) es un
+   clip-path: 0 KB, nítida a cualquier tamaño y sin imagen que descargar. */
+.cta-carga-estrellas {
+  display: flex;
+  gap: 11px;
+  margin: 2px 0 1px;
+}
+
+.estrella {
+  width: 11px;
+  height: 11px;
+  background: rgba(255, 255, 255, 0.16);
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  transition: background 0.5s ease, filter 0.5s ease;
+}
+
+/* La que está cargando: titila. La que ya llegó: queda encendida, no vuelve
+   atrás (si la red se frena, la estrella no se apaga). */
+.estrella.is-activa {
+  background: rgba(0, 240, 255, 0.55);
+  animation: titilar 1.3s ease-in-out infinite;
+}
+
+.estrella.is-llena {
+  background: var(--c-white);
+  filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.75));
+}
+
+@keyframes titilar {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
 }
