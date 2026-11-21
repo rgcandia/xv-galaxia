@@ -9,10 +9,10 @@
 **Dominio:** **`galaxia.orangetech.com.ar`** (el viejo `xv-galaxia.` ya no resuelve).
 **Estado:** el planeta **vuela** de su lugar al rincón, más suave, **y vuelve** a su lugar. **Saturno ya
 se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta) y **su
-anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). **Local, sin pushear**
-(6 commits nuevos sobre `ae9e121`). Pendiente: mirar en localhost · decidir el desfase del sonido en la
-vuelta (el whoosh suena ~0,4 s antes de que arranque el vuelo, porque iOS exige dispararlo dentro del
-tap).
+anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). En desktop **la galaxia
+de entrada va acostada** (`S12`) y llena la pantalla. **Local, sin pushear** (7 commits nuevos sobre
+`ae9e121`). Pendiente: mirar en localhost · el desfase de ~0,4 s del whoosh en la vuelta (queda así por
+decisión del usuario).
 
 ## Quién manda en la escena (pedido de la cumpleañera, `D-36`)
 

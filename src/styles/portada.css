@@ -411,49 +411,53 @@
 }
 
 /* ── F6-a · Desktop (decisión A, `D-48`) ───────────────────────────────────
-   Se probó `contain` para no cortar el encuadre vertical del video, y el
-   resultado fue el contrario: una tira chica en el medio con dos franjas
-   negras, sin fuerza. Un warp no es una foto: no tiene encuadre que respetar,
-   es textura en movimiento. `cover` llena la pantalla y el zoom se siente.
-   Cuando exista el video 16:9 propio (pendiente del usuario) esto se revisa. */
+   Historia, para no volver a pisar la misma piedra: con el video vertical,
+   `contain` dejaba una tira chica en el medio con dos franjas negras, y
+   `cover` llenaba pero recortaba (se leía "un zoom arriba a la derecha").
+   Después se probó tratarlo como un PORTAL (columna vertical centrada con los
+   bordes fundidos): seguía leyéndose chico en un monitor grande.
+   La solución vigente es `S12`, abajo: el video acostado. */
 @media (min-width: 900px) {
-  /* `cover` llenaba la pantalla pero recortaba el encuadre: se veía "un zoom
-     arriba a la derecha" — solo un pedazo de la toma, ampliado. Un video
-     vertical en 16:9 no tiene solución perfecta, hay que elegir:
-       · `cover`  = llena, pero recorta (y el sujeto queda descentrado)
-       · `contain`= se ve la toma COMPLETA, con el fondo del cielo a los lados
-     Se elige `contain`: es un warp sobre espacio negro, así que los bordes se
-     funden con el fondo y no se leen como franjas. La solución real es el
-     video 16:9 propio (pendiente). */
-  /* El video se generó PARA CELULAR (vertical). En 16:9 no hay forma de
+  /* ── S12 · El video acostado (idea del usuario) ─────────────────────────
+     El video se generó PARA CELULAR (vertical). En 16:9 no hay forma de
      encuadrarlo sin que parezca un recorte: si llena, recorta; si entra
-     completo, quedan franjas. Tercera vía: se lo trata como un PORTAL —
-     una columna vertical centrada, con los bordes fundidos—, y la galaxia
-     ocupa el resto. Así el formato deja de ser un defecto y pasa a ser
-     la forma del pasaje. Cuando exista el 16:9 propio, esto se retira. */
+     completo, quedan franjas (se probaron las dos: columna chica en el medio
+     y `cover` con el sujeto descentrado).
+     La salida: un warp es una galaxia sin arriba ni abajo — el video NO
+     necesita estar parado. Acostado, el rectángulo de 9:16 pasa a ser 16:9 y
+     llena la pantalla exacta, sin recortar y sin franjas.
+       · el elemento se mide con los ejes cambiados (100vh de ancho, 100vw de
+         alto) y se rota 90° sobre su centro: visualmente mide 100vw × 100vh;
+       · `rotate` (propiedad propia) y no `transform`: `transform` ya lo usa el
+         flash (`scale(1.38)`) y lo anula la regla de movimiento reducido —
+         con `transform` acá, al quemarse el video se perdería la rotación;
+       · la máscara de los bordes se va: existía para fundir la columna con el
+         cielo, y acá no hay columna que fundir;
+       · el recentrado (`recentrar`) NO se toca: el desvío del punto de fuga y
+         su corrección rotan juntos, así que los mismos números siguen sirviendo.
+     En un monitor 21:9 el `cover` recorta un poco arriba y abajo; en un warp
+     eso no se lee. Si algún día hay video 16:9 propio, esto se retira. */
   .warp {
     display: grid;
     place-items: center;
   }
 
   .warp-video {
-    object-fit: contain;
-    height: 100%;
-    width: min(57.14vh, 100%);
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      #000 22%,
-      #000 78%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      #000 22%,
-      #000 78%,
-      transparent 100%
-    );
+    /* Anclado a mano y no por el `place-items` del contenedor: el elemento es
+       MÁS GRANDE que la pantalla y una pista de grid con contenido desbordado
+       crece y se ancla arriba, así que el video habría quedado corrido hacia
+       abajo. Con `absolute` + márgenes negativos, el centro del elemento cae
+       exacto en el centro del escenario, que es alrededor de donde rota. */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vh;
+    height: 100vw;
+    margin: -50vw 0 0 -50vh;
+    object-fit: cover;
+    rotate: 90deg;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .warp {
