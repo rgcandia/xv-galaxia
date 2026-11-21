@@ -147,7 +147,7 @@ export default function App() {
    *  Recién entonces se desmonta la portada (con ella el video), se monta el
    *  mapa debajo y el velo —del mismo negro que el cielo del mapa— se va: el
    *  mapa no aparece, se ilumina. Nunca hay un cuadro quieto al descubierto. */
-  const DUR_TRAGAR = 620
+  const DUR_TRAGAR = 820
 
   function entrar() {
     if (terminado.current) return

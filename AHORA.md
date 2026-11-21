@@ -11,14 +11,14 @@
 se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta) y **su
 anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). En desktop **la galaxia
 de entrada va acostada** (`S12`) y llena la pantalla, sin la franja negra que dejaba el viejo "recentrado"
-(`S13`, `D-69`). **Local, sin pushear** (24 commits nuevos sobre
+(`S13`, `D-69`). **Local, sin pushear** (25 commits nuevos sobre
 `ae9e121`). Pendiente: mirar en localhost · el desfase de ~0,4 s del whoosh en la vuelta (queda así por
 decisión del usuario).
 
 ### Recién hecho: el final del video (`S25` → corregido en `S26`)
-Al llegar al corte **no se pausa** el video: sube a 2,2× **mientras se apaga**, y una capa **oscura**
-opaca le pasa por encima en 0,6 s. Recién ahí se suelta el video, se monta el mapa debajo y el velo
-—del mismo negro que el cielo— se va en 0,7 s: el mapa no aparece, se ilumina. Se fue el "cuadro
+Al llegar al corte **no se pausa** el video: sube a 2,2× **mientras se apaga** hasta `brightness(0.35)`,
+y una capa **oscura** opaca le pasa por encima en 0,8 s. Recién ahí se suelta el video, se monta el mapa
+debajo y el velo —del mismo negro que el cielo— se va en 0,8 s: el mapa no aparece, se ilumina. Se fue el "cuadro
 congelado" **y** el fogonazo blanco (`D-79` → `D-80`). Corte a 9,9 s. **Falta mirarlo en localhost.**
 
 ### Cerrado: el parpadeo al aterrizar (`S22`–`S24`)
