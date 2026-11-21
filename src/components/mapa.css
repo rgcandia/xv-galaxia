@@ -106,10 +106,14 @@
   }
 }
 
-/* Fugaces: canvas entre el fondo y los cuerpos */
+/* Fugaces: canvas entre el fondo y los cuerpos.
+   ⚠️ width/height explícitos: un <canvas> es elemento reemplazado, así que
+   `inset: 0` NO lo estira — se quedaba en su tamaño intrínseco 300×150. */
 .fugaces {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 2;
   pointer-events: none;
 }
@@ -176,7 +180,7 @@
 /* ☀️ SOL — 3× los demás, se sale del encuadre */
 .sol {
   top: 24%;
-  right: -26%;
+  right: 4%;
   animation: flotar 11s ease-in-out infinite alternate;
 }
 

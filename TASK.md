@@ -11,6 +11,14 @@
       6 s, 720×1280, movimiento de cámara hacia el núcleo).
 - [ ] **Datos del evento** — nombre, fecha/hora, lugar + Maps, dress code, RSVP, regalos, fotos.
 
+## 🎨 Faltan en la escena del universo (pedido del usuario)
+
+- [ ] **Rotación lenta** de la superficie de los tres cuerpos (hoy flotan y laten, pero no giran).
+- [ ] **`U4` La llegada** — al salir del video, la cámara se asienta y los cuerpos entran escalonados
+      (Sol → Venus → Saturno). Hoy ya están puestos.
+- [ ] **`U5` El latido** — halo suave que pulsa en cada cuerpo para invitar a tocar, sin texto ni flechas.
+- [ ] **Sombra de Saturno sobre el anillo** (realismo: el planeta eclipsa la mitad del anillo).
+
 ## 🟡 Ideas aprobadas en concepto (van al plan cuando se autoricen)
 
 - [ ] **El cielo de sus invitados** — cada RSVP confirmado enciende una estrella dorada. La galaxia *es* su gente.
