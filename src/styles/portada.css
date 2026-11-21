@@ -12,6 +12,15 @@
 }
 
 /* --- Fondo: imagen 9:16 en mobile, 16:9 en desktop ----------------------- */
+.bg {
+  /* LQIP (C4): miniatura de 24 px incrustada = **240 bytes**. Se estira a toda
+     la pantalla y el navegador la suaviza sola, así la portada nunca se ve
+     negra: se ve una galaxia borrosa y 300 ms después la nítida. */
+  background-image: url('data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAADQBgCdASoYACoAPu1ip06ppSMiMBVdUTAdiWIArDPHxIeh/XEQKYd64cjQxOonZqPRhw/juVwzgqS6FaeOAAAA/vQsZ65Tz7XmOAiq9Vv0UwUXcaJjea/Y2LnFA/r8mFzkY64xLpS42yxieM+g5SY7KvWNvaACo213LHZlKSQUCjlz83+M/fyrlxyfroqgpgUtF4BYQayBax4+U+NCrgAA');
+  background-position: center;
+  background-size: cover;
+}
+
 .bg,
 .bg img {
   position: absolute;

@@ -14,6 +14,10 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://xv-galaxia.orangetech.com.ar/" />
     <link rel="canonical" href="https://xv-galaxia.orangetech.com.ar/" />
+    <!-- C4 · Precarga del fondo: se adelanta a la descarga del <picture>.
+         El `type` hace que un navegador sin AVIF lo ignore y pida el WebP solo. -->
+    <link rel="preload" as="image" type="image/avif" href="/media/galaxia-mobile.avif" media="(max-width: 899px)" />
+    <link rel="preload" as="image" type="image/avif" href="/media/galaxia-desktop.avif" media="(min-width: 900px)" />
     <meta property="og:locale" content="es_AR" />
     <meta property="og:site_name" content="Tiana · Mis 15" />
     <!-- ⚠️ ÚNICO lugar del código con el dominio. Si cambia, se cambia acá y listo.

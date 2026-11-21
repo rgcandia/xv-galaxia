@@ -16,6 +16,26 @@ export default function App() {
 
   const enViaje = fase === 'warp' || fase === 'flash'
 
+  /* C4 · Precarga silenciosa. Hoy el invitado se queda leyendo la portada un
+     par de segundos y ese tiempo se desperdicia: acá lo usamos para bajar los
+     planetas y el video. Se espera 1,2 s para no competir con el primer
+     pintado. Si el navegador avisa "ahorro de datos", el video NO se precarga. */
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      for (const src of ['/media/sol.avif', '/media/venus.avif']) {
+        const img = new Image()
+        img.src = src
+      }
+      const ahorro = (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData
+      const v = videoRef.current
+      if (v && !ahorro && v.preload !== 'auto') {
+        v.preload = 'auto'
+        v.load()
+      }
+    }, 1200)
+    return () => window.clearTimeout(t)
+  }, [])
+
   /** Cierra la inmersión: flash -> portada. Idempotente. */
   function entrar() {
     if (terminado.current) return
@@ -76,7 +96,7 @@ export default function App() {
         />
         <source media="(min-width: 900px)" srcSet="/media/galaxia-desktop.webp" />
         <source type="image/avif" srcSet="/media/galaxia-mobile.avif" />
-        <img src="/media/galaxia-mobile.webp" alt="" aria-hidden="true" />
+        <img src="/media/galaxia-mobile.webp" alt="" aria-hidden="true" fetchPriority="high" />
       </picture>
 
       <Starfield />
