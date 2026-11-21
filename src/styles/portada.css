@@ -73,6 +73,15 @@
   text-align: center;
 }
 
+/* S14 · El pie, un poco más arriba. `.stage` reparte con `space-between`, así
+   que el bloque de abajo está clavado al borde: se sentía caído. El aire va
+   como `padding-bottom` (el contenido sube solo, sin tocar el flex ni mover el
+   título de arriba). `clamp` para que en pantallas chicas no se coma el medio
+   y en desktop acompañe la altura. */
+.bottom {
+  padding-bottom: calc(20px + var(--safe-bottom) + clamp(28px, 7vh, 88px));
+}
+
 .eyebrow {
   margin: 0 0 10px;
   font-size: 0.68rem;
