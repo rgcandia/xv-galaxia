@@ -331,6 +331,13 @@
 .saturno .superficie::before {
   z-index: 1;
   opacity: 0.95;
+  /* S21 · Sólo la mitad de ADELANTE. Sin esto el anillo entero se dibuja dentro
+     del disco y la parte de atrás también se ve sobre la cara: el planeta
+     parece transparente. El plano del anillo pasa por el centro del planeta, así
+     que la mitad que está delante es la de abajo de su propio eje mayor — de ahí
+     el corte al 50 %: es la línea del ecuador en el plano del anillo, el mismo
+     borde que se ve en cualquier foto de Saturno. */
+  clip-path: inset(50% 0 0 0);
 }
 
 /* El anillo: elipse achatada con un agujero central del tamaño del planeta.
