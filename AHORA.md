@@ -11,7 +11,7 @@
 se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta) y **su
 anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). En desktop **la galaxia
 de entrada va acostada** (`S12`) y llena la pantalla, sin la franja negra que dejaba el viejo "recentrado"
-(`S13`, `D-69`). **Local, sin pushear** (28 commits nuevos sobre
+(`S13`, `D-69`). **Local, sin pushear** (29 commits nuevos sobre
 `ae9e121`). Pendiente: mirar en localhost · el desfase de ~0,4 s del whoosh en la vuelta (queda así por
 decisión del usuario).
 
@@ -19,8 +19,8 @@ decisión del usuario).
 El velo final es **oscuro y con un agujero** en el punto de luz de la galaxia: la luz queda encendida y
 sigue encendida del otro lado, así que la transición no se lee como corte (`D-81`). El título pasó a ser
 la frase **"Una noche en el cosmos"**, con `Mis 15` de kicker arriba y `Tiana` de firma.
-La portada ganó peso sin recuperar la caja: kicker en champagne, scrim detrás del bloque de arriba y la
-flecha del CTA respirando con la línea (`S30`, `D-82`).
+La portada ganó peso sin recuperar la caja: kicker en champagne, scrim detrás del bloque de arriba y abajo del
+CTA una sola señal: la barrita que titila (`S30`/`S31`, `D-82`).
 **Falta mirarlo en localhost.** Queda pendiente la **música con botón** (decidida, sin empezar).
 
 ### Antes: el final del video (`S25` → corregido en `S26`)

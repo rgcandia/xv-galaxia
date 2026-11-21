@@ -580,24 +580,9 @@
 }
 
 .cta svg {
-  /* S30 · La línea de 1 px era la única señal de "se toca" y quedaba muda. La
-     flecha vuelve —abajo, chica, latiendo con la línea— sin recuperar la caja:
-     la píldora de vidrio (V1) sigue fuera. */
-  display: block;
-  opacity: 0.6;
-  animation: respirar-flecha 3.4s ease-in-out infinite;
-}
-
-@keyframes respirar-flecha {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 0.9;
-    transform: translateY(3px);
-  }
+  /* S31 · Sin flecha: la señal es una sola y es la línea. Dos señales abajo del
+     texto se leían como adorno (y la flecha la repetía). */
+  display: none;
 }
 
 .cta::after {
@@ -605,6 +590,9 @@
   width: 26px;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 1), transparent);
+  /* S31 · La barrita es la única señal de "se toca": titila más marcada
+     (0,5 → 1 de opacidad y 22 → 46 px) y con un halo mínimo. */
+  box-shadow: 0 0 6px rgb(255 255 255 / 0.35);
   animation: respirar-linea 3.4s ease-in-out infinite;
 }
 
@@ -612,10 +600,10 @@
   0%,
   100% {
     width: 22px;
-    opacity: 0.55;
+    opacity: 0.5;
   }
   50% {
-    width: 44px;
+    width: 46px;
     opacity: 1;
   }
 }
