@@ -643,3 +643,25 @@
     animation: none;
   }
 }
+
+/* ── Q3 · La Luna gira ──────────────────────────────────────────────────────
+   Lo que rota es la capa de CRÁTERES, no el cuerpo: el terminador (que vive
+   en el fondo del `.astro`) queda fijo, como en una esfera iluminada de
+   verdad. 4 minutos por vuelta: no se lee "animado", se lee VIVO.
+   Júpiter y Saturno quedan quietos a propósito — desplazar sus bandas
+   arrastraría el terminador con ellas y la esfera dejaría de leerse. */
+.luna .astro::after {
+  animation: girar 240s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luna .astro::after {
+    animation: none;
+  }
+}
