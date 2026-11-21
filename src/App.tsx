@@ -10,7 +10,6 @@ export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const terminado = useRef(false)
   const failsafe = useRef<number | null>(null)
-  const pendiente = useRef(false)
 
   const enViaje = fase === 'warp' || fase === 'flash'
 
@@ -39,17 +38,9 @@ export default function App() {
     }
     setFase('warp')
 
-    pendiente.current = true
-    // preload="none": forzamos la carga en el gesto y reintentamos al tener datos.
-    v.load()
     const p = v.play()
     if (p && typeof p.catch === 'function') {
-      p.catch(() => {
-        // Reintento único: algunos WebViews rechazan el primer play().
-        window.setTimeout(() => {
-          if (!terminado.current) v.play().catch(() => entrar())
-        }, 120)
-      })
+      p.catch(() => window.setTimeout(entrar, 1100))
     }
 
     // Red de seguridad: si el video no avanza (buffer lento, códec raro),
@@ -97,8 +88,6 @@ export default function App() {
           </svg>
         </button>
 
-        {/* Nota de sonido: debajo del botón, discreta. */}
-        <p className="nota">con sonido</p>
       </footer>
 
       {/* Etapa 2 · Inmersión. Siempre montado, oculto: el play() sale del gesto. */}
@@ -110,12 +99,6 @@ export default function App() {
           poster="/media/poster.webp"
           playsInline
           preload="none"
-          onCanPlay={() => {
-            const v = videoRef.current
-            if (pendiente.current && v && v.paused && !terminado.current) {
-              v.play().catch(() => entrar())
-            }
-          }}
           onTimeUpdate={(e) => {
             if (e.currentTarget.currentTime >= evento.corteVideoSegundos) entrar()
           }}
