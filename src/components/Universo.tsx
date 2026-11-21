@@ -93,7 +93,12 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
           al 58 % del ancho, con sus capas y su anillo. El vuelo de `Mapa.tsx`
           termina justo sobre este rectángulo, así que el relevo no se ve. */}
       <div key={vista} className={`planeta-fondo ${CUERPO[vista]}`} aria-hidden="true">
-        <span className="astro" />
+        {/* `.superficie` no es adorno: Saturno NO tiene fondo propio en el
+            `.astro` (la cara vive en esta capa para poder quedar entre las dos
+            mitades del anillo, L7). Sin esta línea, el rincón mostraba el
+            anillo y el agujero del anillo: Saturno llegaba y desaparecía.
+            En Luna y Júpiter la clase existe pero no está estilada: no hace nada. */}
+        <span className="astro"><span className="superficie" /></span>
       </div>
 
       <div className="s">

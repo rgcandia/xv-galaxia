@@ -7,8 +7,10 @@
 
 **Fase:** `F3` (el universo) cerrada + `F6-a` (desktop) v1 + **el viaje reescrito** (`S7`, `S8`).
 **Dominio:** **`galaxia.orangetech.com.ar`** (el viejo `xv-galaxia.` ya no resuelve).
-**Estado:** el planeta **vuela** de su lugar al rincón, más suave, **y vuelve** a su lugar. **Local, sin
-pushear** (4 commits nuevos sobre `ae9e121`). Pendiente: que el usuario lo mire en localhost.
+**Estado:** el planeta **vuela** de su lugar al rincón, más suave, **y vuelve** a su lugar. **Saturno ya
+se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta). **Local,
+sin pushear** (5 commits nuevos sobre `ae9e121`). Pendiente: que el usuario lo mire en localhost y
+decida el anillo animado (`T-ring`).
 
 ## Quién manda en la escena (pedido de la cumpleañera, `D-36`)
 
