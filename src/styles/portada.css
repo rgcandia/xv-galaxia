@@ -94,9 +94,16 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(2.6rem, 15vw, 4.4rem);
-  line-height: 0.95;
-  letter-spacing: 0.06em;
+  /* S28 · Ahora el título es una frase ("Una noche en el cosmos"): cuerpo más
+     chico que el de dos palabras, interlínea apretada y reparto parejo de las
+     líneas. El letter-spacing se abre sólo si el cuerpo es grande, así que acá
+     se cierra: a 9vw, 0,06em separa demasiado. */
+  font-size: clamp(1.9rem, 9vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  max-width: 12em;
+  margin-inline: auto;
   color: var(--c-white);
   text-shadow: 0 0 34px rgba(0, 240, 255, 0.35);
 }
@@ -106,7 +113,7 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(1.7rem, 8.5vw, 2.6rem);
+  font-size: clamp(1.5rem, 7vw, 2.2rem);
   letter-spacing: 0.14em;
   color: var(--c-gold);
   text-shadow: var(--glow-gold);
@@ -166,7 +173,8 @@
     padding-top: calc(48px + var(--safe-top));
   }
   .mis {
-    font-size: 6rem;
+    font-size: 4.6rem;
+    max-width: 10em;
   }
   .nombre {
     font-size: 3.2rem;

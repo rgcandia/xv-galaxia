@@ -19,9 +19,9 @@ export const evento = {
   anio: '2027',
 
   /** Línea chica de arriba. */
-  eyebrow: 'Una noche en el cosmos',
-  /** Título grande. */
-  titulo: 'Mis 15',
+  eyebrow: 'Mis 15',
+  /** Título grande. S28 · Es una FRASE: va en dos o tres líneas, no en una. */
+  titulo: 'Una noche en el cosmos',
   /** Texto del botón principal. */
   cargando: 'Preparando el viaje',
   cta: 'Iniciar viaje',
