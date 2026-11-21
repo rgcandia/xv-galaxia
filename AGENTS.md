@@ -35,6 +35,10 @@ Este proyecto nació de un pedido explícito: *"primero el plan"*. Por eso:
 - Este proyecto **no tiene staging**: no hay usuarios concurrentes ni datos críticos. Si algún día hace
   falta (por el RSVP), se decide y se anota; **no se improvisa**.
 - 🔒 **Antes de commitear, verificar la rama** (`git branch --show-current`) y decirle al usuario cuál es.
+- 🔒 **No pushear sin confirmación explícita.** ⚠️ Cada `push` a `main` **dispara un deploy** y el plan free de Cloudflare tiene **500 por mes**. Por eso:
+  - Se commitea local todo lo que haga falta, y **se pushea cuando el usuario lo pide**.
+  - **Agrupar commits en un solo push** siempre que se pueda (1 push = 1 deploy).
+  - Si hay que mostrar algo, se muestra local; no se publica "para ver".
 - 🔒 **No pushear sin confirmación explícita.** El remote es `git@github.com:rgcandia/xv-galaxia.git`.
   La llave SSH del server es un *deploy key* de otro repo (`colegionorbridge/Portal-Norbridge`):
   **no sirve acá** — hace falta la credencial de `D-16` o el push falla.
