@@ -42,7 +42,7 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
   function viajar(v: Vista) {
     if (saliendo) return
     setSaliendo(v)
-    window.setTimeout(() => onIr(v), 470)
+    window.setTimeout(() => onIr(v), 2500)
   }
 
   return (
