@@ -744,11 +744,14 @@
    Se baja el desenfoque para que la foto se reconozca como foto y el lavado
    queda sólo como temperatura, no como niebla. */
 .lejana {
-  filter: blur(1.5px) brightness(0.72) contrast(1.18) saturate(1.06);
+  /* Corregido: bajar el blur dejó ver la nebulosa de la foto, y subir el brillo
+     la hizo protagonista. El blur se queda bajo (nipidez) pero el brillo baja:
+     la foto tiene que leerse como ESPACIO PROFUNDO, no como nebulosa iluminada. */
+  filter: blur(1.5px) brightness(0.5) contrast(1.22) saturate(0.98);
 }
 
 .nebulosa {
-  opacity: 0.16;
+  opacity: 0.12;
 }
 
 /* ── F6-d · Movimiento reducido: leve, no inmóvil ───────────────────────────

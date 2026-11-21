@@ -152,7 +152,8 @@ export default function App() {
     if (enViaje) return
 
     // Ya lo saltó en esta sesión: entra directo al universo, sin repetir el viaje.
-    if (yaSalto()) {
+    // `?intro` fuerza el viaje aunque ya se haya saltado (para revisarlo).
+    if (yaSalto() && !window.location.search.includes('intro')) {
       setFase('flash')
       window.setTimeout(() => setFase('revelado'), 620)
       return
