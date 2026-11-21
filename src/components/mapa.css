@@ -533,3 +533,32 @@
     transform: scale(12);
   }
 }
+
+/* ── B1 · El fondo también es una foto real ──────────────────────────────
+   Diagnóstico: los planetas son fotografía y el fondo era una ilustración
+   desenfocada; cuando lo nítido y real se apoya sobre lo dibujado, el ojo
+   detecta la mentira en el fondo. Ahora la base es una foto del Hubble
+   (Helix Nebula, NASA/JPL-Caltech · dominio público).
+   Desenfoque bajo (5px) a propósito: una foto real no necesita disimulo, sólo
+   necesita leerse como profundo y no competir con los planetas. */
+.lejana {
+  background-image: url('/media/espacio.webp');
+  background-position: center;
+  background-size: cover;
+  filter: blur(5px) brightness(0.62) saturate(1.15);
+}
+
+@supports (background-image: image-set(url('/media/x.avif') type('image/avif'))) {
+  .lejana {
+    background-image: image-set(
+      url('/media/espacio.avif') type('image/avif'),
+      url('/media/espacio.webp') type('image/webp')
+    );
+  }
+}
+
+/* La nebulosa CSS ya no tiene que tapar una ilustración: queda como lavado de
+   color tenue para que la foto y los planetas compartan temperatura. */
+.nebulosa {
+  opacity: 0.32;
+}
