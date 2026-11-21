@@ -164,6 +164,18 @@
   background: #000;
   display: grid;
   place-items: center;
+  /* Oculto pero montado: permite que play() ocurra dentro del gesto. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.warp.is-on {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease;
 }
 
 .warp-video {
@@ -252,4 +264,17 @@
   .stage.is-revealed .bottom {
     animation: none;
   }
+}
+
+/* --- Aviso de sonido (chico, sin molestar) ------------------------------- */
+.hint-sound {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.42);
+  margin-inline: auto;
 }

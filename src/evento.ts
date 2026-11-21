@@ -24,8 +24,8 @@ export const evento = {
   titulo: 'Mis 15',
   /** Texto del botón principal. */
   cta: 'Iniciar viaje',
-  /** Aviso debajo del botón. */
-  hint: 'Se recomienda ver con sonido',
+  /** Aviso chico debajo del botón (con ícono de parlante). */
+  hint: 'Con sonido',
 
   /**
    * Segundo del video en el que se dispara el flash y se entra a la portada.

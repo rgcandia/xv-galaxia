@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Starfield from './components/Starfield'
 import { evento } from './evento'
 import './styles/portada.css'
@@ -9,34 +9,52 @@ export default function App() {
   const [fase, setFase] = useState<Fase>('idle')
   const videoRef = useRef<HTMLVideoElement>(null)
   const terminado = useRef(false)
+  const failsafe = useRef<number | null>(null)
+
+  const enViaje = fase === 'warp' || fase === 'flash'
 
   /** Cierra la inmersión: flash -> portada. Idempotente. */
   function entrar() {
     if (terminado.current) return
     terminado.current = true
+    if (failsafe.current) window.clearTimeout(failsafe.current)
     videoRef.current?.pause()
     setFase('flash')
     window.setTimeout(() => setFase('revelado'), 620)
   }
 
   function iniciar() {
-    if (fase !== 'idle') return
+    if (enViaje) return
     terminado.current = false
-    setFase('warp')
-
     const v = videoRef.current
     if (!v) return
 
-    // El click ES el gesto que habilita audio. Si aun asi falla
-    // (ahorro de bateria de iOS, autoplay bloqueado), caemos a CSS.
-    v.currentTime = 0
+    // IMPORTANTE: el <video> está siempre montado (oculto), así el play()
+    // ocurre DENTRO del gesto del usuario -> iOS permite el audio.
+    try {
+      v.currentTime = 0
+    } catch {
+      /* si todavía no hay metadata, el play() de abajo lo resuelve */
+    }
+    setFase('warp')
+
     const p = v.play()
     if (p && typeof p.catch === 'function') {
-      p.catch(() => window.setTimeout(entrar, 1200))
+      p.catch(() => window.setTimeout(entrar, 1100))
     }
+
+    // Red de seguridad: si el video no avanza (buffer lento, códec raro),
+    // no dejamos al invitado mirando un cartel negro.
+    if (failsafe.current) window.clearTimeout(failsafe.current)
+    failsafe.current = window.setTimeout(
+      entrar,
+      (evento.corteVideoSegundos + 6) * 1000,
+    )
   }
 
-  const enViaje = fase === 'warp' || fase === 'flash'
+  useEffect(() => () => {
+    if (failsafe.current) window.clearTimeout(failsafe.current)
+  }, [])
 
   return (
     <main className={`stage ${fase === 'revelado' ? 'is-revealed' : ''}`}>
@@ -60,7 +78,7 @@ export default function App() {
       </header>
 
       <footer className="bottom">
-        <button className="cta" onClick={iniciar} aria-label={`${evento.cta} — reproducir animación`}>
+        <button className="cta" onClick={iniciar} aria-label={`${evento.cta} — con sonido`}>
           <span>{evento.cta}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
             <path
@@ -73,31 +91,42 @@ export default function App() {
             />
           </svg>
         </button>
-        <p className="hint">{evento.hint}</p>
+
+        {/* Aviso de sonido: discreto, un ícono y dos palabras. */}
+        <p className="hint hint-sound">
+          <svg viewBox="0 0 24 24" width="11" height="11" aria-hidden="true">
+            <path
+              d="M4 9v6h3.5L12 19V5L7.5 9H4zm11.5-1.2a5 5 0 0 1 0 8.4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          {evento.hint}
+        </p>
       </footer>
 
-      {/* Etapa 2 · Inmersión: solo se monta al tocar el CTA (ahorra datos). */}
-      {enViaje && (
-        <div className={`warp ${fase === 'flash' ? 'is-flash' : ''}`} aria-hidden="true">
-          <video
-            ref={videoRef}
-            className="warp-video"
-            src="/media/warp.mp4"
-            poster="/media/poster.webp"
-            playsInline
-            preload="auto"
-            muted={false}
-            onTimeUpdate={(e) => {
-              if (e.currentTarget.currentTime >= evento.corteVideoSegundos) entrar()
-            }}
-            onEnded={entrar}
-            onError={entrar}
-          />
-          <button className="skip" onClick={entrar} type="button">
-            Saltar
-          </button>
-        </div>
-      )}
+      {/* Etapa 2 · Inmersión. Siempre montado, oculto: el play() sale del gesto. */}
+      <div className={`warp ${enViaje ? 'is-on' : ''} ${fase === 'flash' ? 'is-flash' : ''}`}>
+        <video
+          ref={videoRef}
+          className="warp-video"
+          src="/media/warp.mp4"
+          poster="/media/poster.webp"
+          playsInline
+          preload="none"
+          onTimeUpdate={(e) => {
+            if (e.currentTarget.currentTime >= evento.corteVideoSegundos) entrar()
+          }}
+          onEnded={entrar}
+          onError={entrar}
+        />
+        <button className="skip" onClick={entrar} type="button" tabIndex={enViaje ? 0 : -1}>
+          Saltar
+        </button>
+      </div>
     </main>
   )
 }
