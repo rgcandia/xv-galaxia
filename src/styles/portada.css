@@ -409,13 +409,14 @@
 }
 
 /* ── F6-a · Desktop (decisión A, `D-48`) ───────────────────────────────────
-   El video warp es VERTICAL: en 16:9 `cover` le corta el encuadre. `contain`
-   lo muestra entero sobre negro, que es como se lee el hiperspacio. Cuando
-   exista el video 16:9 propio (pendiente del usuario) esto se da vuelta. */
+   Se probó `contain` para no cortar el encuadre vertical del video, y el
+   resultado fue el contrario: una tira chica en el medio con dos franjas
+   negras, sin fuerza. Un warp no es una foto: no tiene encuadre que respetar,
+   es textura en movimiento. `cover` llena la pantalla y el zoom se siente.
+   Cuando exista el video 16:9 propio (pendiente del usuario) esto se revisa. */
 @media (min-width: 900px) {
   .warp-video {
-    object-fit: contain;
-    background: #000;
+    object-fit: cover;
   }
 }
 

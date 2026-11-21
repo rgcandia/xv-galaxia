@@ -187,9 +187,23 @@ export default function App() {
     }
     setFase('warp')
 
+    v.muted = false
+    v.volume = 1
+
     const p = v.play()
     if (p && typeof p.catch === 'function') {
-      p.catch(() => window.setTimeout(entrar, 1100))
+      /* Antes, si el navegador bloqueaba el audio, saltábamos el video entero
+         (1,1 s y al universo): en desktop se veía "un zoom roto que desaparece
+         sin música". El audio es lo que el navegador bloquea, no el video:
+         se reintenta MUDO y el viaje igual se ve. Sólo si también falla se
+         saltea. */
+      p.catch(() => {
+        v.muted = true
+        const p2 = v.play()
+        if (p2 && typeof p2.catch === 'function') {
+          p2.catch(() => window.setTimeout(entrar, 900))
+        }
+      })
     }
 
     // Red de seguridad: si el video no avanza (buffer lento, códec raro),
