@@ -174,72 +174,119 @@
   white-space: nowrap;
 }
 
-/* ☀️ SOL — 3× los demás, se sale del encuadre */
-.sol {
-  top: 24%;
-  right: 4%;
+/* 🌕 LUNA — la protagonista (`D-36`). Sin foto: 0 KB de imagen.
+   Lo que la hace una ESFERA y no un círculo blanco es el terminador: el
+   degradado oscuro que entra desde abajo-izquierda y deja la luz arriba a la
+   derecha, como una luna creciente. Los cráteres son radial-gradients. */
+.luna {
+  top: 13%;
+  right: -6%;
+  z-index: 4;
 }
 
-.sol .astro {
-  width: clamp(190px, 58vw, 290px);
+.luna .astro {
+  width: clamp(200px, 62vw, 320px);
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 38% 32%, rgba(255, 250, 230, 0.35) 0%, transparent 48%),
-    radial-gradient(circle at 74% 82%, rgba(90, 30, 0, 0.5) 0%, transparent 62%),
-    url('/media/sol.webp') center / cover no-repeat;
+    radial-gradient(
+      circle at 66% 32%,
+      transparent 0 44%,
+      rgba(8, 12, 26, 0.45) 60%,
+      rgba(4, 7, 16, 0.9) 80%
+    ),
+    radial-gradient(circle at 66% 30%, #fdfcf6 0%, #eee9db 26%, #cfc7b4 50%, #8f8a7c 72%, #34363d 100%);
   box-shadow:
-    0 0 60px -10px rgba(255, 180, 60, 0.75),
-    0 0 160px -20px rgba(255, 150, 40, 0.55);
-  animation: pulso 8s ease-in-out infinite;
+    0 0 60px -12px rgba(226, 232, 240, 0.5),
+    0 0 150px -24px rgba(120, 170, 255, 0.4);
 }
 
-/* corona: rayos suaves alrededor */
-.sol .astro::before {
+/* halo frío: la luna no emite luz, la refleja */
+.luna .astro::before {
   content: '';
   position: absolute;
-  inset: -18%;
+  inset: -30%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 196, 90, 0.42) 0%, transparent 62%);
-  filter: blur(10px);
+  background: radial-gradient(
+    circle,
+    rgba(216, 234, 255, 0.32) 0%,
+    rgba(150, 190, 255, 0.12) 44%,
+    transparent 68%
+  );
+  filter: blur(12px);
+  z-index: -1;
 }
 
-/* granulación */
-.sol .astro::after {
+/* cráteres y mares, en multiply para que se hundan en la esfera */
+.luna .astro::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23g)' opacity='0.6'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  opacity: 0.55;
+  clip-path: circle(50%);
+  background:
+    radial-gradient(circle at 40% 44%, rgba(96, 94, 86, 0.5) 0 7%, transparent 8%),
+    radial-gradient(circle at 54% 63%, rgba(84, 82, 74, 0.45) 0 10%, transparent 11%),
+    radial-gradient(circle at 31% 67%, rgba(104, 102, 92, 0.4) 0 5%, transparent 6%),
+    radial-gradient(circle at 60% 35%, rgba(84, 82, 74, 0.35) 0 4%, transparent 5%),
+    radial-gradient(circle at 47% 50%, rgba(255, 255, 255, 0.14) 0 3%, transparent 4%);
+  mix-blend-mode: multiply;
 }
 
-/* 🪐 VENUS — aureola difusa, ámbar pálido */
-.venus {
-  top: 46%;
-  left: 5%;
+/* 🪐 JÚPITER — sus bandas SON la paleta: ámbar, cobre y crema. */
+.jupiter {
+  top: 47%;
+  left: 3%;
 }
 
-.venus .astro {
-  width: clamp(78px, 24vw, 104px);
+.jupiter .astro {
+  width: clamp(94px, 28vw, 122px);
   aspect-ratio: 1;
   background:
-    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.3) 0%, transparent 46%),
-    radial-gradient(circle at 76% 82%, rgba(0, 0, 0, 0.55) 0%, transparent 60%),
-    url('/media/venus.webp') center / cover no-repeat;
+    radial-gradient(circle at 34% 26%, rgba(255, 246, 228, 0.3) 0%, transparent 46%),
+    radial-gradient(circle at 74% 80%, rgba(18, 10, 0, 0.6) 0%, transparent 64%),
+    repeating-linear-gradient(
+      176deg,
+      #d9b184 0 6%,
+      #c4905f 6% 10%,
+      #e8cda6 10% 15%,
+      #b5834f 15% 19%,
+      #dfbd94 19% 25%,
+      #a4713f 25% 29%,
+      #eed9b7 29% 36%
+    );
   box-shadow:
-    inset -8px -10px 22px rgba(0, 0, 0, 0.5),
-    0 0 46px -6px rgba(244, 200, 130, 0.5);
+    inset -8px -10px 24px rgba(0, 0, 0, 0.55),
+    0 0 44px -8px rgba(230, 190, 130, 0.45);
 }
 
-.venus .astro::before {
+.jupiter .astro::before {
   content: '';
   position: absolute;
-  inset: -26%;
+  inset: -28%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 225, 170, 0.32) 0%, transparent 58%);
+  background: radial-gradient(circle, rgba(255, 214, 160, 0.3) 0%, transparent 60%);
   filter: blur(14px);
+  z-index: -1;
 }
+
+/* la Gran Mancha Roja: el "detalle que te distingue" */
+.jupiter .astro::after {
+  content: '';
+  position: absolute;
+  left: 26%;
+  top: 58%;
+  width: 28%;
+  height: 15%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 42% 40%,
+    rgba(214, 108, 74, 0.95) 0%,
+    rgba(168, 70, 44, 0.85) 58%,
+    rgba(140, 60, 40, 0.45) 100%
+  );
+  filter: blur(0.4px);
+}
+
 
 /* 💍 SATURNO — anillo de verdad: banda con agujero (perfil real del anillo:
    anillo C tenue → B brillante → división de Cassini → A), partida en dos
@@ -355,8 +402,8 @@
 /* El Sol se animaba a los saltos: al escalar 9x sus dos box-shadow (60px y
    160px de blur) y el halo con blur(10px) se vuelven enormes y el celular no
    puede repintar 60 fps. Se apagan durante el viaje. */
-.cuerpo.sol.is-elegido .astro::before,
-.cuerpo.sol.is-elegido .astro::after {
+.cuerpo.luna.is-elegido .astro::before,
+.cuerpo.luna.is-elegido .astro::after {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -388,12 +435,13 @@
 
 /* ── Accesibilidad ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .sol,
-  .venus,
+  .luna,
+  .jupiter,
   .saturno,
   .lejana,
   .nebulosa,
-  .sol .astro {
+  .luna .astro,
+  .jupiter .astro {
     animation: none;
   }
 }
@@ -422,28 +470,10 @@
       );
   }
 
-  .sol .astro {
-    background-image:
-      radial-gradient(circle at 38% 32%, rgba(255, 250, 230, 0.35) 0%, transparent 48%),
-      radial-gradient(circle at 74% 82%, rgba(90, 30, 0, 0.5) 0%, transparent 62%),
-      image-set(
-        url('/media/sol.avif') type('image/avif'),
-        url('/media/sol.webp') type('image/webp')
-      );
-  }
 
-  .venus .astro {
-    background-image:
-      radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.3) 0%, transparent 46%),
-      radial-gradient(circle at 76% 82%, rgba(0, 0, 0, 0.55) 0%, transparent 60%),
-      image-set(
-        url('/media/venus.avif') type('image/avif'),
-        url('/media/venus.webp') type('image/webp')
-      );
-  }
 }
 
-/* U4-lite · Entrada escalonada: Sol -> Venus -> Saturno. `backwards` y no
+/* U4-lite · Entrada escalonada: Luna -> Júpiter -> Saturno. `backwards` y no
    `both` a propósito: así, al terminar, la opacidad vuelve a la normal y la
    regla de `.is-saliendo` sigue pudiendo atenuar los que no se eligieron. */
 @keyframes entrar {
@@ -455,13 +485,13 @@
   }
 }
 
-.cuerpo.sol {
+.cuerpo.luna {
   animation:
     flotar 11s ease-in-out infinite alternate,
     entrar 0.75s ease 0.1s backwards;
 }
 
-.cuerpo.venus {
+.cuerpo.jupiter {
   animation:
     flotar 9s ease-in-out -2.5s infinite alternate,
     entrar 0.75s ease 0.32s backwards;
@@ -473,7 +503,7 @@
     entrar 0.75s ease 0.54s backwards;
 }
 
-/* Z3-b · El Sol es 3x más grande que Venus y Saturno: al escalar 12x el
+/* Z3-b · La Luna es 3x más grande que Júpiter y Saturno: al escalar 12x el
    navegador RE-RASTERIZA el fondo (2 radial-gradients + foto) en cada frame y
    en el celular no llega. Promover la capa lo rasteriza una sola vez y el
    resto lo hace la GPU. Era el motivo de que sólo el Sol se viera roto. */
@@ -485,7 +515,7 @@
 /* Z3-c · El viaje se anima en el CONTENEDOR con @keyframes, no en el cuerpo
    con transition.
    Por qué: el único cuerpo que tenía una animación propia sobre `.astro`
-   (`pulso` en `.sol .astro`) era justamente el que no viajaba. Al cambiar la
+   (el pulso que el Sol tenía sobre `.astro`) era justamente el que no viajaba. Al cambiar la
    animación por una que no toca `transform`, el navegador libera la propiedad y
    el `transition` no encuentra un valor de partida del que interpolar → salta
    al final. Con @keyframes no hay valor de partida que buscar: `from` y `to`
@@ -514,10 +544,10 @@
   transition: opacity 0.25s ease;
 }
 
-/* El Sol es el único con corona difusa (blur 10px) y grano con blend-mode.
-   Escalados 12x son carísimos: se apagan mientras viaja. */
-.cuerpo.sol.is-elegido .astro::before,
-.cuerpo.sol.is-elegido .astro::after {
+/* Los halos con blur y los blend-modes, escalados 12x, son carísimos: se
+   apagan mientras el cuerpo viaja. */
+.cuerpo.luna.is-elegido .astro::before,
+.cuerpo.luna.is-elegido .astro::after {
   opacity: 0;
   transition: opacity 0.3s ease;
 }

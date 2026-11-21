@@ -10,7 +10,7 @@ import './mapa.css'
  *
  * Escena con profundidad: nebulosa + estrellas en canvas + polvo que se
  * desplazan distinto con el dedo, viñeta y grano de acabado, y tres cuerpos
- * con significado — Sol (cuándo), Venus (vestimenta), Saturno (regalos).
+ * con significado — Luna (la cita), Júpiter (el brillo), Saturno (un detalle).
  * Todo CSS + canvas: 0 KB de imágenes nuevas (D-24).
  */
 export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
@@ -94,20 +94,20 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
         <h2 className="mapa-titulo">Elegí un destino</h2>
       </header>
 
-      {/* ☀️ Sol — el dominante, rompe el encuadre por la derecha */}
+      {/* 🌕 Luna — la protagonista: 3× los demás y rompe el encuadre */}
       <button
         type="button"
-        className={`cuerpo sol ${saliendo === 'cuando' ? 'is-elegido' : ''}`}
+        className={`cuerpo luna ${saliendo === 'cuando' ? 'is-elegido' : ''}`}
         onClick={() => viajar('cuando')}
       >
         <span className="astro" aria-hidden="true" />
         <span className="astro-nombre">{p.nucleo.nav}</span>
       </button>
 
-      {/* 🪐 Venus — aureola difusa */}
+      {/* 🪐 Júpiter — bandas + Gran Mancha Roja */}
       <button
         type="button"
-        className={`cuerpo venus ${saliendo === 'vestimenta' ? 'is-elegido' : ''}`}
+        className={`cuerpo jupiter ${saliendo === 'vestimenta' ? 'is-elegido' : ''}`}
         onClick={() => viajar('vestimenta')}
       >
         <span className="astro" aria-hidden="true" />
