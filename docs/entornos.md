@@ -78,3 +78,48 @@ output `dist`).
 
 Cloudflare Pages guarda cada deploy: en el panel → *Deployments* → elegir el anterior → *Rollback*.
 No hay base de datos que revertir; el único estado está en la planilla de Google.
+
+---
+
+## Git / GitHub
+
+| | |
+|---|---|
+| **Repo** | `https://github.com/rgcandia/xv-galaxia` (creado vacío el 2026-11-21) |
+| **Remote** | `origin` → `git@github.com:rgcandia/xv-galaxia.git` |
+| **Rama** | `main` |
+
+### ⚠️ La llave SSH del server NO sirve para este repo
+
+`~/.ssh/id_ed25519` es un **deploy key de `colegionorbridge/Portal-Norbridge`**
+(`ssh -T git@github.com` → *"Hi colegionorbridge/Portal-Norbridge!"*). Un deploy key sólo abre **su**
+repo: al pushear acá GitHub responde *"Could not read from remote repository"*.
+
+### La llave de este proyecto
+
+Se generó una llave **exclusiva**, sin passphrase:
+
+```
+~/.ssh/id_ed25519_xvgalaxia       (privada, chmod 600)
+~/.ssh/id_ed25519_xvgalaxia.pub   (pública)
+```
+
+**Instalación (una vez, por el usuario):**
+GitHub → repo `xv-galaxia` → *Settings* → *Deploy keys* → *Add deploy key* → pegar la pública →
+**tildar "Allow write access"**.
+
+**Push (sin tocar `~/.ssh/config` ni afectar otros proyectos):**
+
+```bash
+GIT_SSH_COMMAND='ssh -i ~/.ssh/id_ed25519_xvgalaxia' git push -u origin main
+```
+
+Para no repetir el flag, se puede dejar en el repo:
+
+```bash
+git config core.sshCommand 'ssh -i ~/.ssh/id_ed25519_xvgalaxia'
+```
+
+> Alternativa sin tocar SSH: Personal Access Token fine-grained (*Contents: read & write* sólo en este
+> repo) y remote por HTTPS. Se descartó por default: el token queda en texto en `.git/config`.
+> Ver [`decisiones.md`](decisiones.md) `D-16`.
