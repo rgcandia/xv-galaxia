@@ -484,3 +484,52 @@
   will-change: transform;
   backface-visibility: hidden;
 }
+
+/* Z3-c · El viaje se anima en el CONTENEDOR con @keyframes, no en el cuerpo
+   con transition.
+   Por qué: el único cuerpo que tenía una animación propia sobre `.astro`
+   (`pulso` en `.sol .astro`) era justamente el que no viajaba. Al cambiar la
+   animación por una que no toca `transform`, el navegador libera la propiedad y
+   el `transition` no encuentra un valor de partida del que interpolar → salta
+   al final. Con @keyframes no hay valor de partida que buscar: `from` y `to`
+   están escritos a mano, así que los tres viajan igual.
+   Además el contenedor no tiene fondos ni blend-modes, así que escalarlo es
+   barato (el `background` y los `::before/::after` viajan con él). */
+.cuerpo.is-elegido {
+  z-index: 10;
+  will-change: transform;
+  pointer-events: none;
+  animation:
+    viajar 2.15s cubic-bezier(0.45, 0, 0.55, 1) forwards,
+    tragar 0.7s ease-in 1.7s forwards;
+}
+
+/* Se apaga el zoom viejo del cuerpo y su pulso: si `pulso` siguiera corriendo,
+   el navegador repintaría el cuerpo en cada cuadro mientras está a 12x. */
+.cuerpo.is-elegido .astro {
+  transform: none;
+  animation: none;
+  transition: none;
+}
+
+.cuerpo.is-elegido .astro-nombre {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+/* El Sol es el único con corona difusa (blur 10px) y grano con blend-mode.
+   Escalados 12x son carísimos: se apagan mientras viaja. */
+.cuerpo.sol.is-elegido .astro::before,
+.cuerpo.sol.is-elegido .astro::after {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes viajar {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(12);
+  }
+}
