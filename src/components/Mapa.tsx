@@ -69,7 +69,7 @@ function animarVuelo(
     const desvio = Math.sin(Math.PI * e) * arco * lado
     fotogramas.push({
       transform: `translate3d(${dx * e + px * desvio}px, ${dy * e + py * desvio}px, 0) scale(${
-        1 + (k - 1) * e
+        k0 + (k - k0) * e
       })`,
       opacity: opDesde + (opHasta - opDesde) * e,
       easing: 'linear', // la curva ya está en los valores
