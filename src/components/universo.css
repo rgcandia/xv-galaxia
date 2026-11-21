@@ -269,3 +269,54 @@
 .nav-item:active {
   background: none;
 }
+
+/* ── S1 · El planeta que te trajo queda de fondo ──────────────────────────
+   Asomado arriba a la derecha, recortado por el borde, con deriva lenta.
+   36 % de opacidad y 1,5 px de desenfoque: presencia, no protagonismo. */
+.planeta-fondo {
+  position: fixed;
+  top: -10vh;
+  right: -14vw;
+  width: 62vw;
+  max-width: 460px;
+  height: 62vw;
+  max-height: 460px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.36;
+  filter: blur(1.5px) saturate(0.9);
+  background-size: cover;
+  background-position: center;
+  animation: derivar 22s ease-in-out infinite;
+  /* el terminador: la sombra que la hace esfera y no calcomanía */
+  box-shadow: inset 18px -22px 46px rgba(3, 4, 10, 0.85);
+}
+
+.planeta-fondo.es-cuando {
+  background-image: image-set(url('/media/luna.avif') type('image/avif'), url('/media/luna.webp') type('image/webp'));
+}
+
+.planeta-fondo.es-vestimenta {
+  background-image: image-set(url('/media/jupiter.avif') type('image/avif'), url('/media/jupiter.webp') type('image/webp'));
+}
+
+.planeta-fondo.es-regalos {
+  background-image: image-set(url('/media/saturno.webp') type('image/webp'));
+}
+
+@keyframes derivar {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-8px, 10px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planeta-fondo {
+    animation-duration: 44s;
+  }
+}

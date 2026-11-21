@@ -47,6 +47,11 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
         Universo
       </button>
 
+      {/* S1 · El planeta elegido queda de fondo en su sección: cierra el viaje
+          (llegaste a algún lado) y ata cada pantalla a su cuerpo. Es la misma
+          textura que ya está en caché: no se descarga nada nuevo. */}
+      <span className={`planeta-fondo es-${vista}`} aria-hidden="true" />
+
       <div className="s">
         {vista === 'cuando' && (
           <>
