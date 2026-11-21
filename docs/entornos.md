@@ -178,3 +178,14 @@ git config core.sshCommand 'ssh -i ~/.ssh/id_ed25519_xvgalaxia'
 > Alternativa sin tocar SSH: Personal Access Token fine-grained (*Contents: read & write* sólo en este
 > repo) y remote por HTTPS. Se descartó por default: el token queda en texto en `.git/config`.
 > Ver [`decisiones.md`](decisiones.md) `D-16`.
+
+## Caché (tramo C3)
+
+`public/_headers` → `dist/_headers`. Reglas: `/assets/*` inmutable 1 año (llevan hash en el nombre),
+`/media/*` 7 días + `stale-while-revalidate`, `/` y `/index.html` siempre frescas.
+
+**A verificar en el próximo push:** que Cloudflare Workers respete `_headers`. Se comprueba con
+`curl -sI https://xv-galaxia.orangetech.com.ar/media/warp.mp4 | grep -i cache-control`.
+Si sigue devolviendo `max-age=0, must-revalidate`, Workers Assets no lo lee y hay que hacerlo con una
+**Cache Rule** del panel (Rules → Cache Rules → Cache eligibility: eligible, Edge TTL: 7 días, para
+`/media/*`). Mismo resultado, gratis.
