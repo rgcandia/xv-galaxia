@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { evento } from '../evento'
 import './universo.css'
 
@@ -19,6 +19,31 @@ function Titulo({ eyebrow, children }: { eyebrow: string; children: React.ReactN
  */
 export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: () => void }) {
   const [copiado, setCopiado] = useState(false)
+  const planetaRef = useRef<HTMLSpanElement>(null)
+
+  /* S5 · Aterrizaje real (FLIP). En vez de adivinar desde dónde entra el
+     planeta, se mide dónde quedó y se calcula el tamaño exacto que ocupa la
+     pantalla: así el primer cuadro coincide con el cuerpo gigante de la
+     escena anterior y no hay salto ni "scroll". Con la Web Animations API el
+     movimiento corre en el compositor, sin repintar el texto. */
+  useEffect(() => {
+    const el = planetaRef.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const r = el.getBoundingClientRect()
+    const s0 = Math.max(window.innerHeight, window.innerWidth) / r.width
+    const cx = window.innerWidth / 2 - (r.left + r.width / 2)
+    const cy = window.innerHeight / 2 - (r.top + r.height / 2)
+
+    el.animate(
+      [
+        { transform: `translate(${cx}px, ${cy}px) scale(${s0})`, opacity: 1, offset: 0 },
+        { transform: 'translate(0, 0) scale(1)', opacity: 0.9, offset: 1 },
+      ],
+      { duration: 950, easing: 'cubic-bezier(.22,.8,.3,1)', fill: 'both' },
+    )
+  }, [vista])
   const { nucleo, orbita, senal } = evento.secciones
 
   async function copiarAlias() {
@@ -50,7 +75,12 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
       {/* S1 · El planeta elegido queda de fondo en su sección: cierra el viaje
           (llegaste a algún lado) y ata cada pantalla a su cuerpo. Es la misma
           textura que ya está en caché: no se descarga nada nuevo. */}
-      <span className={`planeta-fondo es-${vista}`} aria-hidden="true" />
+      <span
+        key={vista}
+        ref={planetaRef}
+        className={`planeta-fondo es-${vista}`}
+        aria-hidden="true"
+      />
 
       <div className="s">
         {vista === 'cuando' && (

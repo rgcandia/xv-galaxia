@@ -294,9 +294,7 @@
      viaje en la escena anterior) y se achica hasta su rincón. Así el corte
      entre el universo y la sección no se ve: es el mismo cuerpo, en
      movimiento continuo. */
-  animation:
-    aterrizar-planeta 0.9s cubic-bezier(0.22, 0.8, 0.3, 1) both,
-    derivar 22s ease-in-out 0.9s infinite;
+  animation: derivar 22s ease-in-out infinite;
   transform-origin: 50% 50%;
   /* el terminador: la sombra que la hace esfera y no calcomanía */
   box-shadow: inset 18px -22px 46px rgba(3, 4, 10, 0.85);
@@ -358,5 +356,27 @@
 @media (prefers-reduced-motion: reduce) {
   .planeta-fondo {
     animation-duration: 44s;
+  }
+}
+
+/* S5 · La sección entra con un fundido, no con un desplazamiento: el
+   desplazamiento del contenido se leía como "scroll" justo cuando el planeta
+   aterrizaba, y competía con el movimiento del planeta. */
+.s {
+  animation: aparecer-suave 0.45s ease both;
+}
+
+@keyframes aparecer-suave {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s {
+    animation: none;
   }
 }
