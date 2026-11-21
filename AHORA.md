@@ -11,7 +11,9 @@
 | **Rama / remoto** | `main` → `git@github.com:rgcandia/xv-galaxia.git` (deploy automático) |
 | **Fases cerradas** | `F0` setup · `F1` portada · `F2` inmersión |
 | **Fase abierta** | **`F3` — El universo**: `U1` fondo · `U2` cuerpos · `U3` fugaces · `U3-b` profundidad · `R1`/`R2` texturas reales · `U5-a` anillo de Saturno → **cerrados**. **Siguiente:** rotación de los planetas, `U4` (la llegada) y `U5` (latido que invita a tocar) |
-| **Plan de carga** | [`docs/plan-carga-2026-11-21.md`](docs/plan-carga-2026-11-21.md) — tramos `C1`–`C5` **cerrados** (falta verificar `_headers` en producción) |
+| **Último tramo cerrado** | **`Z3`** — el viaje al planeta ya no se difumina, el Sol anima, entrada escalonada. Deploy `cf4e0df` **online**. |
+| **Planes cerrados** | [`plan-carga`](docs/plan-carga-2026-11-21.md) `C1`–`C5` ✅ (con caché verificada en producción) · [`plan-llegada`](docs/plan-llegada-2026-11-21.md) `Z1`–`Z3` ✅ |
+| **Próximo (esperando OK)** | Devolución del usuario sobre `Z3` en el celular · luego **rotación de los planetas** · **datos reales** del evento (hora, lugar + Maps, vestimenta) · versión **desktop** |
 | **Plan que manda** | [`docs/plan-invitacion-xv-2026-11-21.md`](docs/plan-invitacion-xv-2026-11-21.md) |
 | **Costos** | **$0** (Cloudflare free + GitHub free + Apps Script) |
 
