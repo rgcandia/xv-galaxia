@@ -137,26 +137,24 @@ export default function App() {
     if (progreso >= 99.5) setListo(true)
   }, [progreso])
 
-  /** Cierra la inmersión: flash -> portada. Idempotente.
+  /** Cierra la inmersión: zoom final -> oscuridad -> universo. Idempotente.
    *
-   *  S25 · El final, quemado. Antes acá se PAUSABA el video y el flash era un
-   *  blanco radial (opaco en el centro, transparente al 72 %): el cuadro
-   *  pausado quedaba visible y quieto en todo el marco durante ~0,6 s — eso era
-   *  la "imagen congelada". Ahora el video NO se pausa: corre sus últimos
-   *  130 ms solo y nunca se ve un cuadro quieto mientras el zoom final (2,35×
-   *  con brillo y desenfoque) lo va comiendo. Una capa blanca de PANTALLA
-   *  COMPLETA tapa todo en 480 ms; recién ahí se suelta el video (se desmonta
-   *  con la portada), se monta el mapa debajo y el blanco se disuelve
-   *  (`aterrizaje`). Nunca hay un cuadro descubierto: o hay imagen viva, o hay
-   *  blanco lleno. */
-  const DUR_QUEMAR = 480
+   *  S26 · Se lo traga la oscuridad (en `S25` se quemaba en blanco y era un
+   *  golpe de luz que no tenía fuente: el video es espacio profundo, y después
+   *  el mapa volvía a ser oscuro — la escena parecía arrancar dos veces).
+   *  Ahora el video NO se pausa: sigue vivo, se agranda a 2,2× y se apaga
+   *  (`brightness(0.5)`) mientras una capa OPACA de oscuridad sube en 600 ms.
+   *  Recién entonces se desmonta la portada (con ella el video), se monta el
+   *  mapa debajo y el velo —del mismo negro que el cielo del mapa— se va: el
+   *  mapa no aparece, se ilumina. Nunca hay un cuadro quieto al descubierto. */
+  const DUR_TRAGAR = 620
 
   function entrar() {
     if (terminado.current) return
     terminado.current = true
     if (failsafe.current) window.clearTimeout(failsafe.current)
     setFase('flash')
-    window.setTimeout(() => setFase('revelado'), DUR_QUEMAR)
+    window.setTimeout(() => setFase('revelado'), DUR_TRAGAR)
   }
 
   function saltar() {
@@ -307,11 +305,11 @@ export default function App() {
     </main>
     )}
 
-    {/* S25 · El quemado: blanco de pantalla completa mientras el video hace su
-        último zoom. Vive FUERA de `<main>` a propósito: la portada (y con ella
-        el `<video>`) se desmonta al revelar, y el blanco tiene que sobrevivir
-        ese cambio de commit para no dejar un cuadro al descubierto. */}
-    {fase === 'flash' && <div className="quemar" aria-hidden="true" />}
+    {/* S26 · La oscuridad que se lo traga, mientras el video hace su último
+        zoom. Vive FUERA de `<main>` a propósito: la portada (y con ella el
+        `<video>`) se desmonta al revelar, y este velo tiene que llegar al
+        cambio de commit ya opaco para no dejar un cuadro al descubierto. */}
+    {fase === 'flash' && <div className="tragar" aria-hidden="true" />}
 
     {/* P2 · El aterrizaje: el blanco del flash se disuelve sobre el universo,
         así el paso del video a la escena no corta en seco. */}
