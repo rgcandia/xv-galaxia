@@ -445,6 +445,55 @@
   transition: opacity 0.4s ease;
 }
 
+/* ── S16 · Desktop: el fondo a escala 1:1 ────────────────────────────────────
+   `.lejana` venía con `transform: scale(1.18)` animado hasta 1.26, y `.capa`
+   con `inset: -6 %`. Sumado al `cover`, en un monitor la textura se veía
+   ~1,9× más grande que en el celular: eso era el "zoom" del fondo.
+   Acá el margen baja a -2 % (sólo el juego que necesita el paralaje) y el
+   zoom propio arranca en 1 y respira hasta 1,04. La nebulosa, que es una capa
+   suave de 26 px de blur, va de 1,3 a 1,42: mantiene el volumen sin agrandar
+   las nubes.
+   ⚠️ Este bloque va ANTES de `prefers-reduced-motion` a propósito: si fuera
+   después, re-activaría las animaciones que la regla de accesibilidad apaga.
+   Para quien pide movimiento reducido quedan los `transform` fijos de acá. */
+@media (min-width: 900px) {
+  .capa {
+    inset: -2%;
+  }
+
+  .lejana {
+    transform: translate3d(calc(var(--px) * -6px), calc(var(--py) * -6px), 0) scale(1);
+    animation: deriva-desktop 70s ease-in-out infinite alternate;
+  }
+
+  .nebulosa {
+    animation: respirar-desktop 110s ease-in-out infinite alternate;
+  }
+
+  @keyframes deriva-desktop {
+    from {
+      background-position: 50% 50%;
+      transform: translate3d(calc(var(--px) * -6px), calc(var(--py) * -6px), 0) scale(1)
+        translate3d(-1%, -0.75%, 0);
+    }
+    to {
+      transform: translate3d(calc(var(--px) * -6px), calc(var(--py) * -6px), 0) scale(1.04)
+        translate3d(1%, 0.75%, 0);
+    }
+  }
+
+  @keyframes respirar-desktop {
+    from {
+      transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(1.3)
+        rotate(6deg) translate3d(0.5%, 1%, 0);
+    }
+    to {
+      transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(1.42)
+        rotate(2deg) translate3d(-0.5%, -1%, 0);
+    }
+  }
+}
+
 /* ── Accesibilidad ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .luna,
@@ -509,7 +558,7 @@
        0,63 × 2,2 ≈ 1,4. Desktop con la foto vertical: 1,78 × 2,2 ≈ 3,9 — tres
        veces más grande. Con la foto horizontal: 1,02 × 1,36 ≈ 1,4, o sea el
        mismo cielo que en el teléfono. */
-    transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(1.36)
+    transform: translate3d(calc(var(--px) * -2px), calc(var(--py) * -2px), 0) scale(1.3)
       rotate(6deg);
   }
 }
