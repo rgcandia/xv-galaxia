@@ -396,45 +396,42 @@
   }
 }
 
-/* ── Al elegir: el cuerpo crece y se lo traga la pantalla ───────────────── */
+/* ── S8 · El viaje: el cuerpo no se acerca, se va al rincón ───────────────
+   Antes acá vivía el zoom (`.astro { transform: scale(12) }`): el cuerpo
+   crecía hasta llenar la pantalla y después la sección mostraba OTRO planeta
+   en el rincón. Dos objetos y un corte en el medio. Ahora el recorrido lo
+   anima la Web Animations API en `Mapa.tsx`, midiendo de dónde sale y a dónde
+   llega; estas reglas son sólo la parte estática — fijar el cuerpo en el lugar
+   exacto donde estaba antes de que arranque el primer cuadro. */
 .cuerpo.is-elegido {
-  z-index: 9;
+  position: fixed;
+  z-index: 40;
+  margin: 0;
+  animation: none; /* se va el `flotar`: el vuelo manda sobre el `transform` */
+  transform-origin: 50% 50%;
+  will-change: transform;
+  pointer-events: none;
 }
 
-/* Z3 · El viaje: se acerca y NO se desvanece (el fundido a transparente se
-   leía como "se difumina"). La pantalla siguiente entra encima cuando termina.
-   `animation: tragar` reemplaza a `pulso` (era lo que le impedía moverse al Sol)
-   y además le da el fogonazo final: cruzamos el planeta, no lo apagamos. */
 .cuerpo.is-elegido .astro {
-  transform: scale(12);
-  box-shadow: none;
-  transition: transform 2.15s cubic-bezier(0.45, 0, 0.55, 1);
+  width: 100%; /* el ancho lo fija el JS con el rectángulo medido */
+  animation: none;
+  transition: none;
 }
 
-/* El Sol se animaba a los saltos: al escalar 9x sus dos box-shadow (60px y
-   160px de blur) y el halo con blur(10px) se vuelven enormes y el celular no
-   puede repintar 60 fps. Se apagan durante el viaje. */
-.cuerpo.luna.is-elegido .astro::before,
-.cuerpo.luna.is-elegido .astro::after {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.cuerpo.is-elegido .astro-nombre {
+  display: none;
 }
 
-@keyframes tragar {
-  from {
-    filter: none;
-  }
-  to {
-    filter: brightness(3.4) saturate(0.55);
-  }
-}
-
+/* El cielo se apaga mientras el planeta viaja: al final queda el cuerpo solo
+   sobre el azul de fondo, y la sección siguiente sube desde ESE mismo azul
+   (`--c-space`). Es el "se apaga todo" que hacía falta para que el empalme no
+   se vea, sin cortar el movimiento. */
 .escena.is-saliendo .capa {
-  opacity: 0.3;
-  transition: opacity 1.1s ease;
+  opacity: 0;
+  transition: opacity 0.55s ease;
 }
 
-.cuerpo.is-elegido .astro-nombre,
 .escena.is-saliendo .escena-texto {
   opacity: 0;
   transition: opacity 0.25s ease;
@@ -515,60 +512,12 @@
     entrar 0.75s ease 0.54s backwards;
 }
 
-/* Z3-b · La Luna es 3x más grande que Júpiter y Saturno: al escalar 12x el
-   navegador RE-RASTERIZA el fondo (2 radial-gradients + foto) en cada frame y
-   en el celular no llega. Promover la capa lo rasteriza una sola vez y el
-   resto lo hace la GPU. Era el motivo de que sólo el Sol se viera roto. */
+/* B1-b · Los cuerpos son fotografía y se mueven: capa propia, rasterizada una
+   sola vez. (Antes esto era obligatorio porque el zoom los re-escalaba 12×;
+   el vuelo actual llega a 4,7× como mucho y sigue sirviendo.) */
 .astro {
   will-change: transform;
   backface-visibility: hidden;
-}
-
-/* Z3-c · El viaje se anima en el CONTENEDOR con @keyframes, no en el cuerpo
-   con transition.
-   Por qué: el único cuerpo que tenía una animación propia sobre `.astro`
-   (el pulso que el Sol tenía sobre `.astro`) era justamente el que no viajaba. Al cambiar la
-   animación por una que no toca `transform`, el navegador libera la propiedad y
-   el `transition` no encuentra un valor de partida del que interpolar → salta
-   al final. Con @keyframes no hay valor de partida que buscar: `from` y `to`
-   están escritos a mano, así que los tres viajan igual.
-   Además el contenedor no tiene fondos ni blend-modes, así que escalarlo es
-   barato (el `background` y los `::before/::after` viajan con él). */
-.cuerpo.is-elegido {
-  z-index: 10;
-  will-change: transform;
-  pointer-events: none;
-  animation: viajar 2.15s cubic-bezier(0.45, 0, 0.55, 1) forwards;
-}
-
-/* Se apaga el zoom viejo del cuerpo y su pulso: si `pulso` siguiera corriendo,
-   el navegador repintaría el cuerpo en cada cuadro mientras está a 12x. */
-.cuerpo.is-elegido .astro {
-  transform: none;
-  animation: none;
-  transition: none;
-}
-
-.cuerpo.is-elegido .astro-nombre {
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-/* Los halos con blur y los blend-modes, escalados 12x, son carísimos: se
-   apagan mientras el cuerpo viaja. */
-.cuerpo.luna.is-elegido .astro::before,
-.cuerpo.luna.is-elegido .astro::after {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-@keyframes viajar {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(12);
-  }
 }
 
 /* ── B1 · El fondo también es una foto real ──────────────────────────────
@@ -626,11 +575,6 @@
     opacity: 1;
     transform: scale(1.04);
   }
-}
-
-/* El halo se apaga cuando la Luna viaja (el blur a 12x es carísimo). */
-.cuerpo.luna.is-elegido .astro::before {
-  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -779,23 +723,9 @@
   }
 }
 
-/* ── D-60 · El viaje NO se cancela con movimiento reducido ────────────────
-   Antes, en equipos con las animaciones del sistema apagadas, tocar un
-   planeta hacía sonar el whoosh y difuminar el resto ¡pero el cuerpo se
-   quedaba quieto! El zoom es la señal de que "entraste"; se conserva, más
-   corto y con menos ampliación (de 12x a 4x) para no marear. */
-@media (prefers-reduced-motion: reduce) {
-  .cuerpo.is-elegido {
-    animation: viajar-reducido 1.1s ease-in forwards;
-  }
-
-  @keyframes viajar-reducido {
-    from {
-      transform: scale(1);
-      opacity: 1;
-    }
-    to {
-      transform: scale(4);
-    }
-  }
-}
+/* ── D-63 · El viaje conserva el RECORRIDO con movimiento reducido ─────────
+   Antes acá había un `viajar-reducido` con otro recorrido (scale 4 en vez de
+   12). Nunca más: cambiar la geometría entre los dos caminos es exactamente lo
+   que hizo que el empalme se viera roto en el equipo del usuario. Ahora el
+   único ajuste es la duración (1400 ms → 900 ms) y el arco, que se anula.
+   Lo decide `Mapa.tsx`, en un solo lugar. */

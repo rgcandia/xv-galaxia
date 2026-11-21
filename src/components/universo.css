@@ -14,11 +14,35 @@
      planeta moviéndose encima, ese desplazamiento se lee como que la página
      scrolleó — era la mitad del problema. Ahora el contenido entra en fundido
      (`.s`) y el cielo se enciende debajo (`.universo::before`). */
+  /* S8 · El fondo base es el MISMO negro sobre el que termina el vuelo:
+     `#03040a` es el `background` de `.escena` (el mapa), que es lo que queda
+     cuando el mapa apaga sus capas. El cielo con degradado vive en `::before`
+     y sube desde cero: el pasaje de pantalla es "se apaga el universo, se
+     enciende la sección", sin un fotograma de otro color. */
+  background: #03040a;
+  font-family: var(--font-ui);
+  color: var(--c-star);
+}
+
+.universo::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background:
     radial-gradient(120% 60% at 50% 0%, rgba(28, 37, 65, 0.9), transparent 70%),
     linear-gradient(180deg, #0b132b 0%, #070c1d 55%, #05070f 100%);
-  font-family: var(--font-ui);
-  color: var(--c-star);
+  animation: encender 0.75s ease both;
+}
+
+@keyframes encender {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .s {
@@ -265,77 +289,47 @@
   background: none;
 }
 
-/* ── S1 · El planeta que te trajo queda de fondo ──────────────────────────
-   Asomado arriba a la derecha, recortado por el borde, con deriva lenta.
-   36 % de opacidad y 1,5 px de desenfoque: presencia, no protagonismo. */
-.planeta-fondo {
+/* ── S1 + S8-b · El planeta que te trajo queda de fondo ───────────────────
+   Asomado arriba a la derecha, medio fuera del encuadre, con deriva lenta.
+
+   Ya NO es una foto dentro de un cuadrado con `border-radius: 50%`: es el
+   MISMO cuerpo que estaba en el mapa (`.astro` + capas + anillo), sólo más
+   chico. Dos motivos:
+     1. El vuelo de `Mapa.tsx` termina exactamente sobre este rectángulo. Si
+        acá hubiera otro objeto —otra textura, otro tamaño, otra forma— el
+        relevo se vería como un salto.
+     2. Saturno. Su anillo es una elipse del 268 % del planeta: no entra en un
+        círculo recortado. Con la foto en un cuadrado, Saturno aterrizaba sin
+        anillos.
+
+   El tamaño va en `min(58vw, 460px)` y `medirRincon()` (`src/lib/rincon.ts`)
+   dice lo mismo en píxeles, porque el vuelo tiene que conocer el destino antes
+   de que este elemento exista. 🔒 Si cambia acá, cambia allá.
+   Las medidas de posición/fondo pisan las de `.luna/.jupiter/.saturno` del
+   mapa por especificidad (`.universo .planeta-fondo`), no por orden de carga. */
+.universo .planeta-fondo {
   position: fixed;
   top: -12vh;
   right: -12vw;
-  width: 58vw;
-  max-width: 460px;
-  height: 58vw;
-  max-height: 440px;
-  border-radius: 50%;
-  pointer-events: none;
+  bottom: auto;
+  left: auto;
+  width: min(58vw, 460px);
+  height: auto;
+  aspect-ratio: 1;
   z-index: 0;
-  /* Sin desenfoque: el planeta se ve nítido, como el que acabás de tocar.
-     La profundidad la da la opacidad y la sombra, no el blur (`D-61`). */
+  pointer-events: none;
+  /* El vuelo llega a esta misma opacidad: el relevo no cambia el brillo. */
   opacity: 0.9;
-  filter: saturate(1.02);
-  background-size: cover;
-  background-position: center;
-  /* S4 · Aterrizaje: el planeta entra GRANDE y centrado (donde lo dejó el
-     viaje en la escena anterior) y se achica hasta su rincón. Así el corte
-     entre el universo y la sección no se ve: es el mismo cuerpo, en
-     movimiento continuo. */
   animation: derivar 22s ease-in-out infinite;
   transform-origin: 50% 50%;
-  /* el terminador: la sombra que la hace esfera y no calcomanía */
-  box-shadow: inset 18px -22px 46px rgba(3, 4, 10, 0.85);
-  /* el borde se apaga en el cielo en vez de cortarse */
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 78%, transparent 100%);
-  mask-image: radial-gradient(circle at 50% 50%, #000 78%, transparent 100%);
 }
 
-.planeta-fondo.es-cuando {
-  background-image: image-set(url('/media/luna.avif') type('image/avif'), url('/media/luna.webp') type('image/webp'));
-}
-
-.planeta-fondo.es-vestimenta {
-  background-image: image-set(url('/media/jupiter.avif') type('image/avif'), url('/media/jupiter.webp') type('image/webp'));
-}
-
-.planeta-fondo.es-regalos {
-  background-image: image-set(url('/media/saturno.webp') type('image/webp'));
-}
-
-@keyframes aterrizar-planeta {
-  from {
-    translate: -33vw 33vh;
-    scale: 6.5;
-    opacity: 1;
-  }
-  to {
-    translate: 0 0;
-    scale: 1;
-    opacity: 0.9;
-  }
-}
-
-@media (max-width: 899px) {
-  @keyframes aterrizar-planeta {
-    from {
-      translate: -28vw 30vh;
-      scale: 5;
-      opacity: 1;
-    }
-    to {
-      translate: 0 0;
-      scale: 1;
-      opacity: 0.9;
-    }
-  }
+/* El cuerpo hereda textura, terminador, halo y anillo de las reglas del mapa
+   (`.luna .astro`, `.jupiter .astro`, `.saturno .astro`). Sólo se le fija el
+   tamaño; por eso el selector tiene que ser más específico que `.luna .astro`. */
+.universo .planeta-fondo .astro {
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes derivar {

@@ -1,8 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { evento } from '../evento'
 import './universo.css'
 
 export type Vista = 'mapa' | 'cuando' | 'vestimenta' | 'regalos'
+
+/* S8-b · El cuerpo que vuela y el cuerpo que queda de fondo son EL MISMO:
+   mismo `.astro`, mismas capas, mismo terminador. Si el del rincón fuera una
+   foto en un cuadrado con `border-radius: 50%`, el empalme mostraría dos
+   objetos distintos — y además Saturno perdería el anillo, porque un anillo
+   elíptico no entra en un círculo recortado. */
+const CUERPO: Record<Vista, string> = {
+  mapa: 'luna',
+  cuando: 'luna',
+  vestimenta: 'jupiter',
+  regalos: 'saturno',
+}
 
 function Titulo({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
   return (
@@ -19,42 +31,7 @@ function Titulo({ eyebrow, children }: { eyebrow: string; children: React.ReactN
  */
 export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: () => void }) {
   const [copiado, setCopiado] = useState(false)
-  const planetaRef = useRef<HTMLSpanElement>(null)
 
-  /* S5 · Aterrizaje real (FLIP). En vez de adivinar desde dónde entra el
-     planeta, se mide dónde quedó y se calcula el tamaño exacto que ocupa la
-     pantalla: así el primer cuadro coincide con el cuerpo gigante de la
-     escena anterior y no hay salto ni "scroll". Con la Web Animations API el
-     movimiento corre en el compositor, sin repintar el texto. */
-  useEffect(() => {
-    const el = planetaRef.current
-    if (!el) return
-    /* D-62 · con movimiento reducido el aterrizaje NO se cancela: se acorta
-       (600 ms y 40 % menos recorrido). Es la tercera vez que esta guarda nos
-       deja la animación invisible en el equipo del usuario. */
-    const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const r = el.getBoundingClientRect()
-    const s0 = Math.max(window.innerHeight, window.innerWidth) / r.width
-    const cx = window.innerWidth / 2 - (r.left + r.width / 2)
-    const cy = window.innerHeight / 2 - (r.top + r.height / 2)
-
-    el.animate(
-      [
-        {
-          transform: `translate(${cx * (reducido ? 0.6 : 1)}px, ${cy * (reducido ? 0.6 : 1)}px) scale(${reducido ? 1 + (s0 - 1) * 0.6 : s0})`,
-          opacity: 1,
-          offset: 0,
-        },
-        { transform: 'translate(0, 0) scale(1)', opacity: 0.9, offset: 1 },
-      ],
-      {
-        duration: reducido ? 1100 : 1500,
-        easing: "cubic-bezier(.33,0,.2,1)",
-        fill: 'both',
-      },
-    )
-  }, [vista])
   const { nucleo, orbita, senal } = evento.secciones
 
   async function copiarAlias() {
@@ -84,14 +61,13 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
       </button>
 
       {/* S1 · El planeta elegido queda de fondo en su sección: cierra el viaje
-          (llegaste a algún lado) y ata cada pantalla a su cuerpo. Es la misma
-          textura que ya está en caché: no se descarga nada nuevo. */}
-      <span
-        key={vista}
-        ref={planetaRef}
-        className={`planeta-fondo es-${vista}`}
-        aria-hidden="true"
-      />
+          (llegaste a algún lado) y ata cada pantalla a su cuerpo.
+          S8-b · Ya no es una foto en un cuadrado: es el mismo cuerpo del mapa,
+          al 58 % del ancho, con sus capas y su anillo. El vuelo de `Mapa.tsx`
+          termina justo sobre este rectángulo, así que el relevo no se ve. */}
+      <div key={vista} className={`planeta-fondo ${CUERPO[vista]}`} aria-hidden="true">
+        <span className="astro" />
+      </div>
 
       <div className="s">
         {vista === 'cuando' && (
