@@ -439,19 +439,19 @@
   .warp-video {
     object-fit: contain;
     height: 100%;
-    width: min(64vh, 100%);
+    width: min(57.14vh, 100%);
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
-      #000 14%,
-      #000 86%,
+      #000 22%,
+      #000 78%,
       transparent 100%
     );
     mask-image: linear-gradient(
       to right,
       transparent 0%,
-      #000 14%,
-      #000 86%,
+      #000 22%,
+      #000 78%,
       transparent 100%
     );
   }
@@ -592,16 +592,19 @@
    quede cerca del centro. Es un ajuste de encuadre, no del video.
    Para moverlo: cambiar los dos porcentajes del `to`. */
 @media (min-width: 900px) {
-  .warp.is-on {
+  .warp.is-on .warp-video {
     animation: recentrar 10.5s linear both;
   }
 
+  /* `translate` y no `transform`: así el recentrado no pisa el `scale(1.38)`
+     del flash, y al aplicarse al video (y no al escenario) el botón Saltar
+     deja de irse corriendo con el plano. */
   @keyframes recentrar {
     from {
-      transform: translate3d(0, 0, 0) scale(1);
+      translate: 0 0;
     }
     to {
-      transform: translate3d(-5%, 3.5%, 0) scale(1.04);
+      translate: -5% 3.5%;
     }
   }
 }
