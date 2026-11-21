@@ -260,20 +260,15 @@ export default function App() {
             aria-label="Preparando el viaje"
           >
             <span className="cta-carga-texto">{evento.cargando}</span>
-            {/* D-37 · Tres estrellas en vez de puntitos y sin porcentaje: se
-                encienden con el progreso REAL (una al 33 %, otra al 66 %, la
-                última al 100 %) y la que está en curso titila. */}
+            {/* D-58 · Sólo las estrellas: se fue la barra. Sin barra no hay
+                medición visible, así que las estrellas ya no marcan el
+                progreso real (eso lo hace el `role="progressbar"` de arriba,
+                para lectores de pantalla): hacen una ola continua, que es lo
+                que comunica "seguí esperando". */}
             <span className="cta-carga-estrellas" aria-hidden="true">
-              {[0, 1, 2].map((i) => {
-                const desde = i * 33.34
-                const hasta = desde + 33.34
-                const estado =
-                  progreso >= hasta - 0.5 ? 'is-llena' : progreso >= desde ? 'is-activa' : ''
-                return <i key={i} className={`estrella ${estado}`} />
-              })}
-            </span>
-            <span className="cta-carga-barra">
-              <i style={{ width: `${Math.round(progreso)}%` }} />
+              {[0, 1, 2].map((i) => (
+                <i key={i} className="estrella" />
+              ))}
             </span>
           </div>
         )}
