@@ -681,3 +681,18 @@
     opacity 0.35s ease,
     filter 0.35s ease;
 }
+
+/* ── Q1 · La llegada ────────────────────────────────────────────────────────
+   Los cuerpos entran escalonados (Luna -> Júpiter -> Saturno) y el texto
+   entra ÚLTIMO, cuando ya se vio la escena: primero el asombro, después la
+   pregunta. `backwards` para que no quede ningún rastro de opacidad al final
+   (si no, `is-saliendo` no podría atenuarlo). */
+.escena-texto {
+  animation: entrar 0.9s ease 1.2s backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .escena-texto {
+    animation: none;
+  }
+}

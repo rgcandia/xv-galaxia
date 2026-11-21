@@ -5,6 +5,7 @@
 
 | Fecha | Qué | Commit |
 |---|---|---|
+| 2026-11-21 | **`Q1` · La llegada.** Primero los cuerpos (Luna → Júpiter → Saturno, ya escalonados) y el **texto entra último, a 1,2 s**: primero el asombro, después la pregunta. Con el `.aterrizaje` de `P2` el paso del video al universo ya no tiene corte seco. | `pendiente` |
 | 2026-11-21 | **`Q2` · El pulso que invita a tocar.** El halo de la Luna ya late solo; al apoyar el dedo (o al llegar con teclado, `:focus-visible`) se detiene, crece y se enciende. Es la única señal que necesita: responde sin ningún cartel. | `pendiente` |
 | 2026-11-21 | **`Q3` · La Luna gira.** Lo que rota es la **capa de cráteres**, no el cuerpo: el terminador queda fijo, como en una esfera iluminada de verdad. **4 minutos por vuelta** (`girar`, sólo `transform` de un pseudo: la GPU). Júpiter y Saturno quedan quietos a propósito: desplazar sus bandas arrastraría el terminador y la esfera dejaría de leerse. `prefers-reduced-motion` la deja quieta. | `pendiente` |
 | 2026-11-21 | **`L2` · La Luna manda + los rótulos.** La jerarquía se dice **con luz, no con texto** (`D-23`): Júpiter y Saturno arrancan al **55 %** y se encienden al tocarlos; el elegido vuelve a plena para no viajar apagado. La Luna respira con el **halo** (no con el `.astro`: animar su `transform` es lo que dejaba al Sol clavado, `Z3-c`). Rótulos nuevos (`D-43`): **La cita · El brillo · Un detalle**, con el título funcional intacto adentro. | `pendiente` |
