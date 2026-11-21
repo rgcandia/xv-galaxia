@@ -29,7 +29,10 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
   useEffect(() => {
     const el = planetaRef.current
     if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    /* D-62 · con movimiento reducido el aterrizaje NO se cancela: se acorta
+       (600 ms y 40 % menos recorrido). Es la tercera vez que esta guarda nos
+       deja la animación invisible en el equipo del usuario. */
+    const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const r = el.getBoundingClientRect()
     const s0 = Math.max(window.innerHeight, window.innerWidth) / r.width
@@ -38,10 +41,18 @@ export default function Universo({ vista, onVolver }: { vista: Vista; onVolver: 
 
     el.animate(
       [
-        { transform: `translate(${cx}px, ${cy}px) scale(${s0})`, opacity: 1, offset: 0 },
+        {
+          transform: `translate(${cx * (reducido ? 0.6 : 1)}px, ${cy * (reducido ? 0.6 : 1)}px) scale(${reducido ? 1 + (s0 - 1) * 0.6 : s0})`,
+          opacity: 1,
+          offset: 0,
+        },
         { transform: 'translate(0, 0) scale(1)', opacity: 0.9, offset: 1 },
       ],
-      { duration: 950, easing: 'cubic-bezier(.22,.8,.3,1)', fill: 'both' },
+      {
+        duration: reducido ? 600 : 950,
+        easing: 'cubic-bezier(.22,.8,.3,1)',
+        fill: 'both',
+      },
     )
   }, [vista])
   const { nucleo, orbita, senal } = evento.secciones
