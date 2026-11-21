@@ -1,4 +1,4 @@
-# AHORA · 2026-11-21 20:25
+# AHORA · 2026-11-21 22:05 · cierre del día
 
 > Puerta de entrada. Si algo no está acá, no es el trabajo de hoy.
 > Plan que manda: [`docs/guia-contenido-2026-11-21.md`](docs/guia-contenido-2026-11-21.md)
@@ -7,13 +7,12 @@
 
 **Fase:** `F3` (el universo) cerrada + `F6-a` (desktop) v1 + **el viaje reescrito** (`S7`, `S8`).
 **Dominio:** **`galaxia.orangetech.com.ar`** (el viejo `xv-galaxia.` ya no resuelve).
-**Estado:** el planeta **vuela** de su lugar al rincón, más suave, **y vuelve** a su lugar. **Saturno ya
-se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta) y **su
-anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). En desktop **la galaxia
-de entrada va acostada** (`S12`) y llena la pantalla, sin la franja negra que dejaba el viejo "recentrado"
-(`S13`, `D-69`). **Local, sin pushear** (29 commits nuevos sobre
-`ae9e121`). Pendiente: mirar en localhost · el desfase de ~0,4 s del whoosh en la vuelta (queda así por
-decisión del usuario).
+**Estado:** **cerrado y en producción** (13 commits, `3ec60c2..` + el push de hoy). El planeta
+**vuela** al rincón y **vuelve** sin parpadeo (`S24`: el traspaso del aterrizaje se hace en un solo
+cuadro con `flushSync`, `D-78`), el final del video **se apaga en negro dejando encendido el núcleo de
+la galaxia** (`S28`, `D-81`) y la portada ya tiene su jerarquía definitiva: `Mis 15` de kicker en
+champagne, **"Una noche en el cosmos"** de título, `Tiana` de firma, con scrim detrás y una sola señal
+abajo del CTA (la barrita que titila, `S30`/`S31`, `D-82`).
 
 ### Recién hecho: el final del video y el título (`S25` → `S26`/`S28` · `S29`)
 El velo final es **oscuro y con un agujero** en el punto de luz de la galaxia: la luz queda encendida y
@@ -21,7 +20,8 @@ sigue encendida del otro lado, así que la transición no se lee como corte (`D-
 la frase **"Una noche en el cosmos"**, con `Mis 15` de kicker arriba y `Tiana` de firma.
 La portada ganó peso sin recuperar la caja: kicker en champagne, scrim detrás del bloque de arriba y abajo del
 CTA una sola señal: la barrita que titila (`S30`/`S31`, `D-82`).
-**Falta mirarlo en localhost.** Queda pendiente la **música con botón** (decidida, sin empezar).
+**Pendiente al arrancar la próxima:** mirar todo en **celular real** (S22–S24 eran de celular) y la
+**música con botón**, ya decidida en estilo y forma pero sin empezar.
 
 ### Antes: el final del video (`S25` → corregido en `S26`)
 Al llegar al corte **no se pausa** el video: sube a 2,2× **mientras se apaga** hasta `brightness(0.35)`,
