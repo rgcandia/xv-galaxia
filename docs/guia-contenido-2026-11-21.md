@@ -96,14 +96,14 @@ Estados: 🟢 pedido por el usuario · 📋 propuesto · ⏸️ en pausa · ⬜ 
 
 ### Ola 1 · El elenco (después de la 0)
 
-#### `L1` · Cambio de elenco 📋
+#### `L1` · Cambio de elenco ✅
 - **Entra:** Luna (cráteres con radial-gradients, terminador), Júpiter (bandas + Gran Mancha Roja + 4 lunas
   chiquitas), Saturno igual. Afuera el Sol como destino y afuera Venus. Resplandor cálido fuera de encuadre.
 - **No entra:** jerarquía ni rótulos (eso es `L2`).
 - **Terminado cuando:** los tres se reconocen de un vistazo, sin leer el rótulo.
 - **Archivos:** `src/components/mapa.css`, `src/components/Mapa.tsx`.
 
-#### `L2` · La Luna manda + los rótulos 📋
+#### `L2` · La Luna manda + los rótulos ✅
 - **Entra:** la Luna al 3× y rompiendo el encuadre; Júpiter y Saturno al 40 % de opacidad hasta que los tocás;
   rótulos nuevos (`La cita` / `El brillo` / `Un detalle`) + el título funcional adentro de cada sección.
 - **Terminado cuando:** a los 5 s de mirar se entiende que la Luna es el centro (sin texto instructivo, `D-23`).
@@ -123,7 +123,9 @@ para no perderlos, **sin fecha y sin autorización**:
 
 Ver §5 para lo que hay que decidir antes de arrancar.
 
-### Ola 3 · La estrella (la confirmación)
+### Ola 3 · ⏸️ EN PAUSA — La estrella (la confirmación)
+
+**El usuario lo dejó para después del resto.** Escrito, sin autorización y sin fecha (`D-46`: falta decidir dónde se guarda).
 
 Vuelve el RSVP, que hoy está afuera (`D-39`). **No es un muro: es una pregunta blanda.**
 
@@ -146,13 +148,13 @@ Vuelve el RSVP, que hoy está afuera (`D-39`). **No es un muro: es una pregunta 
 - **Terminado cuando:** se ve lleno y vivo sin exponer datos de invitados (regla: **cero datos reales de
   invitados en el repo**).
 
-### Ola 4 · Pulido (antes del 12/12)
+### Ola 4 · Pulido — ✅ hecho salvo el QA
 
 | # | Tramo | Terminado cuando |
 |---|---|---|
-| `Q1` | La llegada (ex `U4`): entra la Luna → Júpiter → Saturno, texto a ~1,2 s | la transición video → universo no tiene corte seco |
-| `Q2` | El pulso (ex `U5`): la Luna late cada tanto + halo al tocar | alguien toca la luna sin que se lo digan |
-| `Q3` | Rotación de los tres cuerpos | se nota vivo mirando 20 s, sin bajar de 60 fps |
+| `Q1` ✅ | La llegada (ex `U4`): entra la Luna → Júpiter → Saturno, texto a ~1,2 s | la transición video → universo no tiene corte seco |
+| `Q2` ✅ | El pulso (ex `U5`): la Luna late cada tanto + halo al tocar | alguien toca la luna sin que se lo digan |
+| `Q3` ✅ | Rotación: gira la capa de cráteres de la Luna | se nota vivo mirando 20 s, sin bajar de 60 fps |
 | `Q4` | QA: iPhone + Android reales, 4G, ahorro de batería, `prefers-reduced-motion` | **el link está listo para mandar** |
 
 ## 5. ⏸️ Lo que hay que definir antes de "La memoria"
