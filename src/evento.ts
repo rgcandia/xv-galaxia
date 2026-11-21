@@ -37,9 +37,9 @@ export const evento = {
      ───────────────────────────────────────────────────────────── */
   regalos: {
     /** Alias para transferencias. */
-    alias: 'tiana.mis15.mp',
+    alias: 'Mimi.Maffin',
     /** Titular de la cuenta. */
-    titular: 'a nombre de Anahí G. Candia',
+    titular: 'a nombre de Thian The GC',
   },
 
   /** Etapa 3 · secciones. */

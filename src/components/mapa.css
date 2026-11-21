@@ -85,14 +85,55 @@
   color: rgba(226, 232, 240, 0.85);
 }
 
-/* --- Planetas ------------------------------------------------------------ */
+/* --- Planetas ------------------------------------------------------------
+   Realismo sin imagenes: esfera sombreada + terminador + atmosfera + grano.
+   El "grano" es un filtro SVG de ruido (feTurbulence) como data URI: 0 KB,
+   se ve como textura de superficie y se reescala a cualquier tamano.
+   ------------------------------------------------------------------------ */
 .planeta {
+  position: relative;
   display: block;
   border-radius: 50%;
+  overflow: hidden;
   transition: transform 0.25s var(--ease-cosmic);
   will-change: transform;
-  /* luz que envuelve al planeta */
   box-shadow: 0 0 44px -6px currentColor;
+  animation: girar 46s linear infinite;
+}
+
+/* textura de superficie (ruido fractal) */
+.planeta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+/* terminador: sombra de noche + brillo de atmosfera en el borde iluminado */
+.planeta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.32) 0%, transparent 42%),
+    radial-gradient(circle at 74% 78%, rgba(0, 0, 0, 0.72) 0%, transparent 62%);
+  box-shadow: inset 0 0 14px 4px rgba(0, 0, 0, 0.45);
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planeta {
+    animation: none;
+  }
 }
 
 .lg .planeta {
