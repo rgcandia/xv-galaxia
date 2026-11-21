@@ -274,3 +274,10 @@
     animation: none;
   }
 }
+
+/* C5 · Mientras el loader está arriba, el CTA está deshabilitado (se libera
+   solo a los 8 s si la red no alcanza: ver App.tsx). */
+.cta[disabled] {
+  opacity: 0.5;
+  cursor: default;
+}

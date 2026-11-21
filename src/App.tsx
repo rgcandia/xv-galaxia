@@ -2,39 +2,117 @@ import { useEffect, useRef, useState } from 'react'
 import Starfield from './components/Starfield'
 import Mapa from './components/Mapa'
 import Universo, { type Vista } from './components/Universo'
+import Loader from './components/Loader'
 import { evento } from './evento'
 import './styles/portada.css'
+import './components/loader.css'
+
+/* C5 · Pesos reales de los assets críticos (bytes exactos del build). Cloudflare
+   no manda Content-Length, así que el progreso se mide contra estos números. */
+const PESOS_IMG: Array<[string, number]> = [
+  ['/media/galaxia-mobile.avif', 53746],
+  ['/media/sol.avif', 14733],
+  ['/media/venus.avif', 11505],
+  ['/media/poster.webp', 24134],
+]
 
 type Fase = 'idle' | 'warp' | 'flash' | 'revelado'
 
 export default function App() {
   const [fase, setFase] = useState<Fase>('idle')
   const [vista, setVista] = useState<Vista>('mapa')
+  const [progreso, setProgreso] = useState(0)
+  const [listo, setListo] = useState(false)
+  const [verCargador, setVerCargador] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const terminado = useRef(false)
   const failsafe = useRef<number | null>(null)
 
   const enViaje = fase === 'warp' || fase === 'flash'
 
-  /* C4 · Precarga silenciosa. Hoy el invitado se queda leyendo la portada un
-     par de segundos y ese tiempo se desperdicia: acá lo usamos para bajar los
-     planetas y el video. Se espera 1,2 s para no competir con el primer
-     pintado. Si el navegador avisa "ahorro de datos", el video NO se precarga. */
+  /* C5 · Carga con progreso real. El invitado se queda leyendo la portada un
+     par de segundos: ese tiempo se usa para bajar los planetas y el video.
+     Las imágenes valen 55 % de la barra; el video otro 45 %, y se considera
+     completo con 40 % en buffer (la animación dura 7,5 s: se reproduce mientras
+     sigue bajando). Si el navegador pide ahorro de datos, el video no se toca. */
   useEffect(() => {
-    const t = window.setTimeout(() => {
-      for (const src of ['/media/sol.avif', '/media/venus.avif']) {
-        const img = new Image()
-        img.src = src
+    let vivo = true
+    let bytesImg = 0
+    let mejorRatio = 0
+
+    const ahorro = (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData
+    const pesoVideo = ahorro ? 0 : 45
+    const totalImg = PESOS_IMG.reduce((acc, [, peso]) => acc + peso, 0)
+
+    const pintar = () => {
+      if (!vivo) return
+      const avanceImg = bytesImg / totalImg
+      const avanceVideo = Math.min(1, mejorRatio / 0.4)
+      setProgreso(Math.min(100, avanceImg * (100 - pesoVideo) + avanceVideo * pesoVideo))
+    }
+
+    const imgs = PESOS_IMG.map(([src, peso]) => {
+      const img = new Image()
+      // onerror también suma: si un asset falla, el invitado no queda trabado
+      img.onload = img.onerror = () => {
+        bytesImg += peso
+        pintar()
       }
-      const ahorro = (navigator as unknown as { connection?: { saveData?: boolean } }).connection?.saveData
-      const v = videoRef.current
-      if (v && !ahorro && v.preload !== 'auto') {
-        v.preload = 'auto'
-        v.load()
+      img.src = src
+      return img
+    })
+
+    const v = videoRef.current
+    const onProgress = () => {
+      if (!v || !v.duration || !v.buffered.length) return
+      const ratio = v.buffered.end(v.buffered.length - 1) / v.duration
+      if (ratio > mejorRatio) {
+        mejorRatio = ratio
+        pintar()
       }
-    }, 1200)
-    return () => window.clearTimeout(t)
+    }
+
+    if (v && !ahorro) {
+      v.addEventListener('progress', onProgress)
+      v.preload = 'auto'
+      v.load()
+    } else if (ahorro) {
+      mejorRatio = 1
+      pintar()
+    }
+
+    // Nunca trabar la entrada: a los 8 s se libera igual.
+    const rescate = window.setTimeout(() => {
+      if (!vivo) return
+      setProgreso(100)
+      setListo(true)
+    }, 8000)
+
+    // Si en 500 ms no terminó, recién ahí aparece el loader (nada peor que un
+    // cartel de carga por un archivo que ya estaba).
+    const aparecer = window.setTimeout(() => {
+      if (vivo) setVerCargador(true)
+    }, 500)
+
+    return () => {
+      vivo = false
+      window.clearTimeout(rescate)
+      window.clearTimeout(aparecer)
+      v?.removeEventListener('progress', onProgress)
+      imgs.forEach((i) => {
+        i.onload = null
+        i.onerror = null
+      })
+    }
   }, [])
+
+  useEffect(() => {
+    if (progreso >= 99.5) setListo(true)
+  }, [progreso])
+
+  useEffect(() => {
+    if (listo) setVerCargador(false)
+  }, [listo])
 
   /** Cierra la inmersión: flash -> portada. Idempotente. */
   function entrar() {
@@ -110,7 +188,7 @@ export default function App() {
       </header>
 
       <footer className="bottom">
-        <button className="cta" onClick={iniciar} aria-label={evento.cta}>
+        <button className="cta" onClick={iniciar} disabled={!listo} aria-label={evento.cta}>
           <span>{evento.cta}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
             <path
@@ -125,6 +203,8 @@ export default function App() {
         </button>
 
       </footer>
+
+      <Loader progreso={progreso} visible={verCargador} />
 
       {/* Etapa 2 · Inmersión. Siempre montado, oculto: el play() sale del gesto. */}
       <div className={`warp ${enViaje ? 'is-on' : ''} ${fase === 'flash' ? 'is-flash' : ''}`}>
