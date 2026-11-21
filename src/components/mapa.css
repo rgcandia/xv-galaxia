@@ -906,6 +906,12 @@
 .cuerpo.en-casa {
   animation-name: flotar;
   animation-delay: 0s;
+  /* S22 · El cuerpo conserva la capa de composición al aterrizar. Durante el
+     vuelo lo promueve `.cuerpo.is-elegido` (`will-change`); al soltarlo, la capa
+     se destruye y el `.astro` pasa de `width: 100%` a su ancho natural en el
+     mismo cuadro: el fondo se vuelve a rasterizar a otro tamaño y en el celu se
+     ve como un parpadeo. Mantener `will-change` evita que se desarme la capa. */
+  will-change: transform;
 }
 
 /* ── S11 · El anillo, vivo (Saturno) ───────────────────────────────────────
