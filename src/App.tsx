@@ -88,6 +88,8 @@ export default function App() {
           </svg>
         </button>
 
+        {/* Nota de sonido: debajo del botón, discreta. */}
+        <p className="nota">con sonido</p>
       </footer>
 
       {/* Etapa 2 · Inmersión. Siempre montado, oculto: el play() sale del gesto. */}

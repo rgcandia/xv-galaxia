@@ -265,3 +265,12 @@
     animation: none;
   }
 }
+
+/* --- Nota debajo del CTA (aviso de sonido) ------------------------------- */
+.nota {
+  margin: 12px 0 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(226 232 240 / 0.35);
+}
