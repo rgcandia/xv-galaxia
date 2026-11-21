@@ -665,3 +665,19 @@
     animation: none;
   }
 }
+
+/* ── Q2 · El pulso que invita a tocar ───────────────────────────────────────
+   El halo ya late solo (L2); al apoyar el dedo se queda fijo y se enciende.
+   Es la única señal que necesita: responde al toque sin ningún cartel.
+   `animation: none` es necesario porque una animación en curso gana sobre
+   cualquier `transition` declarada acá. */
+.cuerpo.luna:is(:hover, :active, :focus-visible) .astro::before {
+  animation: none;
+  opacity: 1;
+  transform: scale(1.08);
+  filter: blur(13px) brightness(1.35);
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    filter 0.35s ease;
+}
