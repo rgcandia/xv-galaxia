@@ -366,18 +366,30 @@
    de adelante a propósito (S18): con 0,72 contra 0,95 el escalón se veía justo
    en los dos extremos del planeta y, sumado a la sombra de la cara, se leía
    como UNA línea recta cruzando el anillo. */
+/* S19 · El anillo son dos mitades, pero NO se cortan con `clip-path`.
+   Con un corte duro las dos copias semitransparentes se tocan borde con borde
+   y, en el píxel donde se solapan, el alfa se compone dos veces:
+   1-(1-a)(1-a) > a. Como la banda es casi blanca sobre un cielo casi negro, ese
+   solape subpixel se veía como una LÍNEA CLARA justo en el plano del anillo.
+   Ahora se separan con dos máscaras complementarias que se cruzan en 1,6 %:
+   en la franja del cruce el alfa de una baja y el de la otra sube en la misma
+   proporción, así que siempre suman 1 y no hay nada que se duplique. La franja
+   mide ~1,5 px, o sea que el planeta sigue tapando el cruce.
+   (`-webkit-` va primero: Safari viejo sólo entiende esa). */
 .saturno .astro::before {
   z-index: -1;
-  clip-path: inset(0 0 50% 0);
   opacity: 0.9;
   filter: blur(0.3px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 49%, transparent 50.6%);
+  mask-image: linear-gradient(to bottom, #000 49%, transparent 50.6%);
 }
 
 /* mitad de adelante: pasa por delante del planeta */
 .saturno .astro::after {
   z-index: 2;
-  clip-path: inset(50% 0 0 0);
   opacity: 0.95;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 49%, #000 50.6%);
+  mask-image: linear-gradient(to bottom, transparent 49%, #000 50.6%);
 }
 
 @keyframes pulso {
