@@ -599,26 +599,11 @@
    tosco y exagerado en el celular. Los planetas vuelven a quedar fijos; el
    fondo conserva su parallax, que es el que funciona. */
 
-/* ── L2 · La Luna manda ─────────────────────────────────────────────────────
-   La jerarquía se dice con LUZ, no con texto (`D-23`): la Luna va a plena y
-   Júpiter y Saturno arrancan al 55 %, apagados, hasta que el dedo los toca.
-   Al tocarlos se encienden y el invitado entiende solo que son el segundo
-   plano. Ningún cartel explicándolo. */
-.cuerpo.jupiter,
-.cuerpo.saturno {
-  opacity: 0.55;
-  transition: opacity 0.45s ease;
-}
-
-.cuerpo.jupiter:is(:hover, :active, :focus-visible),
-.cuerpo.saturno:is(:hover, :active, :focus-visible) {
-  opacity: 1;
-}
-
-/* El elegido vuelve a plena: si no, viajaría apagado hacia la sección. */
-.cuerpo.is-elegido {
-  opacity: 1;
-}
+/* ── D-50 · Siempre iluminados ─────────────────────────────────────────────
+   Se probó atenuar Júpiter y Saturno al 55 % para dar jerarquía y encenderlos
+   al toque. Al usuario no le gustó: el invitado lee "está apagado / está roto"
+   y el foco al tocar distrae del viaje. Los tres cuerpos van a plena SIEMPRE;
+   la jerarquía la sostienen el TAMAÑO y el halo de la Luna, no la opacidad. */
 
 /* La Luna "respira" con el HALO, no con el cuerpo. Animar el `transform` del
    `.astro` es exactamente lo que dejaba al Sol clavado en el lugar (`Z3-c`). */
@@ -669,21 +654,9 @@
   }
 }
 
-/* ── Q2 · El pulso que invita a tocar ───────────────────────────────────────
-   El halo ya late solo (L2); al apoyar el dedo se queda fijo y se enciende.
-   Es la única señal que necesita: responde al toque sin ningún cartel.
-   `animation: none` es necesario porque una animación en curso gana sobre
-   cualquier `transition` declarada acá. */
-.cuerpo.luna:is(:hover, :active, :focus-visible) .astro::before {
-  animation: none;
-  opacity: 1;
-  transform: scale(1.08);
-  filter: blur(13px) brightness(1.35);
-  transition:
-    transform 0.35s ease,
-    opacity 0.35s ease,
-    filter 0.35s ease;
-}
+/* ── Q2 (revisado) · El halo late solo, siempre ────────────────────────────
+   Se retiró el encendido al tocar (`D-50`): el halo respira y nada más.
+   La invitación a tocar la da el movimiento, no un cambio de brillo. */
 
 /* ── Q1 · La llegada ────────────────────────────────────────────────────────
    Los cuerpos entran escalonados (Luna -> Júpiter -> Saturno) y el texto

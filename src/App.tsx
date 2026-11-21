@@ -41,6 +41,18 @@ export default function App() {
 
   const enViaje = fase === 'warp' || fase === 'flash'
 
+  /* D-51 · Carga mínima visible. Con la red rápida el progreso llegaba a 100 %
+     en 200 ms y las estrellas titilaban media vez. 1,3 s alcanza para que se
+     vea el movimiento y no se siente una espera inventada. */
+  const [minEspera, setMinEspera] = useState(false)
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setMinEspera(true), 1300)
+    return () => window.clearTimeout(t)
+  }, [])
+
+  const puedeEntrar = listo && minEspera
+
   /* C5 · Carga con progreso real. El invitado se queda leyendo la portada un
      par de segundos: ese tiempo se usa para bajar los planetas y el video.
      Las imágenes valen 55 % de la barra; el video otro 45 %, y se considera
@@ -208,7 +220,7 @@ export default function App() {
       </header>
 
       <footer className="bottom">
-        {!listo && (
+        {!puedeEntrar && (
           <div
             className="cta-carga"
             role="progressbar"
@@ -236,7 +248,7 @@ export default function App() {
           </div>
         )}
 
-        {listo && (
+        {puedeEntrar && (
         <button className="cta" onClick={iniciar} aria-label={evento.cta}>
           <span>{evento.cta}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">

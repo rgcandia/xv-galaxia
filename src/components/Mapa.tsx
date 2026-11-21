@@ -90,7 +90,7 @@ export default function Mapa({ onIr }: { onIr: (v: Vista) => void }) {
       <div className="grano" aria-hidden="true" />
 
       <header className="escena-texto">
-        <p className="mapa-eyebrow">El universo</p>
+        <p className="mapa-eyebrow">Mi universo</p>
         <h2 className="mapa-titulo">Elegí un destino</h2>
       </header>
 
