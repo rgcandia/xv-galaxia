@@ -425,8 +425,35 @@
      Se elige `contain`: es un warp sobre espacio negro, así que los bordes se
      funden con el fondo y no se leen como franjas. La solución real es el
      video 16:9 propio (pendiente). */
+  /* El video se generó PARA CELULAR (vertical). En 16:9 no hay forma de
+     encuadrarlo sin que parezca un recorte: si llena, recorta; si entra
+     completo, quedan franjas. Tercera vía: se lo trata como un PORTAL —
+     una columna vertical centrada, con los bordes fundidos—, y la galaxia
+     ocupa el resto. Así el formato deja de ser un defecto y pasa a ser
+     la forma del pasaje. Cuando exista el 16:9 propio, esto se retira. */
+  .warp {
+    display: grid;
+    place-items: center;
+  }
+
   .warp-video {
     object-fit: contain;
+    height: 100%;
+    width: min(64vh, 100%);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 14%,
+      #000 86%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 14%,
+      #000 86%,
+      transparent 100%
+    );
   }
 
   .warp {
