@@ -290,7 +290,14 @@
   filter: saturate(1.02);
   background-size: cover;
   background-position: center;
-  animation: derivar 22s ease-in-out infinite;
+  /* S4 · Aterrizaje: el planeta entra GRANDE y centrado (donde lo dejó el
+     viaje en la escena anterior) y se achica hasta su rincón. Así el corte
+     entre el universo y la sección no se ve: es el mismo cuerpo, en
+     movimiento continuo. */
+  animation:
+    aterrizar-planeta 0.9s cubic-bezier(0.22, 0.8, 0.3, 1) both,
+    derivar 22s ease-in-out 0.9s infinite;
+  transform-origin: 50% 50%;
   /* el terminador: la sombra que la hace esfera y no calcomanía */
   box-shadow: inset 18px -22px 46px rgba(3, 4, 10, 0.85);
   /* el borde se apaga en el cielo en vez de cortarse */
@@ -310,13 +317,41 @@
   background-image: image-set(url('/media/saturno.webp') type('image/webp'));
 }
 
+@keyframes aterrizar-planeta {
+  from {
+    translate: -33vw 33vh;
+    scale: 6.5;
+    opacity: 1;
+  }
+  to {
+    translate: 0 0;
+    scale: 1;
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 899px) {
+  @keyframes aterrizar-planeta {
+    from {
+      translate: -28vw 30vh;
+      scale: 5;
+      opacity: 1;
+    }
+    to {
+      translate: 0 0;
+      scale: 1;
+      opacity: 0.9;
+    }
+  }
+}
+
 @keyframes derivar {
   0%,
   100% {
-    transform: translate3d(0, 0, 0);
+    translate: 0 0;
   }
   50% {
-    transform: translate3d(-8px, 10px, 0);
+    translate: -8px 10px;
   }
 }
 
