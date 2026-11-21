@@ -208,8 +208,11 @@
 .saturno .astro {
   width: clamp(76px, 23vw, 98px);
   aspect-ratio: 1;
+  /* PRUEBA (R1): textura fotografica real en vez de degradado */
   background:
-    radial-gradient(circle at 36% 30%, #fdf3d4 0%, #e6cf9a 32%, #b08a4e 66%, #3b2a12 100%);
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 74% 80%, rgba(0, 0, 0, 0.55) 0%, transparent 62%),
+    url('/media/saturno.webp') center / cover no-repeat;
   box-shadow:
     inset -7px -9px 20px rgba(0, 0, 0, 0.55),
     0 0 40px -8px rgba(230, 200, 140, 0.45);
