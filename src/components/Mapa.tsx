@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { evento } from '../evento'
 import type { Vista } from './Universo'
 import Fugaces from './Fugaces'
@@ -191,12 +192,25 @@ export default function Mapa({
 
     const anim = animarVuelo(btn, dx, dy, k, dur, arco, 0.9, 1, k0)
     const posar = () => {
-      /* Cancelar y soltar en el mismo cuadro (antes de que se pinte): el cuerpo
-         vuelve a ser el botón del mapa, sin rastros de la animación. */
+      /* S24 · El traspaso, en UN solo cuadro (esto era el parpadeo).
+         Antes se soltaba primero lo imperativo (`anim.cancel()` +
+         `removeAttribute('style')`) y después se pedía el cambio de clases.
+         Ese `setState` viene de una promesa, así que React no lo hornea en el
+         acto: lo agenda para la tarea siguiente. En el medio el navegador
+         alcanza a pintar un cuadro con el cuerpo todavía `is-elegido`
+         (`position: fixed`) pero ya SIN `left/top/width` en línea y SIN la
+         transformación del vuelo: el planeta salta a su posición estática y
+         vuelve. Eso es lo que se veía como parpadeo.
+         Ahora `flushSync` hornea las clases AHORA y recién con el DOM ya
+         actualizado se sueltan los estilos en línea y la animación. Los tres
+         cambios entran en el mismo cuadro pintado: no hay estado intermedio
+         que mostrar. */
+      flushSync(() => {
+        setLlegando(null)
+        setEnCasa(volverDe)
+      })
       anim.cancel()
       btn.removeAttribute('style')
-      setLlegando(null)
-      setEnCasa(volverDe)
     }
     anim.finished.then(posar).catch(posar)
     // Se mide una sola vez, al montar: el mapa se re-monta en cada regreso.

@@ -11,9 +11,17 @@
 se ve en el rincón** (`S10`: le faltaba la capa `.superficie`, el anillo viajaba sin planeta) y **su
 anillo está vivo** (`S11`: sombra sobre la cara + brillo en contrafase, `D-67`). En desktop **la galaxia
 de entrada va acostada** (`S12`) y llena la pantalla, sin la franja negra que dejaba el viejo "recentrado"
-(`S13`, `D-69`). **Local, sin pushear** (17 commits nuevos sobre
+(`S13`, `D-69`). **Local, sin pushear** (21 commits nuevos sobre
 `ae9e121`). Pendiente: mirar en localhost · el desfase de ~0,4 s del whoosh en la vuelta (queda así por
 decisión del usuario).
+
+### Cerrado: el parpadeo al aterrizar (`S22`–`S24`)
+El planeta parpadeaba al terminar de acomodarse. No era la geometría (cierra exacta) ni la
+rasterización: **era un cuadro intermedio de React**. `posar()` soltaba la animación y los estilos en
+línea antes de pedir el cambio de clases, y ese `setState` viene de una promesa → React lo agenda para
+otra tarea → en el medio se pinta un cuadro con el cuerpo `position: fixed` sin `left/top/width` y sin
+transformación. Ahora `flushSync` hornea las clases primero y recién después se suelta lo imperativo
+(`D-78`). **Falta confirmar en el celular.**
 
 ## Quién manda en la escena (pedido de la cumpleañera, `D-36`)
 
