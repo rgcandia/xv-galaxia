@@ -588,27 +588,16 @@
   }
 }
 
-/* ── V5-c · Recentrar el warp en desktop ──────────────────────────────────
-   El video converge hacia un punto que NO está en el centro de la toma: con
-   el encuadre completo a la vista, el ojo lee "se va para arriba a la
-   derecha". En el celular no se nota porque el `cover` lo recorta.
-   Se compensa desplazando el plano mientras corre, para que el punto de fuga
-   quede cerca del centro. Es un ajuste de encuadre, no del video.
-   Para moverlo: cambiar los dos porcentajes del `to`. */
-@media (min-width: 900px) {
-  .warp.is-on .warp-video {
-    animation: recentrar 10.5s linear both;
-  }
-
-  /* `translate` y no `transform`: así el recentrado no pisa el `scale(1.38)`
-     del flash, y al aplicarse al video (y no al escenario) el botón Saltar
-     deja de irse corriendo con el plano. */
-  @keyframes recentrar {
-    from {
-      translate: 0 0;
-    }
-    to {
-      translate: -5% 3.5%;
-    }
-  }
-}
+/* ── V5-c · Recentrar el warp en desktop — RETIRADO en `S13` ───────────────
+   Existía por esto: el video converge hacia un punto que no está en el centro
+   de la toma y, con el encuadre COMPLETO a la vista (`contain`), el ojo leía
+   "se va para arriba a la derecha". Se compensaba desplazando el plano
+   mientras corría.
+   Ya no hace falta y además rompe: desde `S12` el video va acostado y mide
+   EXACTAMENTE la pantalla (`100vh × 100vw`), así que no hay un solo píxel de
+   sobra — cualquier `translate` descubre el borde y aparece una franja negra
+   arriba que crece mientras el plano se corre. Y como el encuadre ahora es
+   full-bleed (`cover`), el corrimiento del punto de fuga se lee como cámara,
+   no como "el video se va".
+   Si alguna vez vuelve a molestar la deriva: no traducir, y si se traduce,
+   dejar juego con un `scale` de sobra (≥1,08) para que el borde nunca se vea. */
